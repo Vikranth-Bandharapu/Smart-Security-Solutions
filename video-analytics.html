@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>AI Video Analytics | Stackly Smart Security</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="assets/img_26.webp"></script>
+    <script src="assets/img_27.webp"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Unique Video Analytics Layout */
+        body { background: #080315; color: #fff; }
+        
+        .va-hero {
+            padding: 200px 0 100px;
+            background: radial-gradient(circle at 50% 0%, rgba(150, 0, 255, 0.2) 0%, transparent 60%);
+            text-align: center;
+        }
+
+        /* Gradient Text Mask */
+        .text-mask {
+            font-size: clamp(2rem, 6vw, 5rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #00f0ff, #9600ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        /* Code Block UI */
+        .code-ui {
+            background: #0d0620;
+            border: 1px solid rgba(150, 0, 255, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            color: #5eff00;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            box-shadow: 0 20px 50px rgba(150, 0, 255, 0.1);
+        }
+        .code-ui .key { color: #00f0ff; }
+        .code-ui .string { color: #ffb86c; }
+        
+        /* Metric Counters */
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin: 4rem 0;
+            text-align: center;
+        }
+        .metric-item h3 { font-size: 3.5rem; color: #9600ff; margin-bottom: 0.5rem; }
+        .metric-item p { color: rgba(255,255,255,0.6); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+
+        /* Accordion Use Cases */
+        .use-case-container {
+            display: flex;
+            gap: 2rem;
+            height: 400px;
+            margin: 4rem 0;
+        }
+        .use-case {
+            flex: 1;
+            border-radius: 16px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .use-case::after {
+            content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
+            background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 100%);
+        }
+        .use-case:hover { flex: 3; border-color: #9600ff; }
+        .uc-content {
+            position: absolute; bottom: 30px; left: 30px; z-index: 2;
+        }
+        .uc-content h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .uc-content p { opacity: 0; transform: translateY(20px); transition: all 0.5s ease; color:rgba(255,255,255,0.8); }
+        .use-case:hover .uc-content p { opacity: 1; transform: translateY(0); }
+
+        /* Edge vs Cloud Diagram */
+        .arch-diagram {
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(255,255,255,0.02); border-radius: 20px; padding: 4rem;
+            margin-top: 3rem;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .arch-box { text-align: center; flex:1; }
+        .arch-box i { font-size: 3rem; color: #9600ff; margin-bottom: 1rem; }
+        .arch-arrow { flex: 1; text-align: center; color: rgba(255,255,255,0.3); font-size: 2rem; }
+
+        @media (max-width: 992px) {
+            .metric-grid { grid-template-columns: 1fr 1fr; }
+            .use-case-container { flex-direction: column; height: auto; }
+            .use-case { height: 200px; flex: auto !important; }
+            .uc-content p { opacity: 1; transform: none; display: none; }
+            .arch-diagram { flex-direction: column; gap: 2rem; padding: 2rem; }
+            .arch-arrow { transform: rotate(90deg); }
+        }
+    </style>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <div class="site-wrapper" style="overflow-x: hidden; width: 100%; position: relative; min-height: 100vh;">
+
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo" style="display:flex; align-items:center;"><img src="assets/logo.webp" alt="Stackly Logo" style="height: 32px; width: auto;"></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="solutions.html">Solutions</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="signup.html" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.85rem; border-color:var(--accent-color); color:var(--accent-color);">Sign Up</a></li>
+                <li><a href="login.html" class="btn btn-solid" style="padding: 0.5rem 1.5rem; font-size: 0.85rem;">Login</a></li>
+            </ul>
+            <button class="hamburger"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- 1. Hero -->
+    <section class="va-hero interactive-hero">
+        <div class="container gsap-fade-up">
+            <h1 class="text-mask">Pixels to Intelligence</h1>
+            <p style="max-width: 700px; margin: 0 auto; color:rgba(255,255,255,0.7); font-size:1.2rem;">Transform dumb video feeds into actionable data. Stackly's proprietary Computer Vision models track, classify, and analyze objects in real-time.</p>
+        </div>
+    </section>
+
+    <!-- 2. AI Code Demo Split -->
+    <section class="section">
+        <div class="container">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;">
+                <div class="gsap-fade-up">
+                    <h4 style="color: #9600ff;">Neural Processing</h4>
+                    <h2 style="font-size:2.5rem; margin:1rem 0;">AI That Understands Context</h2>
+                    <p style="color:rgba(255,255,255,0.7); line-height:1.8;">Our models don't just detect motion; they understand exactly what is moving. Is it a stray dog, a swaying tree, or a person climbing a fence? Stackly eliminates false positives by generating detailed bounding-box metadata for every frame.</p>
+                </div>
+                <div class="code-ui gsap-fade-up">
+<pre><code>{
+  <span class="key">"event_id"</span>: <span class="string">"ev_9942a"</span>,
+  <span class="key">"timestamp"</span>: <span class="string">"2026-10-14T23:14:02Z"</span>,
+  <span class="key">"camera_id"</span>: <span class="string">"cam_ext_04"</span>,
+  <span class="key">"detections"</span>: [
+    {
+      <span class="key">"class"</span>: <span class="string">"person"</span>,
+      <span class="key">"confidence"</span>: 0.98,
+      <span class="key">"attributes"</span>: {
+        <span class="key">"clothing_color"</span>: <span class="string">"dark"</span>,
+        <span class="key">"carrying_object"</span>: <span class="string">"backpack"</span>,
+        <span class="key">"behavior"</span>: <span class="string">"loitering"</span>
+      }
+    }
+  ],
+  <span class="key">"action_taken"</span>: <span class="string">"trigger_perimeter_alarm"</span>
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Metrics -->
+    <section class="section" style="background: rgba(150, 0, 255, 0.02); border-top:1px solid rgba(255,255,255,0.05); border-bottom:1px solid rgba(255,255,255,0.05);">
+        <div class="container gsap-fade-up">
+            <div class="metric-grid">
+                <div class="metric-item">
+                    <h3>30fps</h3>
+                    <p>Real-Time Inference</p>
+                </div>
+                <div class="metric-item">
+                    <h3>99%</h3>
+                    <p>Fewer False Positives</p>
+                </div>
+                <div class="metric-item">
+                    <h3>15+</h3>
+                    <p>Object Classes</p>
+                </div>
+                <div class="metric-item">
+                    <h3>&lt;50ms</h3>
+                    <p>Alert Latency</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Use Cases -->
+    <section class="section">
+        <div class="container gsap-fade-up">
+            <div class="text-center">
+                <h2>Tailored Intelligence</h2>
+                <p style="color:rgba(255,255,255,0.7); margin-top:1rem;">Hover to explore industry-specific analytics.</p>
+            </div>
+            
+            <div class="use-case-container">
+                <div class="use-case" style="background-image: url('assets/img_48.webp');">
+                    <div class="uc-content">
+                        <h3>Retail & Malls</h3>
+                        <p>Heatmapping, crowd density analysis, and footfall counting to optimize store layouts and detect shoplifting behaviors.</p>
+                    </div>
+                </div>
+                <div class="use-case" style="background-image: url('assets/img_28.webp');">
+                    <div class="uc-content">
+                        <h3>Logistics Hubs</h3>
+                        <p>ANPR for automated gate barriers, vehicle classification, and hard-hat/PPE compliance detection on the warehouse floor.</p>
+                    </div>
+                </div>
+                <div class="use-case" style="background-image: url('assets/img_21.webp');">
+                    <div class="uc-content">
+                        <h3>Corporate Campuses</h3>
+                        <p>Facial recognition for frictionless turnstile entry, tailgating detection, and abandoned object alerts in public lobbies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Edge Architecture -->
+    <section class="section">
+        <div class="container gsap-fade-up">
+            <h2 class="text-center">Edge Architecture</h2>
+            <p class="text-center" style="color:rgba(255,255,255,0.7); max-width:600px; margin: 1rem auto 0;">Stop sending petabytes of useless video to the cloud. We compute at the edge.</p>
+            
+            <div class="arch-diagram">
+                <div class="arch-box">
+                    <i class="fa-solid fa-camera"></i>
+                    <h4>Smart Camera</h4>
+                    <p style="font-size:0.8rem; color:rgba(255,255,255,0.5);">Captures 4K RAW</p>
+                </div>
+                <div class="arch-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="arch-box">
+                    <i class="fa-solid fa-microchip"></i>
+                    <h4>Edge NPU</h4>
+                    <p style="font-size:0.8rem; color:rgba(255,255,255,0.5);">Runs AI Inference Locally</p>
+                </div>
+                <div class="arch-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="arch-box">
+                    <i class="fa-solid fa-cloud"></i>
+                    <h4>Stackly Cloud</h4>
+                    <p style="font-size:0.8rem; color:rgba(255,255,255,0.5);">Receives Metadata Only</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. CTA -->
+    <section class="section" style="background: rgba(150, 0, 255, 0.05); text-align:center;">
+        <div class="container gsap-fade-up">
+            <h2 style="font-size:2.5rem; margin-bottom:1.5rem;">Ready for smart surveillance?</h2>
+            <a href="404.html" class="btn btn-solid" style="padding: 1rem 3rem; font-size: 1.1rem; background: #9600ff; border-color: #9600ff;">Schedule a Demo</a>
+        </div>
+    </section>
+
+    
+    <!-- Injected CTA Section -->
+    <section class="section" style="text-align:center; background: linear-gradient(0deg, rgba(0, 240, 255, 0.05) 0%, transparent 100%);">
+        <div class="container gsap-fade-up">
+            <h2 style="font-size:2.5rem; margin-bottom:1.5rem;">Secure Your Infrastructure</h2>
+            <p style="color:rgba(255,255,255,0.7); max-width:600px; margin:0 auto 2rem;">Get in touch with our security architects to design a bespoke AI surveillance and access control system for your enterprise.</p>
+            <a href="404.html" class="btn btn-solid">Request Consultation</a>
+        </div>
+    </section>
+
+    <!-- Injected Tech Stack Section -->
+    <section class="section">
+        <div class="container text-center gsap-fade-up">
+            <h4 class="text-accent">Our Architecture</h4>
+            <h2 style="margin-bottom: 3rem;">Powered by Modern Tech</h2>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:2rem;">
+                <div class="glass-card" style="padding:2rem;">
+                    <i class="fa-solid fa-microchip" style="font-size:2.5rem; color:var(--accent-color); margin-bottom:1rem;"></i>
+                    <h4>Edge Computing</h4>
+                    <p style="font-size:0.85rem; color:rgba(255,255,255,0.6); margin-top:0.5rem;">Processing data on-site for zero latency.</p>
+                </div>
+                <div class="glass-card" style="padding:2rem;">
+                    <i class="fa-solid fa-cloud" style="font-size:2.5rem; color:var(--accent-color); margin-bottom:1rem;"></i>
+                    <h4>Cloud Backup</h4>
+                    <p style="font-size:0.85rem; color:rgba(255,255,255,0.6); margin-top:0.5rem;">Military-grade encrypted redundant storage.</p>
+                </div>
+                <div class="glass-card" style="padding:2rem;">
+                    <i class="fa-solid fa-network-wired" style="font-size:2.5rem; color:var(--accent-color); margin-bottom:1rem;"></i>
+                    <h4>IoT Mesh</h4>
+                    <p style="font-size:0.85rem; color:rgba(255,255,255,0.6); margin-top:0.5rem;">Interconnected sensor networks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- NEW SECTION: Advanced Capabilities (Added via Script) -->
+    <section class="section" style="background: rgba(10, 15, 28, 0.4); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up" style="margin-bottom: 4rem;">
+                <h2 class="text-gradient">Advanced Capabilities</h2>
+                <p style="color:rgba(255,255,255,0.7); max-width:600px; margin:0 auto;">Leveraging the latest in AI and machine learning to deliver proactive, highly intelligent security environments.</p>
+            </div>
+            
+            <div class="testimonials-grid" data-aos="fade-up">
+                <!-- Card 1 -->
+                <div class="glass-card testimonial-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+                    <img src="assets/img_11.webp" alt="Capability" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 2rem;">
+                        <h3 style="color: var(--accent-color); font-size: 1.3rem;">Predictive AI</h3>
+                        <p style="color: rgba(255,255,255,0.7); margin-top: 1rem; font-size: 0.95rem;">Algorithms analyze thousands of behavioral markers to predict and prevent incidents before they even happen.</p>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="glass-card testimonial-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+                    <img src="assets/img_36.webp" alt="Capability" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 2rem;">
+                        <h3 style="color: var(--accent-color); font-size: 1.3rem;">Deep Integrations</h3>
+                        <p style="color: rgba(255,255,255,0.7); margin-top: 1rem; font-size: 0.95rem;">Seamless API bridges between legacy hardware and next-generation IoT nodes without requiring total system overhauls.</p>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="glass-card testimonial-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+                    <img src="assets/img_26.webp" alt="Capability" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 2rem;">
+                        <h3 style="color: var(--accent-color); font-size: 1.3rem;">Global Command</h3>
+                        <p style="color: rgba(255,255,255,0.7); margin-top: 1rem; font-size: 0.95rem;">Manage thousands of sites instantly through an encrypted, decentralized mobile and web dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: Zigzag Showcase (Added via Script) -->
+    <section class="section">
+        <div class="container">
+            <div class="zigzag-row" data-aos="fade-up">
+                <div class="zigzag-text">
+                    <h2 class="text-gradient">Built for Enterprise Scale</h2>
+                    <p style="color:rgba(255,255,255,0.7); font-size:1.1rem; margin-top:1.5rem; margin-bottom: 2rem;">
+                        We don't just provide security; we provide a robust ecosystem that scales with your business operations across the globe, ensuring maximum uptime and instant threat response.
+                    </p>
+                    <ul style="list-style:none; padding:0; margin-bottom:2rem;">
+                        <li style="margin-bottom:1rem; display:flex; align-items:center; gap:1rem;">
+                            <i class="fa-solid fa-check text-accent"></i> 99.99% Uptime Guarantee
+                        </li>
+                        <li style="margin-bottom:1rem; display:flex; align-items:center; gap:1rem;">
+                            <i class="fa-solid fa-check text-accent"></i> End-to-End Encryption
+                        </li>
+                        <li style="margin-bottom:1rem; display:flex; align-items:center; gap:1rem;">
+                            <i class="fa-solid fa-check text-accent"></i> 24/7 Threat Intelligence
+                        </li>
+                    </ul>
+                </div>
+                <div class="zigzag-img">
+                    <div class="zigzag-img-wrap">
+                        <img src="assets/img_35.webp" alt="Enterprise Scale">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="zigzag-row" data-aos="fade-up" style="margin-top: 6rem;">
+                <div class="zigzag-img">
+                    <div class="zigzag-img-wrap">
+                        <img src="assets/img_17.webp" alt="Seamless Experience">
+                    </div>
+                </div>
+                <div class="zigzag-text" style="padding-left: 2rem;">
+                    <h2 class="text-gradient">Automated Threat Mitigation</h2>
+                    <p style="color:rgba(255,255,255,0.7); font-size:1.1rem; margin-top:1.5rem;">
+                        Our systems go beyond passive observation. By connecting access control, alarms, and drones, Stackly actively mitigates risks in real-time, locking doors and dispatching autonomous drones immediately.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="display:flex; align-items:center;"><img src="assets/logo.webp" alt="Stackly Logo" style="height: 32px; width: auto;"></a>
+                    <p style="color: rgba(255,255,255,0.6);">Leading the future of smart security with innovative AI and IoT integrations for unparalleled protection.</p>
+                    <div class="social-links">
+                        <a href="404.html"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="404.html"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="404.html"><i class="fa-brands fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="solutions.html">Solutions</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="404.html">CCTV Surveillance</a></li>
+                        <li><a href="404.html">Access Control</a></li>
+                        <li><a href="404.html">IoT Security</a></li>
+                        <li><a href="404.html">Fire & Safety</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul style="color: rgba(255,255,255,0.6);">
+                        <li><i class="fa-solid fa-location-dot text-accent" style="margin-right:0.5rem;"></i> 123 Secure Ave, Tech City</li>
+                        <li><i class="fa-solid fa-phone text-accent" style="margin-right:0.5rem;"></i> +1 (555) 123-4567</li>
+                        <li><i class="fa-solid fa-envelope text-accent" style="margin-right:0.5rem;"></i> contact@stackly.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">&copy; 2026 Stackly Smart Security Solutions. All Rights Reserved.</div>
+        </div>
+    </footer>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/main.js"></script>
+    </div>
+
+    <script>
+        // GSAP Scroll Reveal fallback
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+            const revealElements = document.querySelectorAll('.gs-reveal');
+            revealElements.forEach((elem) => {
+                gsap.fromTo(elem, 
+                    { y: 50, opacity: 0 }, 
+                    {
+                        y: 0, opacity: 1,
+                        duration: 1,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: elem,
+                            start: 'top 85%',
+                            toggleActions: 'play none none reverse'
+                        }
+                    }
+                );
+            });
+        }
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+    </script>
+</body>
+</html>

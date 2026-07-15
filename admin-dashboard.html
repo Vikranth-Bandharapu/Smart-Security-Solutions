@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Admin Dashboard | Stackly Travel</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js (Loaded below) -->
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background-color: #05080e;
+        }
+        
+        /* Dashboard Layout */
+        .dashboard-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+                transition: left 0.3s ease;
+                z-index: 2000;
+            width: 280px;
+            background: var(--bg-color);
+            border-right: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            z-index: 100;
+        }
+        
+        .sidebar-header {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .sidebar-menu {
+            padding: 1.5rem 1rem;
+            list-style: none;
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--accent-color);
+        }
+        
+        .sidebar-menu i {
+            width: 24px;
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .topbar {
+            height: 80px;
+            background: #05080e !important;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .notification-icon {
+            position: relative;
+            cursor: pointer;
+        }
+        .notification-icon::after {
+            content: '3';
+            position: absolute;
+            top: -5px; right: -8px;
+            background: #00f0ff;
+            color: #fff;
+            font-size: 0.7rem;
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .user-profile { display: flex; flex-shrink: 1; min-width: 0;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .user-profile img {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+        }
+
+        /* Dashboard Grid Layouts */
+        .dashboard-content {
+            padding: 2rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .stat-card .icon {
+            width: 50px; height: 50px;
+            border-radius: 12px;
+            background: rgba(0, 240, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+        
+        .stat-info h4 {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+        .stat-info h2 {
+            margin-bottom: 0;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 1200px) {
+            .charts-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Tables */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        th, td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        th {
+            color: rgba(255,255,255,0.6);
+            font-weight: 500;
+        }
+        .status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .status.active { background: rgba(0,255,100,0.1); color: #00f0ff; }
+        .status.warning { background: rgba(255,180,0,0.1); color: #00f0ff; }
+        .status.danger { background: rgba(255,51,102,0.1); color: #00f0ff; }
+
+        /* Dynamic Email Section */
+        .email-section .email-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+        }
+        .email-section .email-item:hover {
+            background: rgba(255,255,255,0.02);
+        }
+        .email-subject {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .email-preview {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 250px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+        .email-time {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+        }
+
+        /* Mobile Sidebar */
+        .notification-icon {
+                display: none !important;
+            }
+            .mobile-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                height: 100vh;
+            }
+            .sidebar.active {
+                left: 0;
+                box-shadow: 10px 0 30px rgba(0,0,0,0.5);
+            }
+            .mobile-toggle {
+                display: block;
+            }
+        }
+    
+        .topbar {
+            justify-content: flex-start !important;
+            gap: 1rem !important;
+        }
+        .topbar-right {
+            margin-left: auto;
+        }
+        
+    
+        
+        /* Mobile Dashboard Topbar Enhancements V2 */
+        @media (max-width: 992px) {
+            .topbar {
+                padding: 0 1rem;
+                height: 70px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .topbar h3, .topbar h2 {
+                display: none !important; /* Hide title on mobile completely */
+            }
+            .user-profile { display: flex; flex-shrink: 1; min-width: 0;
+                align-items: center;
+                gap: 10px;
+            }
+            .user-profile > div {
+                display: block !important;
+                max-width: 130px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .user-profile > div > div {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .user-profile img {
+                width: 40px;
+                height: 40px;
+            }
+            .mobile-toggle {
+                display: block !important;
+                margin-right: 15px;
+            }
+            .mobile-logo { display: flex !important; align-items: center; margin-right: auto; flex-shrink: 0; }
+            .mobile-logo img { height: 28px; width: auto; object-fit: contain; flex-shrink: 0; }
+        }
+    
+
+        /* Mobile Safe Layout Fixes */
+        @media (max-width: 992px) {
+            .dashboard-content, .travel-tab-content, .main-content {
+                padding: 1rem !important;
+            }
+            .dashboard-layout {
+                max-width: 100vw;
+                overflow-x: hidden;
+            }
+            [style*="grid-template-columns"] {
+                grid-template-columns: 1fr !important;
+            }
+            /* Ensure text wraps */
+            * {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+            /* Reduce font sizes for long text */
+            .glass-card {
+                padding: 1rem !important;
+            }
+            input, select, textarea {
+                max-width: 100%;
+            }
+        }
+
+</style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <div class="site-wrapper" style="overflow-x: hidden; width: 100%; position: relative; min-height: 100vh;">
+
+    <div class="dashboard-layout">
+        
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="admin-dashboard.html" class="logo" style="display:flex; align-items:center;"><img src="assets/logo.webp" alt="Stackly Logo" style="height: 32px; width: auto;"></a>
+            </div>
+            <ul class="sidebar-menu">
+            <li><a href="#" onclick="switchTab('tab-overview', this)" class="active"><i class="fa-solid fa-chart-pie"></i> Overview</a></li>
+            <li><a href="#" onclick="switchTab('tab-bookings', this)"><i class="fa-solid fa-plane-departure"></i> Bookings</a></li>
+            <li><a href="#" onclick="switchTab('tab-destinations', this)"><i class="fa-solid fa-map-location-dot"></i> Destinations</a></li>
+            <li><a href="#" onclick="switchTab('tab-customers', this)"><i class="fa-solid fa-users"></i> Customers</a></li>
+            <li><a href="#" onclick="switchTab('tab-analytics', this)"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+            <li><a href="#" onclick="switchTab('tab-settings', this)"><i class="fa-solid fa-gear"></i> Settings</a></li>
+            <li style="margin-top:2rem;"><a href="index.html"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
+        </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Topbar -->
+            <div class="topbar">
+                <button class="mobile-toggle" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+                <a href="admin-dashboard.html" class="mobile-logo" style="display: none;"><img src="assets/logo.webp" alt="Logo"></a>
+                <div style="display:flex; align-items:center; gap: 1.5rem;">
+                    <h3 style="margin:0;">Admin Overview</h3>
+                    <div class="user-profile">
+                        <img src="assets/img_7.webp" alt="Admin">
+                        <div>
+                            <div style="font-weight:600; font-size:0.9rem;">John Admin</div>
+                            <div style="font-size:0.75rem; color:var(--accent-color);">Super Admin</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="topbar-right" style="display:flex; align-items:center; gap:1.5rem;">
+                    <div class="notification-icon">
+                        <i class="fa-solid fa-bell"></i>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- Dashboard Content -->
+
+            
+            
+            <div id="tab-overview" class="travel-tab-content" style="display: block; padding: 2rem; animation: fadeIn 0.3s ease;">
+                <h2 class="text-gradient" style="margin-bottom: 2rem;">Overview</h2>
+                <!-- 1. KPI Cards -->
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h4 style="color:var(--accent-color); margin-bottom:0.5rem;"><i class="fa-solid fa-dollar-sign"></i> Revenue</h4>
+                        <div style="font-size:1.8rem; font-weight:700;">$124,500</div>
+                    </div>
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h4 style="color:var(--accent-color); margin-bottom:0.5rem;"><i class="fa-solid fa-plane"></i> Active Trips</h4>
+                        <div style="font-size:1.8rem; font-weight:700;">42</div>
+                    </div>
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h4 style="color:var(--accent-color); margin-bottom:0.5rem;"><i class="fa-solid fa-users"></i> New Users</h4>
+                        <div style="font-size:1.8rem; font-weight:700;">1,043</div>
+                    </div>
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h4 style="color:var(--accent-color); margin-bottom:0.5rem;"><i class="fa-solid fa-clock"></i> Pending</h4>
+                        <div style="font-size:1.8rem; font-weight:700;">18</div>
+                    </div>
+                </div>
+                
+                <!-- 2 & 3. Chart and Table Grid -->
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                    <!-- 2. Revenue Chart -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;">Revenue Trend</h3>
+                        <div style="position: relative; height: 250px; width: 100%;">
+                            <canvas id="overviewChart"></canvas>
+                        </div>
+                    </div>
+                    <!-- 3. Quick Actions -->
+                    <div class="glass-card" style="padding: 2rem; display:flex; flex-direction:column; gap:1rem;">
+                        <h3 style="margin-bottom:1rem;">Quick Actions</h3>
+                        <button onclick="window.location.href='404.html'" class="btn btn-solid" style="width:100%; text-align:left;"><i class="fa-solid fa-plus"></i> New Booking</button>
+                        <button onclick="window.location.href='404.html'" class="btn" style="width:100%; text-align:left;"><i class="fa-solid fa-user-plus"></i> Add Customer</button>
+                        <button onclick="window.location.href='404.html'" class="btn" style="width:100%; text-align:left;"><i class="fa-solid fa-envelope"></i> Send Broadcast</button>
+                        <button onclick="window.location.href='404.html'" class="btn" style="width:100%; text-align:left;"><i class="fa-solid fa-file-invoice"></i> Generate Report</button>
+                    </div>
+                </div>
+
+                <!-- 4, 5, 6. Bottom row -->
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <!-- 4. Recent Bookings Table -->
+                    <div class="glass-card" style="padding: 2rem; overflow-x:auto;">
+                        <h3 style="margin-bottom:1rem;">Recent Bookings</h3>
+                        <table style="width:100%; border-collapse:collapse; text-align:left;">
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><th style="padding:0.5rem;">ID</th><th style="padding:0.5rem;">Client</th><th style="padding:0.5rem;">Amount</th></tr>
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.5rem;">#B-101</td><td style="padding:0.5rem;">John Doe</td><td style="padding:0.5rem;">$1,200</td></tr>
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.5rem;">#B-102</td><td style="padding:0.5rem;">Sarah Smith</td><td style="padding:0.5rem;">$3,400</td></tr>
+                            <tr><td style="padding:0.5rem;">#B-103</td><td style="padding:0.5rem;">Mike Ross</td><td style="padding:0.5rem;">$850</td></tr>
+                        </table>
+                    </div>
+                    <!-- 5. Top Destinations -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;">Top Destinations</h3>
+                        <ul style="list-style:none; padding:0;">
+                            <li style="display:flex; justify-content:space-between; margin-bottom:0.8rem;"><span>1. Paris, France</span> <span style="color:var(--accent-color);">120 bookings</span></li>
+                            <li style="display:flex; justify-content:space-between; margin-bottom:0.8rem;"><span>2. Bali, Indonesia</span> <span style="color:var(--accent-color);">95 bookings</span></li>
+                            <li style="display:flex; justify-content:space-between;"><span>3. Tokyo, Japan</span> <span style="color:var(--accent-color);">82 bookings</span></li>
+                        </ul>
+                    </div>
+                    <!-- 6. Agent Leaderboard -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;">Top Agents</h3>
+                        <ul style="list-style:none; padding:0;">
+                            <li style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+                                <div style="width:30px; height:30px; background:rgba(0,240,255,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center;">1</div>
+                                <div><div style="font-weight:bold;">Elena R.</div><div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">$45k Sales</div></div>
+                            </li>
+                            <li style="display:flex; align-items:center; gap:1rem;">
+                                <div style="width:30px; height:30px; background:rgba(0,240,255,0.1); border-radius:50%; display:flex; align-items:center; justify-content:center;">2</div>
+                                <div><div style="font-weight:bold;">Marcus T.</div><div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">$38k Sales</div></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            
+
+                </div>
+            <div id="tab-bookings" class="travel-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
+                <h2 class="text-gradient" style="margin-bottom: 2rem;">Bookings Management</h2>
+                <!-- 1. Filter Bar -->
+                <div class="glass-card" style="padding: 2rem; margin-bottom:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+                    <input type="text" placeholder="Search Bookings..." style="flex:1; padding:0.5rem; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); color:white; border-radius:5px;">
+                    <select style="padding:0.5rem; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); color:white; border-radius:5px;"><option>All Statuses</option><option>Confirmed</option><option>Pending</option></select>
+                    <button onclick="window.location.href='404.html'" class="btn btn-solid" style="padding:0.5rem 1rem;">Filter</button>
+                </div>
+                
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 1.5rem;">
+                    <!-- 2. Upcoming Departures -->
+                    <div class="glass-card" style="padding: 2rem; overflow-x:auto;">
+                        <h3 style="margin-bottom:1rem;">Upcoming Departures</h3>
+                        <table style="width:100%; border-collapse:collapse; text-align:left;">
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><th style="padding:0.5rem;">Ref</th><th style="padding:0.5rem;">Date</th><th style="padding:0.5rem;">Destination</th><th style="padding:0.5rem;">Status</th></tr>
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.5rem;">#D-882</td><td style="padding:0.5rem;">Oct 12</td><td style="padding:0.5rem;">Rome, Italy</td><td style="padding:0.5rem; color:#00ff88;">Confirmed</td></tr>
+                            <tr><td style="padding:0.5rem;">#D-883</td><td style="padding:0.5rem;">Oct 14</td><td style="padding:0.5rem;">Maldives</td><td style="padding:0.5rem; color:#00f0ff;">Boarding</td></tr>
+                        </table>
+                    </div>
+                    <!-- 3. Status Chart -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;">Status Distribution</h3>
+                        <div style="height:200px; display:flex; align-items:center; justify-content:center; border:1px dashed rgba(255,255,255,0.2);"><div style="display:flex; align-items:center; justify-content:center; gap:2rem;">
+<div style="width:120px; height:120px; border-radius:50%; background: conic-gradient(var(--accent-color) 0% 60%, #ffaa00 60% 85%, #ff3366 85% 100%); display:flex; align-items:center; justify-content:center;">
+    <div style="width:90px; height:90px; border-radius:50%; background:var(--bg-color); display:flex; align-items:center; justify-content:center; font-weight:bold;">100%</div>
+</div>
+<div style="display:flex; flex-direction:column; gap:0.5rem; text-align:left;">
+    <div style="font-size:0.8rem;"><span style="color:var(--accent-color);">■</span> Confirmed (60%)</div>
+    <div style="font-size:0.8rem;"><span style="color:#ffaa00;">■</span> Pending (25%)</div>
+    <div style="font-size:0.8rem;"><span style="color:#ff3366;">■</span> Cancelled (15%)</div>
+</div></div></div>
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                    <!-- 4. Pending Approvals -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem; color:#ffaa00;">Pending Approvals</h3>
+                        <div><strong>#P-991</strong> - Custom Safari Tour <br><span style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Waiting on supplier conf.</span></div>
+                    </div>
+                    <!-- 5. Recent Cancellations -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem; color:#ff3366;">Recent Cancellations</h3>
+                        <div><strong>#C-112</strong> - Ski Trip <br><span style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Refund processed ($1,200)</span></div>
+                    </div>
+                    <!-- 6. Bulk Actions -->
+                    <div class="glass-card" style="padding: 2rem; display:flex; flex-direction:column; gap:0.5rem;">
+                        <h3 style="margin-bottom:1rem;">Bulk Actions</h3>
+                        <button onclick="window.location.href='404.html'" class="btn" style="width:100%;"><i class="fa-solid fa-download"></i> Export CSV</button>
+                        <button onclick="window.location.href='404.html'" class="btn" style="width:100%;"><i class="fa-solid fa-paper-plane"></i> Reminders</button>
+                    </div>
+                </div>
+            
+
+                </div>
+            <div id="tab-destinations" class="travel-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
+                <h2 class="text-gradient" style="margin-bottom: 2rem;">Destinations Inventory</h2>
+                
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom:1.5rem;">
+                    <!-- 1. Global Map Stats -->
+                    <div class="glass-card" style="padding: 2rem; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;">
+                        <i class="fa-solid fa-earth-americas" style="font-size:4rem; color:var(--accent-color); margin-bottom:1rem;"></i>
+                        <h3>Active Regions</h3>
+                        <p style="color:rgba(255,255,255,0.7);">Europe: 45 Active Tours | Asia: 32 Active Tours</p>
+                    </div>
+                    <!-- 2. Occupancy Chart -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;">Seasonal Occupancy</h3>
+                        <div style="height:150px; display:flex; align-items:center; justify-content:center; border:1px dashed rgba(255,255,255,0.2);">
+<div style="display:flex; align-items:flex-end; gap:0.5rem; height:100%; width:100%; padding-top:20px;">
+    <div style="flex:1; background:rgba(255,255,255,0.1); height:30%; border-radius:4px 4px 0 0; position:relative;"><span style="position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:0.7rem;">Q1</span></div>
+    <div style="flex:1; background:var(--accent-color); height:85%; border-radius:4px 4px 0 0; position:relative;"><span style="position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:0.7rem;">Q2</span></div>
+    <div style="flex:1; background:rgba(255,255,255,0.1); height:50%; border-radius:4px 4px 0 0; position:relative;"><span style="position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:0.7rem;">Q3</span></div>
+    <div style="flex:1; background:#00ff88; height:100%; border-radius:4px 4px 0 0; position:relative;"><span style="position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:0.7rem;">Q4</span></div>
+</div></div>
+                    </div>
+                </div>
+                
+                <!-- 3. Popular Packages -->
+                <div class="glass-card" style="padding: 2rem; margin-bottom:1.5rem;">
+                    <h3 style="margin-bottom:1rem;">Featured Packages</h3>
+                    <div style="display:flex; gap:1rem; overflow-x:auto; padding-bottom:1rem;">
+                        <div style="min-width:200px; padding:1rem; background:rgba(255,255,255,0.05); border-radius:8px;"><strong>Paris Getaway</strong><br><span style="color:var(--accent-color);">$1,499</span></div>
+                        <div style="min-width:200px; padding:1rem; background:rgba(255,255,255,0.05); border-radius:8px;"><strong>Tokyo Explorer</strong><br><span style="color:var(--accent-color);">$2,299</span></div>
+                        <div style="min-width:200px; padding:1rem; background:rgba(255,255,255,0.05); border-radius:8px;"><strong>Swiss Alps</strong><br><span style="color:var(--accent-color);">$1,899</span></div>
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                    <!-- 4. New Destination Form -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;">Propose New</h3>
+                        <input type="text" placeholder="Location Name" style="width:100%; padding:0.5rem; margin-bottom:0.5rem; border-radius:5px; border:none; background:rgba(0,0,0,0.3); color:white;">
+                        <button onclick="window.location.href='404.html'" class="btn btn-solid" style="width:100%;">Submit Proposal</button>
+                    </div>
+                    <!-- 5. Supplier Contacts -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;">Key Suppliers</h3>
+                        <ul style="list-style:none; padding:0; margin:0; font-size:0.9rem;">
+                            <li><i class="fa-solid fa-hotel text-accent"></i> Marriott Int.</li>
+                            <li><i class="fa-solid fa-plane-up text-accent"></i> Emirates</li>
+                        </ul>
+                    </div>
+                    <!-- 6. Destination Reviews -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;">Recent Reviews</h3>
+                        <div style="font-size:0.9rem; border-left:2px solid var(--accent-color); padding-left:10px;">
+                            "Bali was amazing! The resort was pristine." - <em>5/5 stars</em>
+                        </div>
+                    </div>
+                </div>
+            
+
+                </div>
+            <div id="tab-customers" class="travel-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
+                <h2 class="text-gradient" style="margin-bottom: 2rem;">Customer CRM</h2>
+                
+                <!-- 1. Search Bar -->
+                <div class="glass-card" style="padding: 2rem; margin-bottom:1.5rem;">
+                    <input type="text" placeholder="Search customer by name, email, or passport..." style="width:100%; padding:1rem; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); color:white; border-radius:8px;">
+                </div>
+
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 1.5rem;">
+                    <!-- 2. VIP Clients List -->
+                    <div class="glass-card" style="padding: 2rem; overflow-x:auto;">
+                        <h3 style="margin-bottom:1rem;"><i class="fa-solid fa-star" style="color:gold;"></i> VIP Clients</h3>
+                        <table style="width:100%; border-collapse:collapse; text-align:left;">
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><th style="padding:0.5rem;">Name</th><th style="padding:0.5rem;">Lifetime Spend</th><th style="padding:0.5rem;">Tier</th></tr>
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.5rem;">Amanda Clark</td><td style="padding:0.5rem;">$42,500</td><td style="padding:0.5rem; color:gold;">Platinum</td></tr>
+                            <tr><td style="padding:0.5rem;">David Miller</td><td style="padding:0.5rem;">$28,100</td><td style="padding:0.5rem; color:silver;">Gold</td></tr>
+                        </table>
+                    </div>
+                    <!-- 3. Demographics Chart -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;">Age Demographics</h3>
+                        <div style="height:150px; display:flex; align-items:center; justify-content:center; border:1px dashed rgba(255,255,255,0.2);"><div style="display:flex; align-items:center; justify-content:center; gap:2rem;">
+<div style="width:120px; height:120px; border-radius:50%; background: conic-gradient(var(--accent-color) 0% 60%, #ffaa00 60% 85%, #ff3366 85% 100%); display:flex; align-items:center; justify-content:center;">
+    <div style="width:90px; height:90px; border-radius:50%; background:var(--bg-color); display:flex; align-items:center; justify-content:center; font-weight:bold;">100%</div>
+</div>
+<div style="display:flex; flex-direction:column; gap:0.5rem; text-align:left;">
+    <div style="font-size:0.8rem;"><span style="color:var(--accent-color);">■</span> Confirmed (60%)</div>
+    <div style="font-size:0.8rem;"><span style="color:#ffaa00;">■</span> Pending (25%)</div>
+    <div style="font-size:0.8rem;"><span style="color:#ff3366;">■</span> Cancelled (15%)</div>
+</div></div></div>
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                    <!-- 4. New Sign-ups -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;">New Users (7d)</h3>
+                        <div style="font-size:2.5rem; font-weight:bold; color:var(--accent-color);">+142</div>
+                    </div>
+                    <!-- 5. Support Tickets -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;">Support Queue</h3>
+                        <div style="font-size:2.5rem; font-weight:bold; color:#ffaa00;">8</div>
+                        <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Open tickets awaiting reply</div>
+                    </div>
+                    <!-- 6. Campaign Stats -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;">Summer Promo</h3>
+                        <div>Open Rate: <span style="color:var(--accent-color);">42%</span></div>
+                        <div>CTR: <span style="color:var(--accent-color);">12%</span></div>
+                    </div>
+                </div>
+            
+
+                </div>
+            <div id="tab-analytics" class="travel-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
+                <h2 class="text-gradient" style="margin-bottom: 2rem;">Financial Analytics</h2>
+                
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 1.5rem;">
+                    <!-- 1. Financial Summary -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;">Net Profit</h3>
+                        <div style="font-size:2.5rem; font-weight:bold; color:#00ff88;">$45,200</div>
+                        <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">+12% vs last month</div>
+                    </div>
+                    <!-- 2. Marketing ROI -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;">Ad Spend</h3>
+                        <div style="font-size:2.5rem; font-weight:bold; color:#ff3366;">$12,500</div>
+                        <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">ROAS: 4.2x</div>
+                    </div>
+                    <!-- 3. Refunds -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;">Refunds Issued</h3>
+                        <div style="font-size:2.5rem; font-weight:bold; color:#ffaa00;">$3,400</div>
+                        <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">2.1% of revenue</div>
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 1.5rem;">
+                    <!-- 4. YoY Chart -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;">Year-Over-Year Growth</h3>
+                        <div style="height:250px; display:flex; align-items:center; justify-content:center; border:1px dashed rgba(255,255,255,0.2);">
+<div style="display:flex; align-items:flex-end; gap:0.5rem; height:100%; width:100%; padding-top:20px;">
+    <div style="flex:1; background:rgba(255,255,255,0.1); height:30%; border-radius:4px 4px 0 0; position:relative;"><span style="position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:0.7rem;">Q1</span></div>
+    <div style="flex:1; background:var(--accent-color); height:85%; border-radius:4px 4px 0 0; position:relative;"><span style="position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:0.7rem;">Q2</span></div>
+    <div style="flex:1; background:rgba(255,255,255,0.1); height:50%; border-radius:4px 4px 0 0; position:relative;"><span style="position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:0.7rem;">Q3</span></div>
+    <div style="flex:1; background:#00ff88; height:100%; border-radius:4px 4px 0 0; position:relative;"><span style="position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:0.7rem;">Q4</span></div>
+</div></div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:1.5rem;">
+                        <!-- 5. Booking Window -->
+                        <div class="glass-card" style="padding: 2rem; flex:1;">
+                            <h3 style="margin-bottom:1rem;">Avg Booking Window</h3>
+                            <div style="font-size:2rem; font-weight:bold; color:var(--accent-color);">42 Days</div>
+                            <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Prior to departure</div>
+                        </div>
+                        <!-- 6. Export Reports -->
+                        <div class="glass-card" style="padding: 2rem; display:flex; flex-direction:column; justify-content:center;">
+                            <button onclick="window.location.href='404.html'" class="btn btn-solid" style="width:100%; margin-bottom:0.5rem;"><i class="fa-solid fa-file-pdf"></i> Q2 Statement</button>
+                            <button onclick="window.location.href='404.html'" class="btn" style="width:100%;"><i class="fa-solid fa-file-csv"></i> Raw Data</button>
+                        </div>
+                    </div>
+                </div>
+            
+
+                </div>
+            <div id="tab-settings" class="travel-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
+                <h2 class="text-gradient" style="margin-bottom: 2rem;">Agency Settings</h2>
+                
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom:1.5rem;">
+                    <!-- 1. Agency Profile -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;"><i class="fa-solid fa-building text-accent"></i> Agency Profile</h3>
+                        <div style="margin-bottom:1rem;">
+                            <label style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Agency Name</label>
+                            <input type="text" value="Stackly Travel" style="width:100%; padding:0.5rem; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); color:white; border-radius:5px;">
+                        </div>
+                        <button onclick="window.location.href='404.html'" class="btn btn-solid">Save Profile</button>
+                    </div>
+                    <!-- 2. Staff Permissions -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;"><i class="fa-solid fa-user-shield text-accent"></i> Permissions</h3>
+                        <label style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.5rem;">
+                            <input type="checkbox" checked> Agents can issue refunds
+                        </label>
+                        <label style="display:flex; align-items:center; gap:0.5rem;">
+                            <input type="checkbox"> Require 2FA for all staff
+                        </label>
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                    <!-- 3. Payment Gateways -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;">Payments</h3>
+                        <div style="color:#00ff88; margin-bottom:0.5rem;"><i class="fa-brands fa-stripe"></i> Stripe (Active)</div>
+                        <div style="color:rgba(255,255,255,0.5);"><i class="fa-brands fa-paypal"></i> PayPal (Offline)</div>
+                    </div>
+                    <!-- 4. Automated Emails -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;">Email Triggers</h3>
+                        <div style="font-size:0.9rem;">&#10003; Booking Confirmation</div>
+                        <div style="font-size:0.9rem;">&#10003; 7-Day Reminder</div>
+                    </div>
+                    <!-- 5. Security Logs -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;">Security</h3>
+                        <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Last backup: 2 hrs ago</div>
+                        <button onclick="window.location.href='404.html'" class="btn" style="width:100%; margin-top:1rem; padding:0.3rem;">View Logs</button>
+                    </div>
+                    <!-- 6. Preferences -->
+                    <div class="glass-card" style="padding: 2rem;">
+                        <h3 style="margin-bottom:1rem;">Preferences</h3>
+                        <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Currency: USD ($)</div>
+                        <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Timezone: EST</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+                </div>
+
+    <script>
+
+        // Chart.js Setup for Admin Overview
+        setTimeout(() => {
+            const canvas = document.getElementById('overviewChart');
+            if(canvas) {
+                const ctx = canvas.getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'Revenue ($)',
+                            data: [65000, 72000, 85000, 94000, 112000, 124500],
+                            borderColor: '#00f0ff',
+                            backgroundColor: 'rgba(0, 240, 255, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.6)' } },
+                            x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.6)' } }
+                        }
+                    }
+                });
+            }
+        }, 100);
+        
+
+        // Sidebar Toggle
+        const toggleBtn = document.getElementById('sidebarToggle');
+        if(toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                const sidebar = document.getElementById('sidebar');
+                sidebar.classList.toggle('active');
+                if(sidebar.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        // Tab Switching Logic
+        function switchTab(tabId, element) {
+            // Remove active from all sidebar links
+            document.querySelectorAll('.sidebar-menu a').forEach(a => a.classList.remove('active'));
+            if(element) element.classList.add('active');
+
+            // Hide all tab contents
+            document.querySelectorAll('.travel-tab-content').forEach(tab => {
+                tab.style.display = 'none';
+            });
+
+            // Show target tab
+            const target = document.getElementById(tabId);
+            if(target) {
+                target.style.display = 'block';
+            }
+            
+            // Close sidebar on mobile
+            if (window.innerWidth <= 992) {
+                const sidebar = document.getElementById('sidebar');
+                if(sidebar) {
+                    sidebar.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        }
+    </script>
+
+    <!-- Dynamic User Profile Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loggedInEmail = localStorage.getItem('loggedInEmail');
+            if (loggedInEmail) {
+                // 1. Update the Topbar Name
+                const profileNames = document.querySelectorAll('.user-profile > div > div:first-child');
+                profileNames.forEach(el => {
+                    el.innerText = loggedInEmail;
+                });
+
+                // 2. Update any inputs that look like emails (e.g. settings/profile tab)
+                const textInputs = document.querySelectorAll('input[type="text"]');
+                textInputs.forEach(input => {
+                    if (input.value.includes('@')) {
+                        input.value = loggedInEmail;
+                    }
+                });
+
+                // 3. Optional: Extract a formatted name from the email (e.g. john.doe@email.com -> John.doe)
+                let namePart = loggedInEmail.split('@')[0];
+                namePart = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+                
+                // Update inputs that had hardcoded names
+                textInputs.forEach(input => {
+                    const val = input.value.toLowerCase();
+                    if (!val.includes('@') && (val.includes('elena') || val.includes('john doe'))) {
+                        input.value = namePart;
+                    }
+                });
+
+                // 4. Also update the specific text in the Traveler dashboard: "Your Agent: Elena R." or "Chat with Elena"
+                const h3s = document.querySelectorAll('h3, h4');
+                h3s.forEach(h => {
+                    if (h.innerText.includes('Your Agent: Elena R.')) {
+                        h.innerText = 'Your Agent: ' + namePart;
+                    }
+                    if (h.innerText.includes('Chat with Elena')) {
+                        h.innerText = 'Chat with ' + namePart;
+                    }
+                    if (h.innerText.includes('Message Elena...')) {
+                        h.innerText = 'Message ' + namePart + '...';
+                    }
+                });
+                const inputs = document.querySelectorAll('input[placeholder="Message Elena..."]');
+                inputs.forEach(input => {
+                    input.placeholder = 'Message ' + namePart + '...';
+                });
+            }
+        });
+    </script>
+    </div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+    </script>
+</body>
+</html>

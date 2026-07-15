@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>404 Not Found | Smart Security Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow: hidden;
+        }
+        .error-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30vw;
+            font-weight: 800;
+            color: rgba(0, 240, 255, 0.03);
+            z-index: -1;
+            white-space: nowrap;
+        }
+        .error-content h1 {
+            font-size: 4rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        .error-content p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <div class="site-wrapper" style="overflow-x: hidden; width: 100%; position: relative; min-height: 100vh;">
+
+    <div class="error-bg">404</div>
+
+    <div class="container error-content">
+        <i class="fa-solid fa-triangle-exclamation" style="font-size: 4rem; color: var(--accent-color); margin-bottom: 2rem;"></i>
+        <h1>Access Denied</h1>
+        <p>The system sector you are trying to access does not exist or requires higher clearance level.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center;">
+            <button onclick="window.history.back()" class="btn" style="background:transparent; color:var(--accent-color); border:1px solid var(--accent-color); cursor:pointer; font-family:inherit;">Go Back</button>
+            <a href="index.html" class="btn btn-solid">Return Home</a>
+        </div>
+    </div>
+
+    </div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+    </script>
+</body>
+</html>

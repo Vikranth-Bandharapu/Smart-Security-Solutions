@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Login | Smart Security Solutions</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(rgba(10, 15, 28, 0.9), rgba(10, 15, 28, 0.9)), url('assets/img_32.webp') center/cover;
+        }
+        .auth-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 2rem;
+        }
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .auth-header .logo {
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .back-home {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+        .back-home:hover {
+            color: var(--accent-color);
+        }
+    </style>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <div class="site-wrapper" style="overflow-x: hidden; width: 100%; position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+
+    <a href="index.html" class="back-home"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+
+    <div class="auth-container">
+        <div class="glass-card">
+            <div class="auth-header">
+                <a href="index.html" class="logo" style="display:flex; align-items:center;"><img src="assets/logo.webp" alt="Stackly Logo" style="height: 32px; width: auto;"></a>
+                <h2>Welcome Back</h2>
+                <p style="color: rgba(255,255,255,0.6);">Sign in to access your dashboard</p>
+            </div>
+
+            <form id="loginForm" novalidate>
+                <div class="form-group">
+                    <label style="display:block; margin-bottom: 0.5rem; font-size:0.9rem;">Select Role</label>
+                    <select id="role" class="form-control" style="appearance: auto;">
+                        <option value="admin">Admin</option>
+                        <option value="manager">Security Manager</option>
+                        <option value="client">Client</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <input type="email" id="email" class="form-control" placeholder="Email Address">
+                    <div class="error-msg"></div>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" id="password" class="form-control" placeholder="Password">
+                    <div class="error-msg"></div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; font-size: 0.9rem;">
+                    <label style="display:flex; align-items:center; gap:0.5rem;">
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <a href="404.html" class="text-accent">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-solid" style="width: 100%;">Sign In</button>
+            </form>
+
+            <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem;">
+                Don't have an account? <a href="signup.html" class="text-accent">Sign Up</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    </div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+    </script>
+</body>
+</html>

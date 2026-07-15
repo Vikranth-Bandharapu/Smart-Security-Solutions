@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>IoT Security Mesh | Stackly Smart Security</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="assets/img_13.webp"></script>
+    <script src="assets/img_14.webp"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Unique IoT Mesh Layout Styles */
+        body { background: #010409; color: #fff; }
+        
+        .iot-hero {
+            padding: 180px 0 100px;
+            background: radial-gradient(circle at top, rgba(0, 240, 255, 0.15) 0%, transparent 60%),
+                        url('assets/img_39.webp') center/cover fixed;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        .iot-hero::after {
+            content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
+            background: rgba(1,4,9,0.8);
+            z-index: 1;
+        }
+        .iot-hero .container { position: relative; z-index: 2; }
+        
+        /* Node Grid */
+        .node-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+        .node-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 12px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .node-card:hover {
+            background: rgba(0, 240, 255, 0.05);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,240,255,0.1);
+        }
+        .node-icon {
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            border: 2px dashed var(--accent-color);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            animation: spin 10s linear infinite;
+        }
+        .node-icon i { animation: spin 10s linear infinite reverse; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* Zero Trust Split Layout */
+        .zt-split {
+            display: flex;
+            align-items: stretch;
+            background: linear-gradient(90deg, rgba(255,255,255,0.02) 0%, transparent 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            overflow: hidden;
+            margin: 4rem 0;
+        }
+        .zt-content { flex: 1; padding: 4rem; }
+        .zt-visual {
+            flex: 1;
+            background: url('assets/img_40.webp') center/cover;
+            position: relative;
+            min-height: 400px;
+        }
+        .zt-visual::after {
+            content: 'ENCRYPTED CONNECTION';
+            position: absolute; bottom: 20px; right: 20px;
+            background: var(--accent-color); color: #000;
+            padding: 5px 10px; font-weight: bold; font-size: 0.8rem;
+            border-radius: 4px;
+        }
+
+        /* Protocols Hex Grid */
+        .hex-grid {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+        .hex-item {
+            width: 150px; height: 150px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .hex-item:hover { background: var(--accent-color); color: #000; transform: scale(1.1); }
+        .hex-item h4 { margin: 0; font-size: 1.1rem; }
+        .hex-item span { font-size: 0.75rem; opacity: 0.7; }
+        .hex-item:hover h4, .hex-item:hover span { color: #000; }
+
+        @media (max-width: 992px) {
+            .zt-split { flex-direction: column; }
+            .zt-content { padding: 2rem; }
+            .zt-visual { min-height: 300px; }
+        }
+    </style>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <div class="site-wrapper" style="overflow-x: hidden; width: 100%; position: relative; min-height: 100vh;">
+
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo" style="display:flex; align-items:center;"><img src="assets/logo.webp" alt="Stackly Logo" style="height: 32px; width: auto;"></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="solutions.html">Solutions</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="signup.html" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.85rem; border-color:var(--accent-color); color:var(--accent-color);">Sign Up</a></li>
+                <li><a href="login.html" class="btn btn-solid" style="padding: 0.5rem 1.5rem; font-size: 0.85rem;">Login</a></li>
+            </ul>
+            <button class="hamburger"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- 1. Hero Parallax -->
+    <section class="iot-hero interactive-hero">
+        <div class="parallax-layer shape-1" data-speed="2" style="position:absolute; width:200px; height:200px; background:rgba(0,240,255,0.1); border-radius:50%; filter:blur(30px); top:20%; left:10%; z-index:2;"></div>
+        <div class="container gsap-fade-up">
+            <h4 class="text-accent"><i class="fa-solid fa-network-wired"></i> Unified Intelligence</h4>
+            <h1 style="font-size: clamp(2rem, 5vw, 4.5rem); margin: 1rem 0;">IoT Security Mesh</h1>
+            <p style="max-width: 700px; margin: 0 auto; color:rgba(255,255,255,0.7); font-size:1.1rem;">Connect every sensor, camera, and access panel into a single, self-healing neural network that talks to itself to predict threats before they materialize.</p>
+        </div>
+    </section>
+
+    <!-- 2. The Mesh Nodes -->
+    <section class="section">
+        <div class="container gsap-fade-up">
+            <div class="text-center">
+                <h2>The Neural Network of Security</h2>
+                <p style="color:rgba(255,255,255,0.7); max-width:600px; margin: 1rem auto 0;">Siloed devices are vulnerabilities. Stackly forces them into a mesh.</p>
+            </div>
+            
+            <div class="node-grid gsap-stagger-container">
+                <div class="node-card">
+                    <div class="node-icon"><i class="fa-solid fa-satellite-dish"></i></div>
+                    <h3>Self-Healing Topology</h3>
+                    <p style="color:rgba(255,255,255,0.6); font-size:0.9rem; margin-top:1rem;">If one router or node goes down, the mesh instantly reroutes telemetry data through adjacent devices, ensuring 100% uptime.</p>
+                </div>
+                <div class="node-card">
+                    <div class="node-icon"><i class="fa-solid fa-bolt"></i></div>
+                    <h3>Edge Processing</h3>
+                    <p style="color:rgba(255,255,255,0.6); font-size:0.9rem; margin-top:1rem;">Cameras and sensors process data locally. Only critical alerts and metadata are sent to the central server, reducing bandwidth by 90%.</p>
+                </div>
+                <div class="node-card">
+                    <div class="node-icon"><i class="fa-solid fa-brain"></i></div>
+                    <h3>Cross-Device AI</h3>
+                    <p style="color:rgba(255,255,255,0.6); font-size:0.9rem; margin-top:1rem;">If a motion sensor triggers, it instantly tells the PTZ camera to focus on that coordinates, without needing the main server's permission.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Zero Trust Split Layout -->
+    <section class="section" style="padding-top:0;">
+        <div class="container gsap-fade-up">
+            <div class="zt-split">
+                <div class="zt-content">
+                    <h4 class="text-accent">Architecture</h4>
+                    <h2 style="font-size:2.5rem; margin:1rem 0;">Zero-Trust Encryption</h2>
+                    <p style="color:rgba(255,255,255,0.7); line-height:1.8; margin-bottom:1.5rem;">In a standard IoT network, if a hacker breaches a smart thermostat, they can pivot to your servers. Not with Stackly.</p>
+                    <ul style="list-style:none; padding:0;">
+                        <li style="margin-bottom:1rem;"><i class="fa-solid fa-lock text-accent" style="margin-right:10px;"></i> AES-256 Bit Encryption on all telemetry.</li>
+                        <li style="margin-bottom:1rem;"><i class="fa-solid fa-microchip text-accent" style="margin-right:10px;"></i> Hardware Root of Trust (TPM) in every camera.</li>
+                        <li style="margin-bottom:1rem;"><i class="fa-solid fa-ban text-accent" style="margin-right:10px;"></i> Micro-segmented VLANs prevent lateral movement.</li>
+                    </ul>
+                </div>
+                <div class="zt-visual"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Dashboard Preview (Image) -->
+    <section class="section" style="background: rgba(0, 240, 255, 0.02);">
+        <div class="container text-center gsap-fade-up">
+            <h2>Command & Control</h2>
+            <p style="color:rgba(255,255,255,0.7); max-width:600px; margin: 1rem auto 3rem;">Monitor the health of thousands of devices from a single pane of glass.</p>
+            <div style="border-radius:16px; overflow:hidden; border:1px solid rgba(0,240,255,0.2); box-shadow:0 20px 50px rgba(0,240,255,0.1);">
+                <img src="assets/img_41.webp" alt="Dashboard" style="width:100%; display:block;">
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Supported Protocols Hex Grid -->
+    <section class="section">
+        <div class="container text-center gsap-fade-up">
+            <h4 class="text-accent">Agnostic Integration</h4>
+            <h2>Universal Protocol Support</h2>
+            <p style="color:rgba(255,255,255,0.7); margin-top:1rem;">We don't force you to buy our hardware. Our mesh integrates with your existing legacy protocols.</p>
+            
+            <div class="hex-grid">
+                <div class="hex-item"><h4>MQTT</h4><span>Telemetry</span></div>
+                <div class="hex-item"><h4>ONVIF</h4><span>Video Streams</span></div>
+                <div class="hex-item"><h4>Zigbee</h4><span>Sensors</span></div>
+                <div class="hex-item"><h4>Z-Wave</h4><span>Locks</span></div>
+                <div class="hex-item"><h4>BACnet</h4><span>HVAC/Fire</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. CTA -->
+    <section class="section" style="background: rgba(0, 240, 255, 0.05); text-align:center;">
+        <div class="container gsap-fade-up">
+            <h2 style="font-size:2.5rem; margin-bottom:1.5rem;">Ready to unify your security?</h2>
+            <a href="404.html" class="btn btn-solid" style="padding: 1rem 3rem; font-size: 1.1rem;">Talk to an Architect</a>
+        </div>
+    </section>
+
+    
+    <!-- Injected CTA Section -->
+    <section class="section" style="text-align:center; background: linear-gradient(0deg, rgba(0, 240, 255, 0.05) 0%, transparent 100%);">
+        <div class="container gsap-fade-up">
+            <h2 style="font-size:2.5rem; margin-bottom:1.5rem;">Secure Your Infrastructure</h2>
+            <p style="color:rgba(255,255,255,0.7); max-width:600px; margin:0 auto 2rem;">Get in touch with our security architects to design a bespoke AI surveillance and access control system for your enterprise.</p>
+            <a href="404.html" class="btn btn-solid">Request Consultation</a>
+        </div>
+    </section>
+
+    <!-- Injected Tech Stack Section -->
+    <section class="section">
+        <div class="container text-center gsap-fade-up">
+            <h4 class="text-accent">Our Architecture</h4>
+            <h2 style="margin-bottom: 3rem;">Powered by Modern Tech</h2>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:2rem;">
+                <div class="glass-card" style="padding:2rem;">
+                    <i class="fa-solid fa-microchip" style="font-size:2.5rem; color:var(--accent-color); margin-bottom:1rem;"></i>
+                    <h4>Edge Computing</h4>
+                    <p style="font-size:0.85rem; color:rgba(255,255,255,0.6); margin-top:0.5rem;">Processing data on-site for zero latency.</p>
+                </div>
+                <div class="glass-card" style="padding:2rem;">
+                    <i class="fa-solid fa-cloud" style="font-size:2.5rem; color:var(--accent-color); margin-bottom:1rem;"></i>
+                    <h4>Cloud Backup</h4>
+                    <p style="font-size:0.85rem; color:rgba(255,255,255,0.6); margin-top:0.5rem;">Military-grade encrypted redundant storage.</p>
+                </div>
+                <div class="glass-card" style="padding:2rem;">
+                    <i class="fa-solid fa-network-wired" style="font-size:2.5rem; color:var(--accent-color); margin-bottom:1rem;"></i>
+                    <h4>IoT Mesh</h4>
+                    <p style="font-size:0.85rem; color:rgba(255,255,255,0.6); margin-top:0.5rem;">Interconnected sensor networks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- NEW SECTION: Advanced Capabilities (Added via Script) -->
+    <section class="section" style="background: rgba(10, 15, 28, 0.4); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up" style="margin-bottom: 4rem;">
+                <h2 class="text-gradient">Advanced Capabilities</h2>
+                <p style="color:rgba(255,255,255,0.7); max-width:600px; margin:0 auto;">Leveraging the latest in AI and machine learning to deliver proactive, highly intelligent security environments.</p>
+            </div>
+            
+            <div class="testimonials-grid" data-aos="fade-up">
+                <!-- Card 1 -->
+                <div class="glass-card testimonial-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+                    <img src="assets/img_11.webp" alt="Capability" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 2rem;">
+                        <h3 style="color: var(--accent-color); font-size: 1.3rem;">Predictive AI</h3>
+                        <p style="color: rgba(255,255,255,0.7); margin-top: 1rem; font-size: 0.95rem;">Algorithms analyze thousands of behavioral markers to predict and prevent incidents before they even happen.</p>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="glass-card testimonial-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+                    <img src="assets/img_36.webp" alt="Capability" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 2rem;">
+                        <h3 style="color: var(--accent-color); font-size: 1.3rem;">Deep Integrations</h3>
+                        <p style="color: rgba(255,255,255,0.7); margin-top: 1rem; font-size: 0.95rem;">Seamless API bridges between legacy hardware and next-generation IoT nodes without requiring total system overhauls.</p>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="glass-card testimonial-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+                    <img src="assets/img_26.webp" alt="Capability" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 2rem;">
+                        <h3 style="color: var(--accent-color); font-size: 1.3rem;">Global Command</h3>
+                        <p style="color: rgba(255,255,255,0.7); margin-top: 1rem; font-size: 0.95rem;">Manage thousands of sites instantly through an encrypted, decentralized mobile and web dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: Zigzag Showcase (Added via Script) -->
+    <section class="section">
+        <div class="container">
+            <div class="zigzag-row" data-aos="fade-up">
+                <div class="zigzag-text">
+                    <h2 class="text-gradient">Built for Enterprise Scale</h2>
+                    <p style="color:rgba(255,255,255,0.7); font-size:1.1rem; margin-top:1.5rem; margin-bottom: 2rem;">
+                        We don't just provide security; we provide a robust ecosystem that scales with your business operations across the globe, ensuring maximum uptime and instant threat response.
+                    </p>
+                    <ul style="list-style:none; padding:0; margin-bottom:2rem;">
+                        <li style="margin-bottom:1rem; display:flex; align-items:center; gap:1rem;">
+                            <i class="fa-solid fa-check text-accent"></i> 99.99% Uptime Guarantee
+                        </li>
+                        <li style="margin-bottom:1rem; display:flex; align-items:center; gap:1rem;">
+                            <i class="fa-solid fa-check text-accent"></i> End-to-End Encryption
+                        </li>
+                        <li style="margin-bottom:1rem; display:flex; align-items:center; gap:1rem;">
+                            <i class="fa-solid fa-check text-accent"></i> 24/7 Threat Intelligence
+                        </li>
+                    </ul>
+                </div>
+                <div class="zigzag-img">
+                    <div class="zigzag-img-wrap">
+                        <img src="assets/img_36.webp" alt="Enterprise Scale">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="zigzag-row" data-aos="fade-up" style="margin-top: 6rem;">
+                <div class="zigzag-img">
+                    <div class="zigzag-img-wrap">
+                        <img src="assets/img_28.webp" alt="Seamless Experience">
+                    </div>
+                </div>
+                <div class="zigzag-text" style="padding-left: 2rem;">
+                    <h2 class="text-gradient">Automated Threat Mitigation</h2>
+                    <p style="color:rgba(255,255,255,0.7); font-size:1.1rem; margin-top:1.5rem;">
+                        Our systems go beyond passive observation. By connecting access control, alarms, and drones, Stackly actively mitigates risks in real-time, locking doors and dispatching autonomous drones immediately.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="display:flex; align-items:center;"><img src="assets/logo.webp" alt="Stackly Logo" style="height: 32px; width: auto;"></a>
+                    <p style="color: rgba(255,255,255,0.6);">Leading the future of smart security with innovative AI and IoT integrations for unparalleled protection.</p>
+                    <div class="social-links">
+                        <a href="404.html"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="404.html"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="404.html"><i class="fa-brands fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="solutions.html">Solutions</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="404.html">CCTV Surveillance</a></li>
+                        <li><a href="404.html">Access Control</a></li>
+                        <li><a href="404.html">IoT Security</a></li>
+                        <li><a href="404.html">Fire & Safety</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul style="color: rgba(255,255,255,0.6);">
+                        <li><i class="fa-solid fa-location-dot text-accent" style="margin-right:0.5rem;"></i> 123 Secure Ave, Tech City</li>
+                        <li><i class="fa-solid fa-phone text-accent" style="margin-right:0.5rem;"></i> +1 (555) 123-4567</li>
+                        <li><i class="fa-solid fa-envelope text-accent" style="margin-right:0.5rem;"></i> contact@stackly.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">&copy; 2026 Stackly Smart Security Solutions. All Rights Reserved.</div>
+        </div>
+    </footer>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/main.js"></script>
+    </div>
+
+    <script>
+        // GSAP Scroll Reveal fallback
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+            const revealElements = document.querySelectorAll('.gs-reveal');
+            revealElements.forEach((elem) => {
+                gsap.fromTo(elem, 
+                    { y: 50, opacity: 0 }, 
+                    {
+                        y: 0, opacity: 1,
+                        duration: 1,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: elem,
+                            start: 'top 85%',
+                            toggleActions: 'play none none reverse'
+                        }
+                    }
+                );
+            });
+        }
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+    </script>
+</body>
+</html>

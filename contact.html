@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Contact Us | Stackly Security</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- GSAP -->
+    <script src="assets/img_4.webp"></script>
+    <script src="assets/img_5.webp"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .hero { min-height: 60vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding-top: 80px; }
+        .hero-bg { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(5,8,16,0.3) 0%, rgba(5,8,16,1) 100%), url('assets/img_26.webp') center/cover; filter: grayscale(80%) contrast(120%); z-index: -2; transform: scale(1.05); }
+        .hero-glow { position: absolute; width: 60vw; height: 60vw; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%); top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.15; z-index: -1; animation: pulse-glow 8s infinite alternate; }
+        @keyframes pulse-glow { 0% { transform: translate(-50%, -50%) scale(1); opacity: 0.15;} 100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.25; } }
+        
+        .hero-content { text-align: center; max-width: 900px; z-index: 10; }
+        .hero h1 { font-size: clamp(2rem, 6vw, 5.5rem); margin-bottom: 1.5rem; letter-spacing: -1px; }
+
+        .stats-marquee { display: flex; justify-content: space-around; padding: 3rem 0; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); background: linear-gradient(90deg, transparent, rgba(0,240,255,0.03), transparent); }
+        
+        details { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 8px; margin-bottom: 1rem; overflow: hidden; }
+        summary { padding: 1.5rem; font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '\f078'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--accent-color); transition: transform 0.3s ease; }
+        details[open] summary::after { transform: rotate(180deg); }
+        .faq-content { padding: 0 1.5rem 1.5rem; color: rgba(255,255,255,0.7); }
+    </style>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <div class="site-wrapper" style="overflow-x: hidden; width: 100%; position: relative; min-height: 100vh;">
+
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo" style="display:flex; align-items:center;"><img src="assets/logo.webp" alt="Stackly Logo" style="height: 32px; width: auto;"></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="solutions.html">Solutions</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html" class="text-accent">Contact</a></li>
+                <li><a href="signup.html" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.85rem; border-color:var(--accent-color); color:var(--accent-color);">Sign Up</a></li>
+                <li><a href="login.html" class="btn btn-solid" style="padding: 0.5rem 1.5rem; font-size: 0.85rem;">Login</a></li>
+            </ul>
+            <button class="hamburger"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- 1. Hero Section -->
+    <section class="hero">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-glow"></div>
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up">
+                <span style="color:var(--accent-color); font-weight:600; letter-spacing:2px; text-transform:uppercase; margin-bottom:1rem; display:block;">Get In Touch</span>
+                <h1 class="text-gradient">We're Here to Help.</h1>
+                <p style="color:rgba(255,255,255,0.7); max-width:600px; margin:0 auto; font-size:1.2rem;">Reach out to our global teams for sales, support, or partnership inquiries.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Direct Contacts -->
+    <section class="section">
+        <div class="container">
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:2rem;">
+                <div class="glass-card gs-reveal text-center">
+                    <i class="fa-solid fa-headset text-accent fa-3x" style="margin-bottom:1rem;"></i>
+                    <h3>Technical Support</h3>
+                    <p style="color:rgba(255,255,255,0.6); margin:1rem 0;">24/7 assistance for active deployments.</p>
+                    <a href="mailto:support@stackly.com" class="text-accent">support@stackly.com</a>
+                </div>
+                <div class="glass-card gs-reveal text-center" style="transition-delay:0.1s;">
+                    <i class="fa-solid fa-handshake text-accent fa-3x" style="margin-bottom:1rem;"></i>
+                    <h3>Enterprise Sales</h3>
+                    <p style="color:rgba(255,255,255,0.6); margin:1rem 0;">Discuss custom architectures.</p>
+                    <a href="mailto:sales@stackly.com" class="text-accent">sales@stackly.com</a>
+                </div>
+                <div class="glass-card gs-reveal text-center" style="transition-delay:0.2s;">
+                    <i class="fa-solid fa-newspaper text-accent fa-3x" style="margin-bottom:1rem;"></i>
+                    <h3>Press & Media</h3>
+                    <p style="color:rgba(255,255,255,0.6); margin:1rem 0;">Inquiries and press kits.</p>
+                    <a href="mailto:pr@stackly.com" class="text-accent">pr@stackly.com</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Contact Form -->
+    <section class="section" style="background: rgba(0,0,0,0.3);">
+        <div class="container" style="max-width:800px;">
+            <div class="glass-card" data-aos="fade-up" style="padding:4rem 3rem;">
+                <h2 class="text-gradient text-center" style="margin-bottom: 2rem;">Send a Message</h2>
+                <form id="contactForm" onsubmit="event.preventDefault(); window.location.href='404.html';">
+                    <div class="form-group">
+                        <label style="display:block; margin-bottom:0.5rem; color:rgba(255,255,255,0.8);">Full Name</label>
+                        <input type="text" class="form-control" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label style="display:block; margin-bottom:0.5rem; color:rgba(255,255,255,0.8);">Business Email</label>
+                        <input type="email" class="form-control" required placeholder="john@company.com">
+                    </div>
+                    <div class="form-group">
+                        <label style="display:block; margin-bottom:0.5rem; color:rgba(255,255,255,0.8);">Inquiry Type</label>
+                        <select class="form-control" style="background-color: var(--glass-bg); color: var(--text-color);">
+                            <option value="sales">Sales & Pricing</option>
+                            <option value="support">Technical Support</option>
+                            <option value="partnership">Partnerships</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label style="display:block; margin-bottom:0.5rem; color:rgba(255,255,255,0.8);">Message</label>
+                        <textarea class="form-control" rows="5" required placeholder="How can we help?"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-solid" style="width:100%; padding:1rem; font-size:1.1rem; box-shadow: 0 0 20px var(--accent-glow);">Submit Request</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Global Offices (Bento Grid) -->
+    <section class="section">
+        <div class="container">
+            <h2 class="text-gradient text-center " data-aos="fade-right" style="margin-bottom: 4rem;">Global Offices</h2>
+            <div class="bento-grid">
+                <div class="bento-item bento-item-large glass-card" data-aos="fade-up">
+                    <h3>Stackly HQ</h3>
+                    <p style="color:rgba(255,255,255,0.6); margin-bottom:1rem; font-size: 0.9rem;">MMR Complex, Periyakollappatty, Chinna Thirupathi, Salem, Tamil Nadu 636008</p>
+                    <p><i class="fa-solid fa-phone text-accent" style="margin-right:10px;"></i> +91 123 456 7890</p>
+                    <div style="width: 100%; height: 200px; margin-top: 1.5rem; border-radius: 8px; overflow: hidden; border: 1px solid var(--glass-border);">
+                        <iframe src="https://maps.google.com/maps?q=MMR+Complex,+Periyakollappatty,+Chinna+Thirupathi,+Salem,+Tamil+Nadu+636008&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0; filter: invert(90%) hue-rotate(180deg) brightness(95%) contrast(105%);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+                <div class="bento-item bento-item-small glass-card gs-reveal text-center">
+                    <h3>Europe</h3>
+                    <p style="color:rgba(255,255,255,0.6);">London, UK</p>
+                </div>
+                <div class="bento-item bento-item-small glass-card gs-reveal text-center">
+                    <h3>Asia Pacific</h3>
+                    <p style="color:rgba(255,255,255,0.6);">Singapore</p>
+                </div>
+                <div class="bento-item bento-item-large glass-card gs-reveal text-right" style="display:flex; flex-direction:column; justify-content:center; align-items:flex-end;">
+                    <h3>Middle East</h3>
+                    <p style="color:rgba(255,255,255,0.6); margin-bottom:1rem;">Dubai, UAE</p>
+                    <p><i class="fa-solid fa-phone text-accent" style="margin-right:10px;"></i> +971 4 123 4567</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Live Support Hub Marquee -->
+    <section class="section" style="padding-top:0;">
+        <div class="container">
+            <div class="stats-marquee" data-aos="fade-up" style="padding: 2rem;">
+                <h4 style="margin:0; text-transform:uppercase; font-size:1rem;">Average Wait Time: <span class="text-accent">45s</span></h4>
+                <h4 style="margin:0; text-transform:uppercase; font-size:1rem;">Resolution Rate: <span class="text-accent">98.5%</span></h4>
+                <h4 style="margin:0; text-transform:uppercase; font-size:1rem;">Active Agents: <span class="text-accent">142</span></h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Social Connectivity -->
+    <section class="section" style="border-top: 1px solid var(--glass-border);">
+        <div class="container text-center">
+            <h3 style="margin-bottom: 3rem; color:rgba(255,255,255,0.6);">Connect With Us Online</h3>
+            <div style="display:flex; justify-content:center; gap:4rem; flex-wrap:wrap;">
+                <a href="404.html" style="color:var(--text-color);"><i class="fa-brands fa-linkedin fa-3x gs-reveal hover-glow"></i></a>
+                <a href="404.html" style="color:var(--text-color);"><i class="fa-brands fa-twitter fa-3x gs-reveal hover-glow"></i></a>
+                <a href="404.html" style="color:var(--text-color);"><i class="fa-brands fa-github fa-3x gs-reveal hover-glow"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Pre-Sales FAQ -->
+    <section class="section">
+        <div class="container" style="max-width:800px;">
+            <div class="text-center" data-aos="fade-up" style="margin-bottom: 3rem;">
+                <h2 class="text-gradient">Quick Answers</h2>
+            </div>
+            
+            <details class="gs-reveal">
+                <summary>Can I request a live demo?</summary>
+                <div class="faq-content">Yes, select "Sales & Pricing" in the form above and we will schedule a virtual tour of the dashboard.</div>
+            </details>
+            <details class="gs-reveal">
+                <summary>Do you offer partner programs for integrators?</summary>
+                <div class="faq-content">We have a comprehensive channel partner program. Contact our sales team for certification details.</div>
+            </details>
+        </div>
+    </section>
+
+    <!-- 8. Giant CTA -->
+    <section class="section" style="padding-bottom: 8rem;">
+        <div class="container">
+            <div class="glass-card text-center" data-aos="fade-up" style="padding: 5rem 2rem; background: linear-gradient(135deg, rgba(0,240,255,0.1), rgba(10,15,28,0.9)); border-color:var(--accent-color);">
+                <h2 class="text-gradient" style="font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 1.5rem;">Need Immediate Assistance?</h2>
+                <p style="color:rgba(255,255,255,0.8); font-size:1.2rem; margin-bottom:3rem; max-width:600px; margin-inline:auto;">Call our emergency dispatch line for critical incidents.</p>
+                <a href="404.html" class="btn btn-solid" style="padding: 1.2rem 3rem; font-size:1.1rem; box-shadow: 0 0 30px var(--accent-glow);">Call 1-555-123-4567</a>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- NEW SECTION: Advanced Capabilities (Added via Script) -->
+    <section class="section" style="background: rgba(10, 15, 28, 0.4); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up" style="margin-bottom: 4rem;">
+                <h2 class="text-gradient">Advanced Capabilities</h2>
+                <p style="color:rgba(255,255,255,0.7); max-width:600px; margin:0 auto;">Leveraging the latest in AI and machine learning to deliver proactive, highly intelligent security environments.</p>
+            </div>
+            
+            <div class="testimonials-grid" data-aos="fade-up">
+                <!-- Card 1 -->
+                <div class="glass-card testimonial-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+                    <img src="assets/img_11.webp" alt="Capability" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 2rem;">
+                        <h3 style="color: var(--accent-color); font-size: 1.3rem;">Predictive AI</h3>
+                        <p style="color: rgba(255,255,255,0.7); margin-top: 1rem; font-size: 0.95rem;">Algorithms analyze thousands of behavioral markers to predict and prevent incidents before they even happen.</p>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="glass-card testimonial-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+                    <img src="assets/img_36.webp" alt="Capability" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 2rem;">
+                        <h3 style="color: var(--accent-color); font-size: 1.3rem;">Deep Integrations</h3>
+                        <p style="color: rgba(255,255,255,0.7); margin-top: 1rem; font-size: 0.95rem;">Seamless API bridges between legacy hardware and next-generation IoT nodes without requiring total system overhauls.</p>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="glass-card testimonial-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+                    <img src="assets/img_26.webp" alt="Capability" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 2rem;">
+                        <h3 style="color: var(--accent-color); font-size: 1.3rem;">Global Command</h3>
+                        <p style="color: rgba(255,255,255,0.7); margin-top: 1rem; font-size: 0.95rem;">Manage thousands of sites instantly through an encrypted, decentralized mobile and web dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: Zigzag Showcase (Added via Script) -->
+    <section class="section">
+        <div class="container">
+            <div class="zigzag-row" data-aos="fade-up">
+                <div class="zigzag-text">
+                    <h2 class="text-gradient">Built for Enterprise Scale</h2>
+                    <p style="color:rgba(255,255,255,0.7); font-size:1.1rem; margin-top:1.5rem; margin-bottom: 2rem;">
+                        We don't just provide security; we provide a robust ecosystem that scales with your business operations across the globe, ensuring maximum uptime and instant threat response.
+                    </p>
+                    <ul style="list-style:none; padding:0; margin-bottom:2rem;">
+                        <li style="margin-bottom:1rem; display:flex; align-items:center; gap:1rem;">
+                            <i class="fa-solid fa-check text-accent"></i> 99.99% Uptime Guarantee
+                        </li>
+                        <li style="margin-bottom:1rem; display:flex; align-items:center; gap:1rem;">
+                            <i class="fa-solid fa-check text-accent"></i> End-to-End Encryption
+                        </li>
+                        <li style="margin-bottom:1rem; display:flex; align-items:center; gap:1rem;">
+                            <i class="fa-solid fa-check text-accent"></i> 24/7 Threat Intelligence
+                        </li>
+                    </ul>
+                </div>
+                <div class="zigzag-img">
+                    <div class="zigzag-img-wrap">
+                        <img src="assets/img_28.webp" alt="Enterprise Scale">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="zigzag-row" data-aos="fade-up" style="margin-top: 6rem;">
+                <div class="zigzag-img">
+                    <div class="zigzag-img-wrap">
+                        <img src="assets/img_7.webp" alt="Seamless Experience">
+                    </div>
+                </div>
+                <div class="zigzag-text" style="padding-left: 2rem;">
+                    <h2 class="text-gradient">Automated Threat Mitigation</h2>
+                    <p style="color:rgba(255,255,255,0.7); font-size:1.1rem; margin-top:1.5rem;">
+                        Our systems go beyond passive observation. By connecting access control, alarms, and drones, Stackly actively mitigates risks in real-time, locking doors and dispatching autonomous drones immediately.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="display:flex; align-items:center;"><img src="assets/logo.webp" alt="Stackly Logo" style="height: 32px; width: auto;"></a>
+                    <p style="color: rgba(255,255,255,0.6);">Leading the future of smart security with innovative AI and IoT integrations for unparalleled protection.</p>
+                    <div class="social-links">
+                        <a href="404.html"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="404.html"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="404.html"><i class="fa-brands fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="solutions.html">Solutions</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="404.html">CCTV Surveillance</a></li>
+                        <li><a href="404.html">Access Control</a></li>
+                        <li><a href="404.html">IoT Security</a></li>
+                        <li><a href="404.html">Fire & Safety</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul style="color: rgba(255,255,255,0.6);">
+                        <li><i class="fa-solid fa-location-dot text-accent" style="margin-right:0.5rem;"></i> 123 Secure Ave, Tech City</li>
+                        <li><i class="fa-solid fa-phone text-accent" style="margin-right:0.5rem;"></i> +1 (555) 123-4567</li>
+                        <li><i class="fa-solid fa-envelope text-accent" style="margin-right:0.5rem;"></i> contact@stackly.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">&copy; 2026 Stackly Smart Security Solutions. All Rights Reserved.</div>
+        </div>
+    </footer>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            if(document.getElementById('heroBg')){
+                gsap.to('#heroBg', { x: x, y: y, duration: 1, ease: 'power2.out' });
+            }
+        });
+        gsap.registerPlugin(ScrollTrigger);
+        const revealElements = document.querySelectorAll('.gs-reveal');
+        revealElements.forEach((elem) => {
+            gsap.fromTo(elem, { y: 50, opacity: 0 }, {
+                y: 0, opacity: 1, duration: 1, ease: 'power3.out',
+                scrollTrigger: { trigger: elem, start: 'top 85%', toggleActions: 'play none none none' }
+            });
+        });
+    </script>
+    </div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+    </script>
+</body>
+</html>

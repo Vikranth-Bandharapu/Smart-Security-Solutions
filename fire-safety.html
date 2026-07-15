@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Fire & Safety Automation | Stackly Smart Security</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="assets/img_8.webp"></script>
+    <script src="assets/img_9.webp"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Unique Fire Safety Layout Styles */
+        /* Overriding primary accent to a warning/thermal color for this specific page */
+        :root {
+            --fire-accent: #00f0ff;
+            --fire-glow: rgba(255, 71, 87, 0.2);
+        }
+        body { background: #07090e; color: #fff; }
+        
+        .fire-hero {
+            padding: 180px 0 100px;
+            background: radial-gradient(circle at center, var(--fire-glow) 0%, transparent 60%),
+                        url('assets/img_10.webp') center/cover fixed;
+            position: relative;
+            text-align: center;
+        }
+        .fire-hero::after {
+            content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
+            background: rgba(7,9,14,0.85);
+            z-index: 1;
+        }
+        .fire-hero .container { position: relative; z-index: 2; }
+
+        /* 3-Step Detection Process */
+        .process-steps {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 4rem 0;
+            counter-reset: fire-step;
+        }
+        .process-box {
+            flex: 1;
+            background: rgba(255,255,255,0.02);
+            border-top: 3px solid var(--accent-color);
+            padding: 3rem 2rem;
+            position: relative;
+            border-radius: 0 0 12px 12px;
+            transition: all 0.3s ease;
+        }
+        .process-box:hover { background: rgba(255,255,255,0.05); transform: translateY(-5px); }
+        .process-box::before {
+            counter-increment: fire-step;
+            content: "0" counter(fire-step);
+            position: absolute; top: 1rem; right: 1.5rem;
+            font-size: 3rem; font-weight: 800; color: rgba(255,71,87,0.1);
+        }
+        .process-box i { font-size: 2.5rem; color: var(--accent-color); margin-bottom: 1.5rem; }
+
+        /* Floorplan UI */
+        .floorplan-ui {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+            height: 400px;
+            background-image: 
+                linear-gradient(rgba(0,240,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,240,255,0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            overflow: hidden;
+        }
+        .zone {
+            position: absolute;
+            border: 2px solid var(--accent-color);
+            background: var(--fire-glow);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--accent-color); font-weight: bold;
+            animation: pulse-red 2s infinite;
+        }
+        .zone-1 { width: 150px; height: 100px; top: 50px; left: 100px; }
+        .zone-2 { width: 100px; height: 150px; bottom: 80px; right: 120px; border-color: #00f0ff; background: rgba(0,240,255,0.1); animation: none; color:#00f0ff;}
+        
+        .evac-path {
+            position: absolute;
+            top: 100px; left: 250px;
+            width: 300px; height: 150px;
+            border-bottom: 3px dashed #00f0ff;
+            border-right: 3px dashed #00f0ff;
+        }
+        .exit-sign {
+            position: absolute; top: 230px; left: 570px;
+            background: #00f0ff; color: #000; padding: 5px 10px; font-weight: bold; border-radius: 4px;
+        }
+
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 71, 87, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
+        }
+
+        /* Compliance Grid */
+        .cert-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .cert-item {
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            color: rgba(255,255,255,0.6);
+            font-family: monospace;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 992px) {
+            .process-steps { flex-direction: column; }
+            .floorplan-ui { display: none; } /* Hide complex CSS map on mobile for simplicity */
+        }
+    </style>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <div class="site-wrapper" style="overflow-x: hidden; width: 100%; position: relative; min-height: 100vh;">
+
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo" style="display:flex; align-items:center;"><img src="assets/logo.webp" alt="Stackly Logo" style="height: 32px; width: auto;"></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="solutions.html">Solutions</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="signup.html" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.85rem; border-color:var(--accent-color); color:var(--accent-color);">Sign Up</a></li>
+                <li><a href="login.html" class="btn btn-solid" style="padding: 0.5rem 1.5rem; font-size: 0.85rem;">Login</a></li>
+            </ul>
+            <button class="hamburger"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- 1. Hero -->
+    <section class="fire-hero interactive-hero">
+        <div class="container gsap-fade-up">
+            <h4 style="color: var(--accent-color);"><i class="fa-solid fa-fire"></i> Predictive Fire Safety</h4>
+            <h1 style="font-size: clamp(2rem, 5vw, 4.5rem); margin: 1rem 0;">Stop Fires Before They Start</h1>
+            <p style="max-width: 600px; margin: 0 auto; color:rgba(255,255,255,0.7); font-size:1.1rem;">Using thermal imaging and AI chemical sniffers, Stackly detects overheating equipment and smoldering materials before a single flame erupts.</p>
+        </div>
+    </section>
+
+    <!-- 2. Detection Process -->
+    <section class="section">
+        <div class="container gsap-fade-up">
+            <div class="text-center">
+                <h2>The 3-Phase Extinction Protocol</h2>
+            </div>
+            <div class="process-steps gsap-stagger-container">
+                <div class="process-box">
+                    <i class="fa-solid fa-temperature-arrow-up"></i>
+                    <h3>Thermal Prediction</h3>
+                    <p style="color:rgba(255,255,255,0.6); font-size:0.9rem; margin-top:1rem;">Our PTZ cameras use radiometric thermal sensors to detect abnormal heat signatures in server racks or heavy machinery.</p>
+                </div>
+                <div class="process-box">
+                    <i class="fa-solid fa-bell-concierge"></i>
+                    <h3>Intelligent Alerting</h3>
+                    <p style="color:rgba(255,255,255,0.6); font-size:0.9rem; margin-top:1rem;">Before triggering building-wide panic alarms, the system alerts facility managers via mobile app for verification.</p>
+                </div>
+                <div class="process-box">
+                    <i class="fa-solid fa-fire-extinguisher"></i>
+                    <h3>Targeted Suppression</h3>
+                    <p style="color:rgba(255,255,255,0.6); font-size:0.9rem; margin-top:1rem;">Integrates with smart sprinkler systems to release dry chemicals or water ONLY in the affected 10x10 grid zone.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Smart Extinguisher Integration -->
+    <section class="section" style="background: rgba(255, 71, 87, 0.02);">
+        <div class="container">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;">
+                <div class="gsap-fade-up" style="border-radius:16px; overflow:hidden; border:1px solid rgba(255,71,87,0.2);">
+                    <img src="assets/img_31.webp" alt="Sprinkler" style="width:100%; display:block;">
+                </div>
+                <div class="gsap-fade-up">
+                    <h4 style="color:var(--accent-color);">No More Water Damage</h4>
+                    <h2 style="font-size:2.5rem; margin:1rem 0;">Precision Suppression</h2>
+                    <p style="color:rgba(255,255,255,0.7); line-height:1.8;">Traditional fire systems ruin millions of dollars of server equipment by soaking the entire floor for a small localized fire. Stackly maps your HVAC and suppression systems into an intelligent grid, suppressing fires with surgical precision while powering down local electrical mains automatically.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Evacuation Floorplan -->
+    <section class="section">
+        <div class="container gsap-fade-up">
+            <div class="text-center" style="margin-bottom:3rem;">
+                <h2>Dynamic Evacuation Routing</h2>
+                <p style="color:rgba(255,255,255,0.7); max-width:600px; margin: 1rem auto 0;">In the event of a severe fire, Stackly takes over digital signage and smart lighting to route personnel away from the hazard zone.</p>
+            </div>
+            <div class="floorplan-ui">
+                <div class="zone zone-1">
+                    <i class="fa-solid fa-fire"></i> HAZARD
+                </div>
+                <div class="zone zone-2">
+                    SAFE ZONE
+                </div>
+                <div class="evac-path"></div>
+                <div class="exit-sign"><i class="fa-solid fa-person-running"></i> EXIT</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Compliance Grid -->
+    <section class="section" style="background: rgba(0, 240, 255, 0.02);">
+        <div class="container text-center gsap-fade-up">
+            <h4 class="text-accent">Fully Certified</h4>
+            <h2 style="margin-bottom: 3rem;">Exceeding Global Fire Codes</h2>
+            <div class="cert-grid">
+                <div class="cert-item">NFPA 72</div>
+                <div class="cert-item">EN 54 (Europe)</div>
+                <div class="cert-item">UL 268</div>
+                <div class="cert-item">ISO 7240</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. CTA -->
+    <section class="section" style="text-align:center;">
+        <div class="container gsap-fade-up">
+            <h2 style="font-size:2.5rem; margin-bottom:1.5rem;">Protect your assets. Protect your people.</h2>
+            <a href="404.html" class="btn btn-solid" style="padding: 1rem 3rem; font-size: 1.1rem; background: var(--accent-color); border-color: var(--accent-color); color:#fff;">Request a Fire Audit</a>
+        </div>
+    </section>
+
+    
+    <!-- Injected CTA Section -->
+    <section class="section" style="text-align:center; background: linear-gradient(0deg, rgba(0, 240, 255, 0.05) 0%, transparent 100%);">
+        <div class="container gsap-fade-up">
+            <h2 style="font-size:2.5rem; margin-bottom:1.5rem;">Secure Your Infrastructure</h2>
+            <p style="color:rgba(255,255,255,0.7); max-width:600px; margin:0 auto 2rem;">Get in touch with our security architects to design a bespoke AI surveillance and access control system for your enterprise.</p>
+            <a href="404.html" class="btn btn-solid">Request Consultation</a>
+        </div>
+    </section>
+
+    <!-- Injected Tech Stack Section -->
+    <section class="section">
+        <div class="container text-center gsap-fade-up">
+            <h4 class="text-accent">Our Architecture</h4>
+            <h2 style="margin-bottom: 3rem;">Powered by Modern Tech</h2>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:2rem;">
+                <div class="glass-card" style="padding:2rem;">
+                    <i class="fa-solid fa-microchip" style="font-size:2.5rem; color:var(--accent-color); margin-bottom:1rem;"></i>
+                    <h4>Edge Computing</h4>
+                    <p style="font-size:0.85rem; color:rgba(255,255,255,0.6); margin-top:0.5rem;">Processing data on-site for zero latency.</p>
+                </div>
+                <div class="glass-card" style="padding:2rem;">
+                    <i class="fa-solid fa-cloud" style="font-size:2.5rem; color:var(--accent-color); margin-bottom:1rem;"></i>
+                    <h4>Cloud Backup</h4>
+                    <p style="font-size:0.85rem; color:rgba(255,255,255,0.6); margin-top:0.5rem;">Military-grade encrypted redundant storage.</p>
+                </div>
+                <div class="glass-card" style="padding:2rem;">
+                    <i class="fa-solid fa-network-wired" style="font-size:2.5rem; color:var(--accent-color); margin-bottom:1rem;"></i>
+                    <h4>IoT Mesh</h4>
+                    <p style="font-size:0.85rem; color:rgba(255,255,255,0.6); margin-top:0.5rem;">Interconnected sensor networks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- NEW SECTION: Advanced Capabilities (Added via Script) -->
+    <section class="section" style="background: rgba(10, 15, 28, 0.4); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up" style="margin-bottom: 4rem;">
+                <h2 class="text-gradient">Advanced Capabilities</h2>
+                <p style="color:rgba(255,255,255,0.7); max-width:600px; margin:0 auto;">Leveraging the latest in AI and machine learning to deliver proactive, highly intelligent security environments.</p>
+            </div>
+            
+            <div class="testimonials-grid" data-aos="fade-up">
+                <!-- Card 1 -->
+                <div class="glass-card testimonial-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+                    <img src="assets/img_11.webp" alt="Capability" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 2rem;">
+                        <h3 style="color: var(--accent-color); font-size: 1.3rem;">Predictive AI</h3>
+                        <p style="color: rgba(255,255,255,0.7); margin-top: 1rem; font-size: 0.95rem;">Algorithms analyze thousands of behavioral markers to predict and prevent incidents before they even happen.</p>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="glass-card testimonial-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+                    <img src="assets/img_36.webp" alt="Capability" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 2rem;">
+                        <h3 style="color: var(--accent-color); font-size: 1.3rem;">Deep Integrations</h3>
+                        <p style="color: rgba(255,255,255,0.7); margin-top: 1rem; font-size: 0.95rem;">Seamless API bridges between legacy hardware and next-generation IoT nodes without requiring total system overhauls.</p>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="glass-card testimonial-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+                    <img src="assets/img_26.webp" alt="Capability" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 2rem;">
+                        <h3 style="color: var(--accent-color); font-size: 1.3rem;">Global Command</h3>
+                        <p style="color: rgba(255,255,255,0.7); margin-top: 1rem; font-size: 0.95rem;">Manage thousands of sites instantly through an encrypted, decentralized mobile and web dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: Zigzag Showcase (Added via Script) -->
+    <section class="section">
+        <div class="container">
+            <div class="zigzag-row" data-aos="fade-up">
+                <div class="zigzag-text">
+                    <h2 class="text-gradient">Built for Enterprise Scale</h2>
+                    <p style="color:rgba(255,255,255,0.7); font-size:1.1rem; margin-top:1.5rem; margin-bottom: 2rem;">
+                        We don't just provide security; we provide a robust ecosystem that scales with your business operations across the globe, ensuring maximum uptime and instant threat response.
+                    </p>
+                    <ul style="list-style:none; padding:0; margin-bottom:2rem;">
+                        <li style="margin-bottom:1rem; display:flex; align-items:center; gap:1rem;">
+                            <i class="fa-solid fa-check text-accent"></i> 99.99% Uptime Guarantee
+                        </li>
+                        <li style="margin-bottom:1rem; display:flex; align-items:center; gap:1rem;">
+                            <i class="fa-solid fa-check text-accent"></i> End-to-End Encryption
+                        </li>
+                        <li style="margin-bottom:1rem; display:flex; align-items:center; gap:1rem;">
+                            <i class="fa-solid fa-check text-accent"></i> 24/7 Threat Intelligence
+                        </li>
+                    </ul>
+                </div>
+                <div class="zigzag-img">
+                    <div class="zigzag-img-wrap">
+                        <img src="assets/img_29.webp" alt="Enterprise Scale">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="zigzag-row" data-aos="fade-up" style="margin-top: 6rem;">
+                <div class="zigzag-img">
+                    <div class="zigzag-img-wrap">
+                        <img src="assets/img_28.webp" alt="Seamless Experience">
+                    </div>
+                </div>
+                <div class="zigzag-text" style="padding-left: 2rem;">
+                    <h2 class="text-gradient">Automated Threat Mitigation</h2>
+                    <p style="color:rgba(255,255,255,0.7); font-size:1.1rem; margin-top:1.5rem;">
+                        Our systems go beyond passive observation. By connecting access control, alarms, and drones, Stackly actively mitigates risks in real-time, locking doors and dispatching autonomous drones immediately.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="display:flex; align-items:center;"><img src="assets/logo.webp" alt="Stackly Logo" style="height: 32px; width: auto;"></a>
+                    <p style="color: rgba(255,255,255,0.6);">Leading the future of smart security with innovative AI and IoT integrations for unparalleled protection.</p>
+                    <div class="social-links">
+                        <a href="404.html"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="404.html"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="404.html"><i class="fa-brands fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="solutions.html">Solutions</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="404.html">CCTV Surveillance</a></li>
+                        <li><a href="404.html">Access Control</a></li>
+                        <li><a href="404.html">IoT Security</a></li>
+                        <li><a href="404.html">Fire & Safety</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul style="color: rgba(255,255,255,0.6);">
+                        <li><i class="fa-solid fa-location-dot text-accent" style="margin-right:0.5rem;"></i> 123 Secure Ave, Tech City</li>
+                        <li><i class="fa-solid fa-phone text-accent" style="margin-right:0.5rem;"></i> +1 (555) 123-4567</li>
+                        <li><i class="fa-solid fa-envelope text-accent" style="margin-right:0.5rem;"></i> contact@stackly.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">&copy; 2026 Stackly Smart Security Solutions. All Rights Reserved.</div>
+        </div>
+    </footer>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/main.js"></script>
+    </div>
+
+    <script>
+        // GSAP Scroll Reveal fallback
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+            const revealElements = document.querySelectorAll('.gs-reveal');
+            revealElements.forEach((elem) => {
+                gsap.fromTo(elem, 
+                    { y: 50, opacity: 0 }, 
+                    {
+                        y: 0, opacity: 1,
+                        duration: 1,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: elem,
+                            start: 'top 85%',
+                            toggleActions: 'play none none reverse'
+                        }
+                    }
+                );
+            });
+        }
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+    </script>
+</body>
+</html>

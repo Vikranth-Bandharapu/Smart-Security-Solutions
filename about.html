@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>About Us | Stackly Security</title>
+    <meta name="description" content="Learn about Stackly's mission to revolutionize smart security.">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- GSAP -->
+    <script src="assets/img_31.webp"></script>
+    <script src="assets/img_32.webp"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .hero {
+            min-height: 80vh;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden; padding-top: 80px;
+        }
+        .hero-bg {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, rgba(5,8,16,0.3) 0%, rgba(5,8,16,1) 100%), url('assets/img_1.webp') center/cover;
+            filter: grayscale(80%) contrast(120%); z-index: -2; transform: scale(1.05);
+        }
+        .hero-glow {
+            position: absolute; width: 60vw; height: 60vw;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+            top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.15; z-index: -1;
+            animation: pulse-glow 8s infinite alternate;
+        }
+        @keyframes pulse-glow { 0% { transform: translate(-50%, -50%) scale(1); opacity: 0.15;} 100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.25; } }
+        
+        .hero-content { text-align: center; max-width: 900px; z-index: 10; }
+        .hero h1 { font-size: clamp(2rem, 6vw, 5.5rem); margin-bottom: 1.5rem; letter-spacing: -1px; }
+        .hero p { font-size: 1.25rem; color: rgba(255,255,255,0.7); max-width: 700px; margin-inline: auto; }
+
+        .zigzag-row { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-bottom: 6rem; }
+        .zigzag-row:nth-child(even) .zigzag-img { order: 2; }
+        .zigzag-img-wrap { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--glass-border); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .zigzag-img-wrap img { width: 100%; height: auto; display: block; transition: transform 0.6s ease; }
+        .zigzag-img-wrap:hover img { transform: scale(1.05); }
+
+        .stats-marquee { display: flex; justify-content: space-around; padding: 3rem 0; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); background: linear-gradient(90deg, transparent, rgba(0,240,255,0.03), transparent); }
+        
+        @media (max-width: 992px) {
+            .zigzag-row, .zigzag-row:nth-child(even) .zigzag-img { grid-template-columns: 1fr; order: 0 !important; gap: 2rem; }
+            .stats-marquee { flex-wrap: wrap; gap: 2rem; }
+        }
+    </style>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <div class="site-wrapper" style="overflow-x: hidden; width: 100%; position: relative; min-height: 100vh;">
+
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo" style="display:flex; align-items:center;"><img src="assets/logo.webp" alt="Stackly Logo" style="height: 32px; width: auto;"></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="solutions.html">Solutions</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="signup.html" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.85rem; border-color:var(--accent-color); color:var(--accent-color);">Sign Up</a></li>
+                <li><a href="login.html" class="btn btn-solid" style="padding: 0.5rem 1.5rem; font-size: 0.85rem;">Login</a></li>
+            </ul>
+            <button class="hamburger"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- 1. Hero Section -->
+    <section class="hero">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-glow"></div>
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up">
+                <span style="color:var(--accent-color); font-weight:600; letter-spacing:2px; text-transform:uppercase; margin-bottom:1rem; display:block;">About Us</span>
+                <h1 class="text-gradient">Architecting Safety.</h1>
+                <p>We are a global collective of engineers, data scientists, and security veterans committed to eliminating physical threats through code and artificial intelligence.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Mission Bento Box -->
+    <section class="section">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up" style="margin-bottom: 4rem;">
+                <h2 class="text-gradient">Our Core Mission</h2>
+            </div>
+            
+            <div class="bento-grid">
+                <!-- Large Feature -->
+                <div class="bento-item bento-item-large glass-card" data-aos="fade-up" style="background:linear-gradient(135deg, rgba(15,20,35,0.8), rgba(0,240,255,0.05));">
+                    <h3 style="font-size:2rem; margin-bottom:1rem;">Prevent, Don't Just Record.</h3>
+                    <p style="color:rgba(255,255,255,0.7); font-size:1.1rem; line-height:1.8;">Traditional security systems merely record crimes as they happen. Our mission is to shift the paradigm to absolute prevention. By analyzing behaviors and patterns in real-time, Stackly neutralizes threats before they materialize.</p>
+                    <img src="assets/img_2.webp" alt="Mission" style="width:100%; height:200px; object-fit:cover; border-radius:8px; margin-top:1.5rem; filter:brightness(0.7);">
+                </div>
+                <!-- Tall Feature -->
+                <div class="bento-item bento-item-tall glass-card" data-aos="fade-up" style="display:flex; flex-direction:column; justify-content:center; text-align:center;">
+                    <i class="fa-solid fa-shield-virus text-accent" style="font-size:4rem; margin-bottom:2rem;"></i>
+                    <h3 style="font-size:1.5rem;">Zero Compromise</h3>
+                    <p style="color:rgba(255,255,255,0.7);">Privacy and security are non-negotiable.</p>
+                </div>
+                <!-- Small Features -->
+                <div class="bento-item bento-item-small glass-card" data-aos="fade-up">
+                    <h4 style="font-size:1.2rem; color:var(--accent-color);">100% Data Sovereignty</h4>
+                    <p style="font-size:0.9rem; color:rgba(255,255,255,0.7);">Your data stays yours.</p>
+                </div>
+                <div class="bento-item bento-item-small glass-card" data-aos="fade-up">
+                    <h4 style="font-size:1.2rem; color:var(--accent-color);">Open Architecture</h4>
+                    <p style="font-size:0.9rem; color:rgba(255,255,255,0.7);">Plays well with legacy systems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Our Journey (Timeline) -->
+    <section class="section" style="background: rgba(0,0,0,0.4); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up" style="margin-bottom: 4rem;">
+                <h2 class="text-gradient">The Journey</h2>
+            </div>
+            
+            <div class="bento-grid">
+                <div class="bento-item bento-item-small glass-card gs-reveal text-center">
+                    <div style="font-size:2rem; color:var(--accent-color); font-weight:800; margin-bottom:1rem;">2018</div>
+                    <h4>Inception</h4>
+                    <p style="font-size:0.9rem; color:rgba(255,255,255,0.7);">Founded by ex-military intelligence officers and MIT researchers.</p>
+                </div>
+                <div class="bento-item bento-item-small glass-card gs-reveal text-center">
+                    <div style="font-size:2rem; color:var(--accent-color); font-weight:800; margin-bottom:1rem;">2021</div>
+                    <h4>Neural Core V1</h4>
+                    <p style="font-size:0.9rem; color:rgba(255,255,255,0.7);">Launched the first edge-computing AI camera system.</p>
+                </div>
+                <div class="bento-item bento-item-small glass-card gs-reveal text-center">
+                    <div style="font-size:2rem; color:var(--accent-color); font-weight:800; margin-bottom:1rem;">2026</div>
+                    <h4>Global Expansion</h4>
+                    <p style="font-size:0.9rem; color:rgba(255,255,255,0.7);">Securing 500+ enterprises across 4 continents.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Leadership (Zig-Zag) -->
+    <section class="section">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up" style="margin-bottom: 5rem;">
+                <h2 class="text-gradient">Executive Leadership</h2>
+            </div>
+
+            <!-- Leader 1 -->
+            <div class="zigzag-row" data-aos="fade-up">
+                <div>
+                    <span style="color:var(--accent-color); font-weight:600;">CEO & Founder</span>
+                    <h2 style="margin: 1rem 0;">Dr. Elena Rostova</h2>
+                    <p style="color:rgba(255,255,255,0.7); margin-bottom: 2rem;">Former Director of Advanced Cybernetics. Dr. Rostova leads the strategic vision of Stackly, bridging the gap between theoretical AI models and harsh physical realities.</p>
+                    <div style="display:flex; gap:1rem;">
+                        <a href="404.html" style="color:var(--accent-color);"><i class="fa-brands fa-linkedin fa-2x"></i></a>
+                        <a href="404.html" style="color:var(--text-color);"><i class="fa-brands fa-twitter fa-2x"></i></a>
+                    </div>
+                </div>
+                <div class="zigzag-img zigzag-img-wrap">
+                    <img src="assets/img_3.webp" alt="CEO">
+                </div>
+            </div>
+
+            <!-- Leader 2 -->
+            <div class="zigzag-row" data-aos="fade-up">
+                <div>
+                    <span style="color:var(--accent-color); font-weight:600;">Chief Technology Officer</span>
+                    <h2 style="margin: 1rem 0;">Marcus Chen</h2>
+                    <p style="color:rgba(255,255,255,0.7); margin-bottom: 2rem;">Architect of the Stackly Neural Core. Marcus brings 15 years of experience in distributed systems and embedded hardware design.</p>
+                    <div style="display:flex; gap:1rem;">
+                        <a href="404.html" style="color:var(--accent-color);"><i class="fa-brands fa-linkedin fa-2x"></i></a>
+                    </div>
+                </div>
+                <div class="zigzag-img zigzag-img-wrap">
+                    <img src="assets/img_4.webp" alt="CTO">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Core Values Marquee -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="stats-marquee" data-aos="fade-up" style="padding: 2rem;">
+                <h4 style="margin:0; text-transform:uppercase; letter-spacing:2px; font-size:1rem;"><i class="fa-solid fa-check text-accent" style="margin-right:10px;"></i> Integrity</h4>
+                <h4 style="margin:0; text-transform:uppercase; letter-spacing:2px; font-size:1rem;"><i class="fa-solid fa-check text-accent" style="margin-right:10px;"></i> Innovation</h4>
+                <h4 style="margin:0; text-transform:uppercase; letter-spacing:2px; font-size:1rem;"><i class="fa-solid fa-check text-accent" style="margin-right:10px;"></i> Reliability</h4>
+                <h4 style="margin:0; text-transform:uppercase; letter-spacing:2px; font-size:1rem;"><i class="fa-solid fa-check text-accent" style="margin-right:10px;"></i> Privacy</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Global Presence -->
+    <section class="section">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up" style="margin-bottom: 4rem;">
+                <h2 class="text-gradient">Global Presence</h2>
+                <p style="color:rgba(255,255,255,0.7); max-width:600px; margin:0 auto;">Operating in 40+ countries to ensure your assets are protected wherever they are.</p>
+            </div>
+            <div class="glass-card gs-reveal text-center" style="padding: 4rem 2rem;">
+                <i class="fa-solid fa-earth-americas text-accent" style="font-size: 5rem; margin-bottom: 2rem;"></i>
+                <div style="display:flex; justify-content:center; gap:3rem; flex-wrap:wrap;">
+                    <div><h3 style="font-size:2rem; color:var(--accent-color);">4</h3><p>Data Centers</p></div>
+                    <div><h3 style="font-size:2rem; color:var(--accent-color);">12</h3><p>Global SOCs</p></div>
+                    <div><h3 style="font-size:2rem; color:var(--accent-color);">24/7</h3><p>Local Support</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Our Partners -->
+    <section class="section" style="background: rgba(0,0,0,0.4); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);">
+        <div class="container text-center">
+            <h3 style="margin-bottom: 3rem; color:rgba(255,255,255,0.6);">Backed By Industry Leaders</h3>
+            <div style="display:flex; justify-content:center; gap:4rem; flex-wrap:wrap; opacity:0.7;">
+                <i class="fa-brands fa-stripe fa-3x tech-icon"></i>
+                <i class="fa-brands fa-intel fa-3x tech-icon"></i>
+                <i class="fa-brands fa-docker fa-3x tech-icon"></i>
+                <i class="fa-brands fa-github fa-3x tech-icon"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Giant CTA -->
+    <section class="section" style="padding-bottom: 8rem;">
+        <div class="container">
+            <div class="glass-card text-center" data-aos="fade-up" style="padding: 5rem 2rem; background: linear-gradient(135deg, rgba(0,240,255,0.1), rgba(10,15,28,0.9)); border-color:var(--accent-color);">
+                <h2 class="text-gradient" style="font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 1.5rem;">Join Our Mission</h2>
+                <p style="color:rgba(255,255,255,0.8); font-size:1.2rem; margin-bottom:3rem; max-width:600px; margin-inline:auto;">We are always looking for visionary partners and brilliant minds.</p>
+                <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
+                    <a href="404.html" class="btn btn-solid" style="padding: 1.2rem 3rem; box-shadow: 0 0 30px var(--accent-glow);">View Careers</a>
+                    <a href="404.html" class="btn">Partner With Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- NEW SECTION: Advanced Capabilities (Added via Script) -->
+    <section class="section" style="background: rgba(10, 15, 28, 0.4); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up" style="margin-bottom: 4rem;">
+                <h2 class="text-gradient">Advanced Capabilities</h2>
+                <p style="color:rgba(255,255,255,0.7); max-width:600px; margin:0 auto;">Leveraging the latest in AI and machine learning to deliver proactive, highly intelligent security environments.</p>
+            </div>
+            
+            <div class="testimonials-grid" data-aos="fade-up">
+                <!-- Card 1 -->
+                <div class="glass-card testimonial-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+                    <img src="assets/img_11.webp" alt="Capability" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 2rem;">
+                        <h3 style="color: var(--accent-color); font-size: 1.3rem;">Predictive AI</h3>
+                        <p style="color: rgba(255,255,255,0.7); margin-top: 1rem; font-size: 0.95rem;">Algorithms analyze thousands of behavioral markers to predict and prevent incidents before they even happen.</p>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="glass-card testimonial-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+                    <img src="assets/img_36.webp" alt="Capability" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 2rem;">
+                        <h3 style="color: var(--accent-color); font-size: 1.3rem;">Deep Integrations</h3>
+                        <p style="color: rgba(255,255,255,0.7); margin-top: 1rem; font-size: 0.95rem;">Seamless API bridges between legacy hardware and next-generation IoT nodes without requiring total system overhauls.</p>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="glass-card testimonial-card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+                    <img src="assets/img_26.webp" alt="Capability" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 2rem;">
+                        <h3 style="color: var(--accent-color); font-size: 1.3rem;">Global Command</h3>
+                        <p style="color: rgba(255,255,255,0.7); margin-top: 1rem; font-size: 0.95rem;">Manage thousands of sites instantly through an encrypted, decentralized mobile and web dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: Zigzag Showcase (Added via Script) -->
+    <section class="section">
+        <div class="container">
+            <div class="zigzag-row" data-aos="fade-up">
+                <div class="zigzag-text">
+                    <h2 class="text-gradient">Built for Enterprise Scale</h2>
+                    <p style="color:rgba(255,255,255,0.7); font-size:1.1rem; margin-top:1.5rem; margin-bottom: 2rem;">
+                        We don't just provide security; we provide a robust ecosystem that scales with your business operations across the globe, ensuring maximum uptime and instant threat response.
+                    </p>
+                    <ul style="list-style:none; padding:0; margin-bottom:2rem;">
+                        <li style="margin-bottom:1rem; display:flex; align-items:center; gap:1rem;">
+                            <i class="fa-solid fa-check text-accent"></i> 99.99% Uptime Guarantee
+                        </li>
+                        <li style="margin-bottom:1rem; display:flex; align-items:center; gap:1rem;">
+                            <i class="fa-solid fa-check text-accent"></i> End-to-End Encryption
+                        </li>
+                        <li style="margin-bottom:1rem; display:flex; align-items:center; gap:1rem;">
+                            <i class="fa-solid fa-check text-accent"></i> 24/7 Threat Intelligence
+                        </li>
+                    </ul>
+                </div>
+                <div class="zigzag-img">
+                    <div class="zigzag-img-wrap">
+                        <img src="assets/img_26.webp" alt="Enterprise Scale">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="zigzag-row" data-aos="fade-up" style="margin-top: 6rem;">
+                <div class="zigzag-img">
+                    <div class="zigzag-img-wrap">
+                        <img src="assets/img_35.webp" alt="Seamless Experience">
+                    </div>
+                </div>
+                <div class="zigzag-text" style="padding-left: 2rem;">
+                    <h2 class="text-gradient">Automated Threat Mitigation</h2>
+                    <p style="color:rgba(255,255,255,0.7); font-size:1.1rem; margin-top:1.5rem;">
+                        Our systems go beyond passive observation. By connecting access control, alarms, and drones, Stackly actively mitigates risks in real-time, locking doors and dispatching autonomous drones immediately.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="display:flex; align-items:center;"><img src="assets/logo.webp" alt="Stackly Logo" style="height: 32px; width: auto;"></a>
+                    <p style="color: rgba(255,255,255,0.6);">Leading the future of smart security with innovative AI and IoT integrations for unparalleled protection.</p>
+                    <div class="social-links">
+                        <a href="404.html"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="404.html"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="404.html"><i class="fa-brands fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="solutions.html">Solutions</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="404.html">CCTV Surveillance</a></li>
+                        <li><a href="404.html">Access Control</a></li>
+                        <li><a href="404.html">IoT Security</a></li>
+                        <li><a href="404.html">Fire & Safety</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul style="color: rgba(255,255,255,0.6);">
+                        <li><i class="fa-solid fa-location-dot text-accent" style="margin-right:0.5rem;"></i> 123 Secure Ave, Tech City</li>
+                        <li><i class="fa-solid fa-phone text-accent" style="margin-right:0.5rem;"></i> +1 (555) 123-4567</li>
+                        <li><i class="fa-solid fa-envelope text-accent" style="margin-right:0.5rem;"></i> contact@stackly.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">&copy; 2026 Stackly Smart Security Solutions. All Rights Reserved.</div>
+        </div>
+    </footer>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            if(document.getElementById('heroBg')){
+                gsap.to('#heroBg', { x: x, y: y, duration: 1, ease: 'power2.out' });
+            }
+        });
+        gsap.registerPlugin(ScrollTrigger);
+        const revealElements = document.querySelectorAll('.gs-reveal');
+        revealElements.forEach((elem) => {
+            gsap.fromTo(elem, { y: 50, opacity: 0 }, {
+                y: 0, opacity: 1, duration: 1, ease: 'power3.out',
+                scrollTrigger: { trigger: elem, start: 'top 85%', toggleActions: 'play none none none' }
+            });
+        });
+    </script>
+    </div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+    </script>
+</body>
+</html>
