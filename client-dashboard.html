@@ -23,7 +23,7 @@
         /* Main Content */
         .main-content { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow-y: auto; }
         .topbar { height: 80px; background: #05080e !important; border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; position: sticky; top: 0; z-index: 10; }
-        .user-profile { display: flex; flex-shrink: 1; min-width: 0; align-items: center; gap: 0.8rem; }
+        .user-profile { display: flex; align-items: center; gap: 0.8rem; align-items: center; gap: 0.8rem; }
         .user-profile img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-color); }
 
         /* Client Dashboard Specific */
@@ -142,12 +142,12 @@
             .topbar h3, .topbar h2 {
                 display: none !important; /* Hide title on mobile completely */
             }
-            .user-profile { display: flex; flex-shrink: 1; min-width: 0;
+            .user-profile { display: flex !important;
                 align-items: center;
                 gap: 10px;
             }
             .user-profile > div {
-                display: block !important;
+                display: none !important; /* Hide text on mobile */
                 max-width: 130px;
                 white-space: nowrap;
                 overflow: hidden;
@@ -227,7 +227,7 @@
                 <div style="display:flex; align-items:center; gap: 1.5rem;">
                     <h3>My Property Overview</h3>
                     <div class="user-profile">
-                    <img src="assets/img_25.webp" alt="Client">
+                    <i class="fa-solid fa-circle-user" style="font-size: 40px; color: var(--accent-color);"></i>
                     <div>
                         <div style="font-weight:600; font-size:0.9rem;">Acme Corp</div>
                         <div style="font-size:0.75rem; color:var(--accent-color);">Premium Client</div>
