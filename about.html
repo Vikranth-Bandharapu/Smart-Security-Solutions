@@ -144,43 +144,92 @@
         </div>
     </section>
 
-    <!-- 4. Leadership (Zig-Zag) -->
-    <section class="section">
+    <!-- 4. Infrastructure Gallery (Clean Slider) -->
+    <section class="section" style="padding: 6rem 0; overflow: hidden;">
+        <style>
+            .gallery-slider::-webkit-scrollbar { display: none; }
+            .gallery-slider { -ms-overflow-style: none; scrollbar-width: none; }
+            .slider-btn {
+                background: rgba(255,255,255,0.05); 
+                border: 1px solid rgba(255,255,255,0.1); 
+                color: #fff; 
+                width: 45px; 
+                height: 45px; 
+                border-radius: 50%; 
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            .slider-btn:hover {
+                background: var(--accent-color);
+                color: #000;
+                transform: scale(1.1);
+            }
+        </style>
         <div class="container">
-            <div class="text-center" data-aos="fade-up" style="margin-bottom: 5rem;">
-                <h2 class="text-gradient">Executive Leadership</h2>
+            <div class="text-center" data-aos="fade-up" style="margin-bottom: 3rem;">
+                <span style="color:var(--accent-color); font-weight:600; letter-spacing:2px; text-transform:uppercase;">Our Facilities</span>
+                <h2 class="text-gradient" style="font-size:2.5rem; margin:1rem 0;">State-of-the-art Infrastructure</h2>
+                <p style="color:rgba(255,255,255,0.7); max-width:600px; margin:0 auto;">Explore the environments that power our global security ecosystem.</p>
             </div>
+        </div>
 
-            <!-- Leader 1 -->
-            <div class="zigzag-row" data-aos="fade-up">
-                <div>
-                    <span style="color:var(--accent-color); font-weight:600;">CEO & Founder</span>
-                    <h2 style="margin: 1rem 0;">Dr. Elena Rostova</h2>
-                    <p style="color:rgba(255,255,255,0.7); margin-bottom: 2rem;">Former Director of Advanced Cybernetics. Dr. Rostova leads the strategic vision of Stackly, bridging the gap between theoretical AI models and harsh physical realities.</p>
-                    <div style="display:flex; gap:1rem;">
-                        <a href="404.html" style="color:var(--accent-color);"><i class="fa-brands fa-linkedin fa-2x"></i></a>
-                        <a href="404.html" style="color:var(--text-color);"><i class="fa-brands fa-twitter fa-2x"></i></a>
+        <div style="position: relative; max-width: 1400px; margin: 0 auto; padding: 0 1rem;" data-aos="fade-up" data-aos-delay="100">
+            
+            <!-- Scroll Container -->
+            <div class="gallery-slider" style="display: flex; gap: 2rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding-bottom: 1rem; -webkit-overflow-scrolling: touch;">
+                
+                <!-- Slide 1 -->
+                <div style="scroll-snap-align: center; flex: 0 0 85%; max-width: 900px; position: relative; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+                    <img src="assets/img_33.webp" alt="Global SOC" style="width: 100%; height: 500px; object-fit: cover; display: block; filter: brightness(0.85);">
+                    <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 3rem 2rem 2rem; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);">
+                        <h3 style="margin:0; color:#fff; font-size: 1.8rem;">Global Security Operations Center</h3>
                     </div>
                 </div>
-                <div class="zigzag-img zigzag-img-wrap">
-                    <img src="assets/img_3.webp" alt="CEO">
-                </div>
-            </div>
 
-            <!-- Leader 2 -->
-            <div class="zigzag-row" data-aos="fade-up">
-                <div>
-                    <span style="color:var(--accent-color); font-weight:600;">Chief Technology Officer</span>
-                    <h2 style="margin: 1rem 0;">Marcus Chen</h2>
-                    <p style="color:rgba(255,255,255,0.7); margin-bottom: 2rem;">Architect of the Stackly Neural Core. Marcus brings 15 years of experience in distributed systems and embedded hardware design.</p>
-                    <div style="display:flex; gap:1rem;">
-                        <a href="404.html" style="color:var(--accent-color);"><i class="fa-brands fa-linkedin fa-2x"></i></a>
+                <!-- Slide 2 -->
+                <div style="scroll-snap-align: center; flex: 0 0 85%; max-width: 900px; position: relative; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+                    <img src="assets/img_11.webp" alt="Data Center" style="width: 100%; height: 500px; object-fit: cover; display: block; filter: brightness(0.85);">
+                    <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 3rem 2rem 2rem; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);">
+                        <h3 style="margin:0; color:#fff; font-size: 1.8rem;">Distributed AI Neural Nodes</h3>
                     </div>
                 </div>
-                <div class="zigzag-img zigzag-img-wrap">
-                    <img src="assets/img_4.webp" alt="CTO">
+
+                <!-- Slide 3 -->
+                <div style="scroll-snap-align: center; flex: 0 0 85%; max-width: 900px; position: relative; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+                    <img src="assets/img_12.webp" alt="Hardware Labs" style="width: 100%; height: 500px; object-fit: cover; display: block; filter: brightness(0.85);">
+                    <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 3rem 2rem 2rem; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);">
+                        <h3 style="margin:0; color:#fff; font-size: 1.8rem;">Advanced Hardware Laboratories</h3>
+                    </div>
                 </div>
+
             </div>
+
+            <!-- Navigation Buttons -->
+            <div style="display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; position: relative; z-index: 10;">
+                <button id="gallery-prev" class="slider-btn" aria-label="Previous">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button id="gallery-next" class="slider-btn" aria-label="Next">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const slider = document.querySelector('.gallery-slider');
+                    const btnPrev = document.getElementById('gallery-prev');
+                    const btnNext = document.getElementById('gallery-next');
+                    
+                    if(slider && btnPrev && btnNext) {
+                        btnPrev.addEventListener('click', () => {
+                            slider.scrollBy({ left: -slider.clientWidth * 0.8, behavior: 'smooth' });
+                        });
+                        btnNext.addEventListener('click', () => {
+                            slider.scrollBy({ left: slider.clientWidth * 0.8, behavior: 'smooth' });
+                        });
+                    }
+                });
+            </script>
         </div>
     </section>
 

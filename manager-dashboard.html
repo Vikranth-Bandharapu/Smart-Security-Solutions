@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>Agent Dashboard | Stackly Travel</title>
+    <title>Command Center | Stackly Security</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <style>
@@ -160,7 +160,7 @@
                 gap: 10px;
             }
             .user-profile > div {
-                display: none !important; /* Hide text on mobile */
+                /* display: none !important; Hide text on mobile */
                 max-width: 130px;
                 white-space: nowrap;
                 overflow: hidden;
@@ -186,7 +186,7 @@
 
         /* Mobile Safe Layout Fixes */
         @media (max-width: 992px) {
-            .dashboard-content, .travel-tab-content, .main-content {
+            .dashboard-content, .dashboard-tab-content, .main-content {
                 padding: 1rem !important;
             }
             .dashboard-layout {
@@ -227,11 +227,11 @@
                 <a href="manager-dashboard.html" class="logo" style="display:flex; align-items:center;"><img src="assets/logo.webp" alt="Stackly Logo" style="height: 32px; width: auto;"></a>
             </div>
             <ul class="sidebar-menu">
-            <li><a href="#" onclick="switchTab('tab-dashboard', this)" class="active"><i class="fa-solid fa-house"></i> Dashboard</a></li>
-            <li><a href="#" onclick="switchTab('tab-my-bookings', this)"><i class="fa-solid fa-ticket"></i> My Bookings</a></li>
-            <li><a href="#" onclick="switchTab('tab-tours', this)"><i class="fa-solid fa-suitcase-rolling"></i> Tour Packages</a></li>
-            <li><a href="#" onclick="switchTab('tab-inquiries', this)"><i class="fa-solid fa-clipboard-question"></i> Inquiries</a></li>
-            <li><a href="#" onclick="switchTab('tab-schedule', this)"><i class="fa-solid fa-calendar-days"></i> Schedule</a></li>
+            <li><a href="#" onclick="switchTab('tab-dashboard', this)" class="active"><i class="fa-solid fa-house"></i> Site Overview</a></li>
+            <li><a href="#" onclick="switchTab('tab-incidents', this)"><i class="fa-solid fa-triangle-exclamation"></i> Active Incidents</a></li>
+            <li><a href="#" onclick="switchTab('tab-cameras', this)"><i class="fa-solid fa-video"></i> Camera Feeds</a></li>
+            <li><a href="#" onclick="switchTab('tab-dispatch', this)"><i class="fa-solid fa-walkie-talkie"></i> Dispatch</a></li>
+            <li><a href="#" onclick="switchTab('tab-schedule', this)"><i class="fa-solid fa-calendar-days"></i> Guard Schedule</a></li>
             <li><a href="#" onclick="switchTab('tab-settings', this)"><i class="fa-solid fa-gear"></i> Settings</a></li>
             <li style="margin-top:2rem;"><a href="index.html"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
         </ul>
@@ -244,13 +244,6 @@
                 <a href="manager-dashboard.html" class="mobile-logo" style="display: none;"><img src="assets/logo.webp" alt="Logo"></a>
                 <div style="display:flex; align-items:center; gap: 1.5rem;">
                     <h3>Command Center - Site Alpha</h3>
-                    <div class="user-profile">
-                    <i class="fa-solid fa-circle-user" style="font-size: 40px; color: var(--accent-color);"></i>
-                    <div>
-                        <div style="font-weight:600; font-size:0.9rem;">E. Rostova</div>
-                        <div style="font-size:0.75rem; color:var(--accent-color);">Security Manager</div>
-                    </div>
-                </div>
                 </div>
                 
             </div>
@@ -258,51 +251,63 @@
             
             
             
-            
-            <div id="tab-dashboard" class="travel-tab-content" style="display: block; padding: 2rem; animation: fadeIn 0.3s ease;">
-                <h2 class="text-gradient" style="margin-bottom: 2rem;">Agent Dashboard</h2>
+            <div id="tab-dashboard" class="dashboard-tab-content" style="display: block; padding: 2rem; animation: fadeIn 0.3s ease;">
+                <h2 class="text-gradient" style="margin-bottom: 1rem;">Site Overview</h2>
+                
+                <!-- User Profile Moved Here -->
+                <div class="user-profile" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding: 1rem; background: rgba(15,20,35,0.4); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); width: fit-content;">
+                    <i class="fa-solid fa-circle-user" style="font-size: 48px; color: var(--accent-color);"></i>
+                    <div>
+                        <div style="font-weight:700; font-size:1.2rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span class="profile-name-text">E. Rostova</span>
+                            <span class="profile-email-text" style="font-size: 0.9rem; font-weight: 400; color: rgba(255,255,255,0.7);">(manager@stackly.com)</span>
+                        </div>
+                        <div style="font-size:0.9rem; color:var(--accent-color);">Security Manager</div>
+                    </div>
+                </div>
+                
                 <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 1.5rem;">
                     <!-- 1. Agenda -->
                     <div class="glass-card" style="padding:1.5rem;">
-                        <h3 style="margin-bottom:1rem; color:var(--accent-color);"><i class="fa-solid fa-list-check"></i> Today's Agenda</h3>
+                        <h3 style="margin-bottom:1rem; color:var(--accent-color);"><i class="fa-solid fa-list-check"></i> Today's Operations</h3>
                         <ul style="list-style:none; padding:0; font-size:0.9rem;">
-                            <li style="margin-bottom:0.5rem;">10:00 AM - Call Mr. Smith</li>
-                            <li style="margin-bottom:0.5rem;">1:30 PM - Team Sync</li>
-                            <li>4:00 PM - Confirm Bali Resort</li>
+                            <li style="margin-bottom:0.5rem;">10:00 AM - Shift Handover</li>
+                            <li style="margin-bottom:0.5rem;">1:30 PM - NVR Maintenance</li>
+                            <li>4:00 PM - Confirm Guard Patrols</li>
                         </ul>
                     </div>
                     <!-- 2. Pending Tasks -->
                     <div class="glass-card" style="padding:1.5rem;">
-                        <h3 style="margin-bottom:1rem; color:#ffaa00;"><i class="fa-solid fa-clock"></i> Pending Tasks</h3>
+                        <h3 style="margin-bottom:1rem; color:#ffaa00;"><i class="fa-solid fa-clock"></i> Active Alerts</h3>
                         <div style="font-size:2.5rem; font-weight:bold;">12</div>
-                        <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Action required today</div>
+                        <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Require immediate review</div>
                     </div>
-                    <!-- 3. Sales Goal Chart -->
+                    <!-- 3. Sales Goal Chart -> SLA Target -->
                     <div class="glass-card" style="padding:1.5rem;">
-                        <h3 style="margin-bottom:1rem;">Monthly Target</h3>
-                        <div style="font-size:1.5rem; font-weight:bold; color:#00ff88;">$45k / $50k</div>
-                        <div style="width:100%; height:8px; background:rgba(255,255,255,0.1); border-radius:4px; margin-top:0.5rem;"><div style="width:90%; height:100%; background:#00ff88; border-radius:4px;"></div></div>
+                        <h3 style="margin-bottom:1rem;">Response Time SLA</h3>
+                        <div style="font-size:1.5rem; font-weight:bold; color:#00ff88;">38s / 60s</div>
+                        <div style="width:100%; height:8px; background:rgba(255,255,255,0.1); border-radius:4px; margin-top:0.5rem;"><div style="width:63%; height:100%; background:#00ff88; border-radius:4px;"></div></div>
                     </div>
                 </div>
                 <div style="display:grid; grid-template-columns: 2fr 1fr; gap: 1.5rem;">
-                    <!-- 4. Recent Leads -->
+                    <!-- 4. Recent Leads -> Recent Incidents -->
                     <div class="glass-card" style="padding:1.5rem; overflow-x:auto;">
-                        <h3 style="margin-bottom:1rem;">New Leads</h3>
+                        <h3 style="margin-bottom:1rem;">Recent Dispatch Events</h3>
                         <table style="width:100%; border-collapse:collapse; text-align:left;">
-                            <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><th style="padding:0.5rem;">Name</th><th style="padding:0.5rem;">Interest</th><th style="padding:0.5rem;">Budget</th></tr>
-                            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.5rem;">Alice Cooper</td><td style="padding:0.5rem;">Maldives Honeymoon</td><td style="padding:0.5rem;">$15k</td></tr>
-                            <tr><td style="padding:0.5rem;">Bob Marley</td><td style="padding:0.5rem;">Jamaica Trip</td><td style="padding:0.5rem;">$5k</td></tr>
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><th style="padding:0.5rem;">ID</th><th style="padding:0.5rem;">Location</th><th style="padding:0.5rem;">Type</th></tr>
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.5rem;">#INC-8991</td><td style="padding:0.5rem;">Zone C Perimeter</td><td style="padding:0.5rem;">Breach</td></tr>
+                            <tr><td style="padding:0.5rem;">#INC-8992</td><td style="padding:0.5rem;">Lobby Camera 2</td><td style="padding:0.5rem;">Vandalism</td></tr>
                         </table>
                     </div>
                     <!-- 5. Announcements & 6. Quick Tools -->
                     <div style="display:flex; flex-direction:column; gap:1.5rem;">
                         <div class="glass-card" style="padding:1.5rem; flex:1;">
-                            <h3 style="margin-bottom:1rem;">Company News</h3>
-                            <div style="font-size:0.85rem; color:rgba(255,255,255,0.7);">Emirates promo code updated to FLY2026. Please inform clients.</div>
+                            <h3 style="margin-bottom:1rem;">SOC Announcements</h3>
+                            <div style="font-size:0.85rem; color:rgba(255,255,255,0.7);">Firmware update for Axis cameras deployed tonight at 0200.</div>
                         </div>
                         <div class="glass-card" style="padding:1.5rem; display:flex; gap:1rem;">
-                            <button class="btn btn-solid" style="flex:1;">New Quote</button>
-                            <button class="btn" style="flex:1;">View Calendar</button>
+                            <button class="btn btn-solid" style="flex:1;">New Incident</button>
+                            <button class="btn" style="flex:1;">View Roster</button>
                         </div>
                     </div>
                 </div>
@@ -312,141 +317,150 @@
                 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top:2rem;">
                     <!-- 7. Recent Activity -->
                     <div class="glass-card" style="padding: 2rem;">
-                        <h4 style="margin-bottom:1rem; color:var(--accent-color);"><i class="fa-solid fa-clock-rotate-left"></i> Agent Feed</h4>
-                        <div style="font-size:0.85rem; border-left:2px solid rgba(255,255,255,0.2); padding-left:10px; margin-bottom:0.8rem;">New lead assigned to you.</div>
-                        <div style="font-size:0.85rem; border-left:2px solid rgba(255,255,255,0.2); padding-left:10px;">Supplier confirmed booking.</div>
+                        <h4 style="margin-bottom:1rem; color:var(--accent-color);"><i class="fa-solid fa-clock-rotate-left"></i> Operator Feed</h4>
+                        <div style="font-size:0.85rem; border-left:2px solid rgba(255,255,255,0.2); padding-left:10px; margin-bottom:0.8rem;">Priority alarm assigned to you.</div>
+                        <div style="font-size:0.85rem; border-left:2px solid rgba(255,255,255,0.2); padding-left:10px;">Dispatch unit 4 confirmed on-site.</div>
                     </div>
                     <!-- 8. System Status -->
                     <div class="glass-card" style="padding: 2rem;">
-                        <h4 style="margin-bottom:1rem; color:#00ff88;"><i class="fa-solid fa-server"></i> System</h4>
+                        <h4 style="margin-bottom:1rem; color:#00ff88;"><i class="fa-solid fa-server"></i> Platform Health</h4>
                         <div style="font-weight:bold; font-size:1.1rem;">API Status</div>
-                        <div style="font-size:0.85rem; color:rgba(255,255,255,0.6); margin-top:0.5rem;">Airlines Sync: OK</div>
+                        <div style="font-size:0.85rem; color:rgba(255,255,255,0.6); margin-top:0.5rem;">Analytics Sync: OK</div>
                     </div>
                     <!-- 9. Tip -->
                     <div class="glass-card" style="padding: 2rem;">
-                        <h4 style="margin-bottom:1rem; color:#ffaa00;"><i class="fa-solid fa-lightbulb"></i> Sales Tip</h4>
-                        <p style="font-size:0.9rem; color:rgba(255,255,255,0.8); line-height:1.4;">Following up within 1 hour increases conversion by 40%.</p>
+                        <h4 style="margin-bottom:1rem; color:#ffaa00;"><i class="fa-solid fa-lightbulb"></i> Operator Tip</h4>
+                        <p style="font-size:0.9rem; color:rgba(255,255,255,0.8); line-height:1.4;">Verify false alarms with dual-camera cross-referencing.</p>
                     </div>
                     <!-- 10. Support -->
                     <div class="glass-card" style="padding: 2rem; display:flex; flex-direction:column; justify-content:center;">
-                        <h4 style="margin-bottom:1rem;"><i class="fa-solid fa-headset"></i> Agent Desk</h4>
-                        <button class="btn" style="width:100%; font-size:0.9rem;">Ask Manager</button>
+                        <h4 style="margin-bottom:1rem;"><i class="fa-solid fa-headset"></i> SOC Escalation</h4>
+                        <button class="btn" style="width:100%; font-size:0.9rem;">Contact Supervisor</button>
                     </div>
                 </div>
 </div>
 
-            <div id="tab-my-bookings" class="travel-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
-                <h2 class="text-gradient" style="margin-bottom: 2rem;">My Bookings</h2>
+            <div id="tab-incidents" class="dashboard-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
+                <h2 class="text-gradient" style="margin-bottom: 2rem;">Active Incidents</h2>
                 <!-- 1. Search Bar -->
                 <div class="glass-card" style="padding:1.5rem; margin-bottom:1.5rem;">
-                    <input type="text" placeholder="Search my bookings by ID or Client..." style="width:100%; padding:0.8rem; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); color:white; border-radius:5px;">
+                    <input type="text" placeholder="Search incidents by ID, Location, or Type..." style="width:100%; padding:0.8rem; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); color:white; border-radius:5px;">
                 </div>
                 <div style="display:grid; grid-template-columns: 3fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
-                    <!-- 2. Bookings Table -->
+                    <!-- 2. Incidents Table -->
                     <div class="glass-card" style="padding:1.5rem; overflow-x:auto;">
-                        <h3 style="margin-bottom:1rem;">Active Itineraries</h3>
+                        <h3 style="margin-bottom:1rem;">Incident Queue</h3>
                         <table style="width:100%; border-collapse:collapse; text-align:left;">
-                            <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><th style="padding:0.5rem;">ID</th><th style="padding:0.5rem;">Client</th><th style="padding:0.5rem;">Dates</th><th style="padding:0.5rem;">Status</th></tr>
-                            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.5rem;">#B-442</td><td style="padding:0.5rem;">Eva Green</td><td style="padding:0.5rem;">Nov 1 - Nov 10</td><td style="padding:0.5rem; color:#00ff88;">Confirmed</td></tr>
-                            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.5rem;">#B-445</td><td style="padding:0.5rem;">Tom Hardy</td><td style="padding:0.5rem;">Dec 5 - Dec 15</td><td style="padding:0.5rem; color:#00f0ff;">Pending Payment</td></tr>
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><th style="padding:0.5rem;">ID</th><th style="padding:0.5rem;">Site</th><th style="padding:0.5rem;">Time Detected</th><th style="padding:0.5rem;">Status</th></tr>
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.5rem;">#INC-8993</td><td style="padding:0.5rem;">Alpha WH Gate 2</td><td style="padding:0.5rem;">10:24 AM</td><td style="padding:0.5rem; color:#ffaa00;">Investigating</td></tr>
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.5rem;">#INC-8994</td><td style="padding:0.5rem;">Sector 7 Lobby</td><td style="padding:0.5rem;">11:05 AM</td><td style="padding:0.5rem; color:#ff3366;">Unresolved</td></tr>
                         </table>
                     </div>
                     <div style="display:flex; flex-direction:column; gap:1.5rem;">
-                        <!-- 3. Next Departure Countdown -->
+                        <!-- 3. Critical Priority Alert -->
                         <div class="glass-card" style="padding:1.5rem; text-align:center;">
-                            <h3 style="margin-bottom:1rem;">Next Departure</h3>
-                            <div style="font-size:2rem; font-weight:bold; color:var(--accent-color);">3 Days</div>
-                            <div style="font-size:0.8rem;">#B-442 (Eva Green)</div>
+                            <h3 style="margin-bottom:1rem;">Next Escalation</h3>
+                            <div style="font-size:2rem; font-weight:bold; color:var(--accent-color);">14m</div>
+                            <div style="font-size:0.8rem;">#INC-8994 (Sector 7)</div>
                         </div>
                         <!-- 4. Export Button -->
                         <div class="glass-card" style="padding:1.5rem;">
-                            <button class="btn btn-solid" style="width:100%;"><i class="fa-solid fa-file-pdf"></i> Download Manifest</button>
+                            <button class="btn btn-solid" style="width:100%;"><i class="fa-solid fa-file-pdf"></i> Incident Report</button>
                         </div>
                     </div>
                 </div>
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                    <!-- 5. Cancellation Alert -->
+                    <!-- 5. Escalation Alert -->
                     <div class="glass-card" style="padding:1.5rem; border-left: 4px solid #ff3366;">
-                        <h3 style="margin-bottom:0.5rem; color:#ff3366;">Alerts</h3>
-                        <p style="font-size:0.9rem;">Client #B-410 requested cancellation. Action required.</p>
+                        <h3 style="margin-bottom:0.5rem; color:#ff3366;">System Alert</h3>
+                        <p style="font-size:0.9rem;">Police dispatch requested for Alpha WH. Waiting for PD confirmation.</p>
                     </div>
-                    <!-- 6. Commission Stats -->
+                    <!-- 6. Resolution Stats -->
                     <div class="glass-card" style="padding:1.5rem;">
-                        <h3 style="margin-bottom:0.5rem;">Estimated Commission</h3>
-                        <div style="font-size:1.5rem; font-weight:bold; color:#00ff88;">$4,250</div>
-                        <p style="font-size:0.8rem; color:rgba(255,255,255,0.6);">From confirmed bookings</p>
+                        <h3 style="margin-bottom:0.5rem;">Today's Resolved</h3>
+                        <div style="font-size:1.5rem; font-weight:bold; color:#00ff88;">45</div>
+                        <p style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Average resolution time: 4m 12s</p>
                     </div>
                 </div>
             </div>
 
-            <div id="tab-tours" class="travel-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
-                <h2 class="text-gradient" style="margin-bottom: 2rem;">Tour Packages</h2>
+            <div id="tab-cameras" class="dashboard-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
+                <h2 class="text-gradient" style="margin-bottom: 2rem;">Camera Feeds</h2>
                 <!-- 1. Filter Panel -->
                 <div class="glass-card" style="padding:1.5rem; margin-bottom:1.5rem; display:flex; gap:1rem;">
-                    <select style="padding:0.5rem; border-radius:5px;"><option>Region: All</option><option>Europe</option></select>
-                    <select style="padding:0.5rem; border-radius:5px;"><option>Price: All</option><option>< $2k</option></select>
-                    <button class="btn btn-solid">Filter Packages</button>
+                    <select style="padding:0.5rem; border-radius:5px;"><option>Zone: All</option><option>Perimeter</option><option>Interior</option></select>
+                    <select style="padding:0.5rem; border-radius:5px;"><option>Status: Live</option><option>Offline</option></select>
+                    <button class="btn btn-solid">Apply Filters</button>
                 </div>
-                <!-- 2. Tour Grid -->
+                <!-- 2. Camera Grid -->
                 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom:1.5rem;">
-                    <div class="glass-card" style="padding:1.5rem;">
-                        <h4>Swiss Alps Adventure</h4>
-                        <div style="color:var(--accent-color); margin:0.5rem 0;">$1,899 / person</div>
-                        <button class="btn" style="width:100%; font-size:0.8rem;">View Details</button>
+                    <div class="glass-card" style="padding:1.5rem; display:flex; flex-direction:column;">
+                        <h4>Alpha Gate 1</h4>
+                        <div style="color:var(--accent-color); margin:0.5rem 0; font-size:0.8rem;"><i class="fa-solid fa-circle live-dot" style="display:inline-block; margin-right:5px;"></i>Live - 4K</div>
+                        <div style="flex:1; background:#000; min-height:120px; border-radius:4px; margin-bottom:1rem; border:1px solid rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center;">
+                            <i class="fa-solid fa-video text-accent" style="font-size:2rem; opacity:0.5;"></i>
+                        </div>
+                        <button class="btn" style="width:100%; font-size:0.8rem;">View Fullscreen</button>
                     </div>
-                    <div class="glass-card" style="padding:1.5rem;">
-                        <h4>Tokyo Express</h4>
-                        <div style="color:var(--accent-color); margin:0.5rem 0;">$2,299 / person</div>
-                        <button class="btn" style="width:100%; font-size:0.8rem;">View Details</button>
+                    <div class="glass-card" style="padding:1.5rem; display:flex; flex-direction:column;">
+                        <h4>Lobby PTZ</h4>
+                        <div style="color:var(--accent-color); margin:0.5rem 0; font-size:0.8rem;"><i class="fa-solid fa-circle live-dot" style="display:inline-block; margin-right:5px;"></i>Live - 1080p</div>
+                        <div style="flex:1; background:#000; min-height:120px; border-radius:4px; margin-bottom:1rem; border:1px solid rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center;">
+                            <i class="fa-solid fa-video text-accent" style="font-size:2rem; opacity:0.5;"></i>
+                        </div>
+                        <button class="btn" style="width:100%; font-size:0.8rem;">View Fullscreen</button>
                     </div>
-                    <div class="glass-card" style="padding:1.5rem;">
-                        <h4>Bali Retreat</h4>
-                        <div style="color:var(--accent-color); margin:0.5rem 0;">$999 / person</div>
-                        <button class="btn" style="width:100%; font-size:0.8rem;">View Details</button>
+                    <div class="glass-card" style="padding:1.5rem; display:flex; flex-direction:column;">
+                        <h4>Parking North</h4>
+                        <div style="color:#ffaa00; margin:0.5rem 0; font-size:0.8rem;"><i class="fa-solid fa-triangle-exclamation" style="margin-right:5px;"></i>Motion Detected</div>
+                        <div style="flex:1; background:#000; min-height:120px; border-radius:4px; margin-bottom:1rem; border:1px solid #ffaa00; display:flex; align-items:center; justify-content:center;">
+                            <i class="fa-solid fa-person-walking text-accent" style="font-size:2rem; color:#ffaa00;"></i>
+                        </div>
+                        <button class="btn" style="width:100%; font-size:0.8rem; border-color:#ffaa00; color:#ffaa00;">Review Footage</button>
                     </div>
                 </div>
                 <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;">
-                    <!-- 3. Featured Deal -->
+                    <!-- 3. Featured AI Alert -->
                     <div class="glass-card" style="padding:1.5rem; grid-column: span 2; border:1px solid var(--accent-color);">
-                        <h3 style="color:var(--accent-color);"><i class="fa-solid fa-fire"></i> Featured Deal of the Week</h3>
-                        <p style="margin-top:0.5rem; font-size:0.9rem;">Sell 3 Maldives packages, earn double commission!</p>
+                        <h3 style="color:var(--accent-color);"><i class="fa-solid fa-brain"></i> AI Anomaly Detected</h3>
+                        <p style="margin-top:0.5rem; font-size:0.9rem;">Unrecognized vehicle lingering near Loading Dock B for > 15 mins.</p>
                     </div>
-                    <!-- 4. Add Custom Tour -->
+                    <!-- 4. Add Custom View -->
                     <div class="glass-card" style="padding:1.5rem; display:flex; align-items:center; justify-content:center;">
-                        <button class="btn btn-solid" style="width:100%;"><i class="fa-solid fa-plus"></i> Custom Tour</button>
+                        <button class="btn btn-solid" style="width:100%;"><i class="fa-solid fa-plus"></i> New Layout</button>
                     </div>
-                    <!-- 5. Waitlisted Tours & 6. Supplier Updates -->
+                    <!-- 5. Offline Cams & 6. Storage -->
                     <div class="glass-card" style="padding:1.5rem;">
-                        <div style="font-size:0.8rem; font-weight:bold; margin-bottom:0.5rem;">Waitlist: 4 pax</div>
-                        <div style="font-size:0.8rem; color:#ffaa00;">Supplier: Flights delayed</div>
+                        <div style="font-size:0.8rem; font-weight:bold; margin-bottom:0.5rem; color:#ff3366;">Offline: 2 Cams</div>
+                        <div style="font-size:0.8rem; color:#00ff88;">NVR Storage: 82%</div>
                     </div>
                 </div>
             </div>
 
-            <div id="tab-inquiries" class="travel-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
-                <h2 class="text-gradient" style="margin-bottom: 2rem;">Inquiries & Support</h2>
+            <div id="tab-dispatch" class="dashboard-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
+                <h2 class="text-gradient" style="margin-bottom: 2rem;">Dispatch & Communications</h2>
                 <div style="display:grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; margin-bottom:1.5rem;">
-                    <!-- 1. Inbox List -->
+                    <!-- 1. Unit List -->
                     <div class="glass-card" style="padding:1.5rem; height:400px; overflow-y:auto;">
-                        <h3 style="margin-bottom:1rem;">Active Chats</h3>
+                        <h3 style="margin-bottom:1rem;">Active Units</h3>
                         <div style="padding:1rem; background:rgba(0,240,255,0.1); border-radius:8px; margin-bottom:0.5rem; cursor:pointer;">
-                            <strong>Jane Doe</strong><br><span style="font-size:0.8rem;">Question about visa...</span>
+                            <strong>Unit 04 (Alpha)</strong><br><span style="font-size:0.8rem;">En route to Sector 7...</span>
                         </div>
                         <div style="padding:1rem; border:1px solid rgba(255,255,255,0.05); border-radius:8px; cursor:pointer;">
-                            <strong>Mark Z.</strong><br><span style="font-size:0.8rem;">Can I upgrade my flight?</span>
+                            <strong>Unit 12 (Bravo)</strong><br><span style="font-size:0.8rem;">On patrol - Downtown</span>
                         </div>
                     </div>
-                    <!-- 2. Active Chat -->
+                    <!-- 2. Active Comms -->
                     <div class="glass-card" style="padding:1.5rem; height:400px; display:flex; flex-direction:column;">
-                        <h3 style="margin-bottom:1rem;">Chat with Jane Doe</h3>
+                        <h3 style="margin-bottom:1rem;">Comms with Unit 04</h3>
                         <div style="flex:1; border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:1rem; overflow-y:auto; margin-bottom:1rem;">
-                            <div style="text-align:left; margin-bottom:1rem;"><span style="background:rgba(255,255,255,0.1); padding:0.5rem 1rem; border-radius:15px; font-size:0.9rem;">Do I need a visa for Japan?</span></div>
-                            <div style="text-align:right;"><span style="background:var(--accent-color); color:black; padding:0.5rem 1rem; border-radius:15px; font-size:0.9rem;">Yes, let me send you the link!</span></div>
+                            <div style="text-align:left; margin-bottom:1rem;"><span style="background:rgba(255,255,255,0.1); padding:0.5rem 1rem; border-radius:15px; font-size:0.9rem;">Dispatch, ETA 3 mins. Update on suspect?</span></div>
+                            <div style="text-align:right;"><span style="background:var(--accent-color); color:black; padding:0.5rem 1rem; border-radius:15px; font-size:0.9rem;">Still near Loading Dock B. Proceed with caution.</span></div>
                         </div>
                         <!-- 3. Canned Responses -->
                         <div style="display:flex; gap:0.5rem; margin-bottom:0.5rem;">
-                            <button class="btn" style="font-size:0.7rem; padding:0.3rem 0.6rem;">Send Visa Info</button>
-                            <button class="btn" style="font-size:0.7rem; padding:0.3rem 0.6rem;">Send Quote</button>
+                            <button class="btn" style="font-size:0.7rem; padding:0.3rem 0.6rem;">Send Backup</button>
+                            <button class="btn" style="font-size:0.7rem; padding:0.3rem 0.6rem;">Request SitRep</button>
                         </div>
                         <div style="display:flex; gap:0.5rem;">
                             <input type="text" placeholder="Type a message..." style="flex:1; padding:0.5rem; border-radius:5px;">
@@ -457,36 +471,36 @@
                 <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
                     <!-- 4. Response Time Chart -->
                     <div class="glass-card" style="padding:1.5rem;">
-                        <h3 style="margin-bottom:1rem;">Avg Response Time</h3>
-                        <div style="font-size:2rem; font-weight:bold; color:#00ff88;">14 mins</div>
+                        <h3 style="margin-bottom:1rem;">Avg Dispatch Time</h3>
+                        <div style="font-size:2rem; font-weight:bold; color:#00ff88;">4.2 mins</div>
                     </div>
                     <!-- 5. Ticket Priority Pie Chart -->
                     <div class="glass-card" style="padding:1.5rem;">
-                        <h3 style="margin-bottom:1rem;">Ticket Priority</h3>
-                        <div style="text-align:center; font-size:0.9rem; color:rgba(255,255,255,0.6);">[Pie Chart: High vs Low]</div>
+                        <h3 style="margin-bottom:1rem;">Unit Availability</h3>
+                        <div style="text-align:center; font-size:0.9rem; color:rgba(255,255,255,0.6);">[Pie Chart: Active vs Standby]</div>
                     </div>
                     <!-- 6. Assign to me button -->
                     <div class="glass-card" style="padding:1.5rem; display:flex; align-items:center; justify-content:center;">
-                        <button class="btn btn-solid" style="width:100%;"><i class="fa-solid fa-hand-sparkles"></i> Claim Next Ticket</button>
+                        <button class="btn btn-solid" style="width:100%;"><i class="fa-solid fa-walkie-talkie"></i> Broadcast All</button>
                     </div>
                 </div>
             </div>
 
-            <div id="tab-schedule" class="travel-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
-                <h2 class="text-gradient" style="margin-bottom: 2rem;">My Schedule</h2>
+            <div id="tab-schedule" class="dashboard-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
+                <h2 class="text-gradient" style="margin-bottom: 2rem;">Guard Schedule</h2>
                 <div style="display:grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
                     <!-- 1. Calendar View -->
                     <div class="glass-card" style="padding:1.5rem; height:300px; display:flex; align-items:center; justify-content:center; border:1px dashed rgba(255,255,255,0.2);">
-                        [Full Calendar Widget]
+                        [Shift Roster Widget]
                     </div>
                     <!-- 2. Upcoming Meetings -->
                     <div class="glass-card" style="padding:1.5rem; overflow-y:auto; height:300px;">
-                        <h3 style="margin-bottom:1rem;">Next Meetings</h3>
+                        <h3 style="margin-bottom:1rem;">Next Shifts</h3>
                         <div style="padding:1rem; border-left:3px solid var(--accent-color); background:rgba(255,255,255,0.05); margin-bottom:1rem;">
-                            <strong>Zoom Consultation</strong><br><span style="font-size:0.8rem;">Today, 2:00 PM</span>
+                            <strong>Alpha Sector Patrol</strong><br><span style="font-size:0.8rem;">Today, 22:00</span>
                         </div>
                         <div style="padding:1rem; border-left:3px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.02);">
-                            <strong>Itinerary Review</strong><br><span style="font-size:0.8rem;">Tomorrow, 10:00 AM</span>
+                            <strong>Downtown Static Guard</strong><br><span style="font-size:0.8rem;">Tomorrow, 06:00</span>
                         </div>
                     </div>
                 </div>
@@ -494,39 +508,39 @@
                     <!-- 3. Availability Toggle -->
                     <div class="glass-card" style="padding:1.5rem; text-align:center;">
                         <h3 style="margin-bottom:1rem; font-size:1rem;">Status</h3>
-                        <div style="color:#00ff88; font-weight:bold;"><i class="fa-solid fa-circle"></i> Available</div>
+                        <div style="color:#00ff88; font-weight:bold;"><i class="fa-solid fa-circle"></i> On Duty</div>
                     </div>
                     <!-- 4. Time-Off Request -->
                     <div class="glass-card" style="padding:1.5rem; text-align:center;">
-                        <button class="btn" style="width:100%; font-size:0.8rem;">Request PTO</button>
+                        <button class="btn" style="width:100%; font-size:0.8rem;">Request Leave</button>
                     </div>
                     <!-- 5. Client Call Log -->
                     <div class="glass-card" style="padding:1.5rem; text-align:center;">
-                        <div style="font-size:1.5rem; font-weight:bold;">8</div>
-                        <div style="font-size:0.7rem; color:rgba(255,255,255,0.6);">Calls logged today</div>
+                        <div style="font-size:1.5rem; font-weight:bold;">12</div>
+                        <div style="font-size:0.7rem; color:rgba(255,255,255,0.6);">Hours logged this week</div>
                     </div>
                     <!-- 6. Sync Button -->
                     <div class="glass-card" style="padding:1.5rem; text-align:center;">
-                        <button class="btn btn-solid" style="width:100%; font-size:0.8rem;"><i class="fa-brands fa-google"></i> Sync Cal</button>
+                        <button class="btn btn-solid" style="width:100%; font-size:0.8rem;"><i class="fa-solid fa-rotate"></i> Sync Roster</button>
                     </div>
                 </div>
             </div>
 
-            <div id="tab-settings" class="travel-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
+            <div id="tab-settings" class="dashboard-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
                 <h2 class="text-gradient" style="margin-bottom: 2rem;">Settings</h2>
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
                     <!-- 1. Agent Profile -->
                     <div class="glass-card" style="padding:1.5rem;">
                         <h3 style="margin-bottom:1rem;">My Profile</h3>
                         <input type="text" value="Elena Rostova" style="width:100%; padding:0.5rem; margin-bottom:0.5rem; border-radius:5px;"><br>
-                        <input type="text" value="elena@stacklytravel.com" style="width:100%; padding:0.5rem; margin-bottom:1rem; border-radius:5px;">
+                        <input type="text" value="manager@stackly.com" style="width:100%; padding:0.5rem; margin-bottom:1rem; border-radius:5px;">
                         <button class="btn btn-solid">Save Details</button>
                     </div>
                     <!-- 2. Signature Editor -->
                     <div class="glass-card" style="padding:1.5rem;">
                         <h3 style="margin-bottom:1rem;">Email Signature</h3>
                         <textarea style="width:100%; height:80px; padding:0.5rem; margin-bottom:1rem; border-radius:5px;">Best Regards,
-Elena R. | Travel Specialist</textarea>
+Elena R. | Security Operations Manager</textarea>
                         <button class="btn">Update Signature</button>
                     </div>
                 </div>
@@ -542,10 +556,10 @@ Elena R. | Travel Specialist</textarea>
                         <label><input type="checkbox" checked> Email</label><br>
                         <label><input type="checkbox" checked> SMS</label>
                     </div>
-                    <!-- 5. Commission Payout Info -->
+                    <!-- 5. Commission Payout Info -> Direct Deposit -->
                     <div class="glass-card" style="padding:1.5rem;">
-                        <h4 style="margin-bottom:0.5rem;">Payouts</h4>
-                        <div style="font-size:0.8rem;">Direct Deposit ending in 1234</div>
+                        <h4 style="margin-bottom:0.5rem;">Direct Deposit</h4>
+                        <div style="font-size:0.8rem;">Acct ending in 1234</div>
                     </div>
                     <!-- 6. Security -->
                     <div class="glass-card" style="padding:1.5rem;">
@@ -570,12 +584,14 @@ Elena R. | Travel Specialist</textarea>
                 sidebar.classList.toggle('active');
                 if(sidebar.classList.contains('active')) {
                     document.body.style.overflow = 'hidden';
+                    document.documentElement.style.overflow = 'hidden';
                     const mainContent = document.querySelector('.main-content');
                     if (mainContent) mainContent.style.overflow = 'hidden';
                 } else {
                     document.body.style.overflow = '';
+                    document.documentElement.style.overflow = '';
                     const mainContent = document.querySelector('.main-content');
-                    if (mainContent) mainContent.style.overflow = 'auto';
+                    if (mainContent) mainContent.style.overflow = '';
                 }
             });
         }
@@ -587,7 +603,7 @@ Elena R. | Travel Specialist</textarea>
             if(element) element.classList.add('active');
 
             // Hide all tab contents
-            document.querySelectorAll('.travel-tab-content').forEach(tab => {
+            document.querySelectorAll('.dashboard-tab-content').forEach(tab => {
                 tab.style.display = 'none';
             });
 
@@ -602,7 +618,10 @@ Elena R. | Travel Specialist</textarea>
                 const sidebar = document.getElementById('sidebar');
                 if(sidebar) {
                     sidebar.classList.remove('active');
-                    document.body.style.overflow = 'auto';
+                    document.body.style.overflow = '';
+                    document.documentElement.style.overflow = '';
+                    const mainContent = document.querySelector('.main-content');
+                    if (mainContent) mainContent.style.overflow = '';
                 }
             }
         }
@@ -613,13 +632,15 @@ Elena R. | Travel Specialist</textarea>
         document.addEventListener('DOMContentLoaded', () => {
             const loggedInEmail = localStorage.getItem('loggedInEmail');
             if (loggedInEmail) {
-                // 1. Update the Topbar Name
-                const profileNames = document.querySelectorAll('.user-profile > div > div:first-child');
-                profileNames.forEach(el => {
-                    el.innerText = loggedInEmail;
-                });
+                // 1. Extract a formatted name from the email (e.g. john.doe@email.com -> John.doe)
+                let namePart = loggedInEmail.split('@')[0];
+                namePart = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+                
+                // 2. Update the Profile Name and Email
+                document.querySelectorAll('.profile-name-text').forEach(el => el.innerText = namePart);
+                document.querySelectorAll('.profile-email-text').forEach(el => el.innerText = '(' + loggedInEmail + ')');
 
-                // 2. Update any inputs that look like emails (e.g. settings/profile tab)
+                // 3. Update any inputs that look like emails (e.g. settings/profile tab)
                 const textInputs = document.querySelectorAll('input[type="text"]');
                 textInputs.forEach(input => {
                     if (input.value.includes('@')) {
@@ -627,11 +648,7 @@ Elena R. | Travel Specialist</textarea>
                     }
                 });
 
-                // 3. Optional: Extract a formatted name from the email (e.g. john.doe@email.com -> John.doe)
-                let namePart = loggedInEmail.split('@')[0];
-                namePart = namePart.charAt(0).toUpperCase() + namePart.slice(1);
-                
-                // Update inputs that had hardcoded names
+                // 4. Update inputs that had hardcoded names
                 textInputs.forEach(input => {
                     const val = input.value.toLowerCase();
                     if (!val.includes('@') && (val.includes('elena') || val.includes('john doe'))) {
@@ -668,5 +685,6 @@ Elena R. | Travel Specialist</textarea>
             offset: 100
         });
     </script>
+<script src="js/sidebar-fix.js"></script>
 </body>
 </html>

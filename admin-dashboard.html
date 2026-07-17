@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>Admin Dashboard | Stackly Travel</title>
+    <title>Admin Dashboard | Stackly Security</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Chart.js (Loaded below) -->
@@ -294,7 +294,7 @@
                 gap: 10px;
             }
             .user-profile > div {
-                display: none !important; /* Hide text on mobile */
+                /* display: none !important; Hide text on mobile */
                 max-width: 130px;
                 white-space: nowrap;
                 overflow: hidden;
@@ -320,7 +320,7 @@
 
         /* Mobile Safe Layout Fixes */
         @media (max-width: 992px) {
-            .dashboard-content, .travel-tab-content, .main-content {
+            .dashboard-content, .dashboard-tab-content, .main-content {
                 padding: 1rem !important;
             }
             .dashboard-layout {
@@ -363,9 +363,9 @@
             </div>
             <ul class="sidebar-menu">
             <li><a href="#" onclick="switchTab('tab-overview', this)" class="active"><i class="fa-solid fa-chart-pie"></i> Overview</a></li>
-            <li><a href="#" onclick="switchTab('tab-bookings', this)"><i class="fa-solid fa-plane-departure"></i> Bookings</a></li>
-            <li><a href="#" onclick="switchTab('tab-destinations', this)"><i class="fa-solid fa-map-location-dot"></i> Destinations</a></li>
-            <li><a href="#" onclick="switchTab('tab-customers', this)"><i class="fa-solid fa-users"></i> Customers</a></li>
+            <li><a href="#" onclick="switchTab('tab-sites', this)"><i class="fa-solid fa-server"></i> Managed Sites</a></li>
+            <li><a href="#" onclick="switchTab('tab-alerts', this)"><i class="fa-solid fa-triangle-exclamation"></i> Global Alerts</a></li>
+            <li><a href="#" onclick="switchTab('tab-clients', this)"><i class="fa-solid fa-users"></i> Client Roster</a></li>
             <li><a href="#" onclick="switchTab('tab-analytics', this)"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
             <li><a href="#" onclick="switchTab('tab-settings', this)"><i class="fa-solid fa-gear"></i> Settings</a></li>
             <li style="margin-top:2rem;"><a href="index.html"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
@@ -379,20 +379,12 @@
                 <button class="mobile-toggle" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
                 <a href="admin-dashboard.html" class="mobile-logo" style="display: none;"><img src="assets/logo.webp" alt="Logo"></a>
                 <div style="display:flex; align-items:center; gap: 1.5rem;">
-                    <h3 style="margin:0;">Admin Overview</h3>
-                    <div class="user-profile">
-                        <i class="fa-solid fa-circle-user" style="font-size: 40px; color: var(--accent-color);"></i>
-                        <div>
-                            <div style="font-weight:600; font-size:0.9rem;">John Admin</div>
-                            <div style="font-size:0.75rem; color:var(--accent-color);">Super Admin</div>
-                        </div>
-                    </div>
+                    <h3 style="margin:0;">Admin Dashboard</h3>
                 </div>
                 <div class="topbar-right" style="display:flex; align-items:center; gap:1.5rem;">
                     <div class="notification-icon">
                         <i class="fa-solid fa-bell"></i>
                     </div>
-                    
                 </div>
             </div>
 
@@ -400,33 +392,45 @@
 
             
             
-            <div id="tab-overview" class="travel-tab-content" style="display: block; padding: 2rem; animation: fadeIn 0.3s ease;">
-                <h2 class="text-gradient" style="margin-bottom: 2rem;">Overview</h2>
+            <div id="tab-overview" class="dashboard-tab-content" style="display: block; padding: 2rem; animation: fadeIn 0.3s ease;">
+                <h2 class="text-gradient" style="margin-bottom: 1rem;">Overview</h2>
+                
+                <!-- User Profile Moved Here -->
+                <div class="user-profile" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding: 1rem; background: rgba(15,20,35,0.4); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); width: fit-content;">
+                    <i class="fa-solid fa-circle-user" style="font-size: 48px; color: var(--accent-color);"></i>
+                    <div>
+                        <div style="font-weight:700; font-size:1.2rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span class="profile-name-text">John Admin</span>
+                            <span class="profile-email-text" style="font-size: 0.9rem; font-weight: 400; color: rgba(255,255,255,0.7);">(admin@stackly.com)</span>
+                        </div>
+                        <div style="font-size:0.9rem; color:var(--accent-color);">Super Admin</div>
+                    </div>
+                </div>
                 <!-- 1. KPI Cards -->
                 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
                     <div class="glass-card" style="padding: 2rem;">
-                        <h4 style="color:var(--accent-color); margin-bottom:0.5rem;"><i class="fa-solid fa-dollar-sign"></i> Revenue</h4>
-                        <div style="font-size:1.8rem; font-weight:700;">$124,500</div>
+                        <h4 style="color:var(--accent-color); margin-bottom:0.5rem;"><i class="fa-solid fa-server"></i> Monitored Sites</h4>
+                        <div style="font-size:1.8rem; font-weight:700;">142</div>
                     </div>
                     <div class="glass-card" style="padding: 2rem;">
-                        <h4 style="color:var(--accent-color); margin-bottom:0.5rem;"><i class="fa-solid fa-plane"></i> Active Trips</h4>
-                        <div style="font-size:1.8rem; font-weight:700;">42</div>
+                        <h4 style="color:var(--accent-color); margin-bottom:0.5rem;"><i class="fa-solid fa-triangle-exclamation"></i> Active Alarms</h4>
+                        <div style="font-size:1.8rem; font-weight:700;">4</div>
                     </div>
                     <div class="glass-card" style="padding: 2rem;">
-                        <h4 style="color:var(--accent-color); margin-bottom:0.5rem;"><i class="fa-solid fa-users"></i> New Users</h4>
+                        <h4 style="color:var(--accent-color); margin-bottom:0.5rem;"><i class="fa-solid fa-tower-observation"></i> Online Nodes</h4>
                         <div style="font-size:1.8rem; font-weight:700;">1,043</div>
                     </div>
                     <div class="glass-card" style="padding: 2rem;">
-                        <h4 style="color:var(--accent-color); margin-bottom:0.5rem;"><i class="fa-solid fa-clock"></i> Pending</h4>
+                        <h4 style="color:var(--accent-color); margin-bottom:0.5rem;"><i class="fa-solid fa-truck-fast"></i> Dispatches Today</h4>
                         <div style="font-size:1.8rem; font-weight:700;">18</div>
                     </div>
                 </div>
                 
                 <!-- 2 & 3. Chart and Table Grid -->
                 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
-                    <!-- 2. Revenue Chart -->
+                    <!-- 2. Alarm Trend Chart -->
                     <div class="glass-card" style="padding: 2rem;">
-                        <h3 style="margin-bottom:1rem;">Revenue Trend</h3>
+                        <h3 style="margin-bottom:1rem;">Incident Trend</h3>
                         <div style="position: relative; height: 250px; width: 100%;">
                             <canvas id="overviewChart"></canvas>
                         </div>
@@ -434,45 +438,45 @@
                     <!-- 3. Quick Actions -->
                     <div class="glass-card" style="padding: 2rem; display:flex; flex-direction:column; gap:1rem;">
                         <h3 style="margin-bottom:1rem;">Quick Actions</h3>
-                        <button onclick="window.location.href='404.html'" class="btn btn-solid" style="width:100%; text-align:left;"><i class="fa-solid fa-plus"></i> New Booking</button>
-                        <button onclick="window.location.href='404.html'" class="btn" style="width:100%; text-align:left;"><i class="fa-solid fa-user-plus"></i> Add Customer</button>
-                        <button onclick="window.location.href='404.html'" class="btn" style="width:100%; text-align:left;"><i class="fa-solid fa-envelope"></i> Send Broadcast</button>
-                        <button onclick="window.location.href='404.html'" class="btn" style="width:100%; text-align:left;"><i class="fa-solid fa-file-invoice"></i> Generate Report</button>
+                        <button onclick="window.location.href='404.html'" class="btn btn-solid" style="width:100%; text-align:left;"><i class="fa-solid fa-plus"></i> Provision New Site</button>
+                        <button onclick="window.location.href='404.html'" class="btn" style="width:100%; text-align:left;"><i class="fa-solid fa-user-plus"></i> Add Client</button>
+                        <button onclick="window.location.href='404.html'" class="btn" style="width:100%; text-align:left;"><i class="fa-solid fa-tower-broadcast"></i> System Broadcast</button>
+                        <button onclick="window.location.href='404.html'" class="btn" style="width:100%; text-align:left;"><i class="fa-solid fa-file-invoice"></i> Export Threat Report</button>
                     </div>
                 </div>
 
                 <!-- 4, 5, 6. Bottom row -->
                 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-                    <!-- 4. Recent Bookings Table -->
+                    <!-- 4. Recent Incidents Table -->
                     <div class="glass-card" style="padding: 2rem; overflow-x:auto;">
-                        <h3 style="margin-bottom:1rem;">Recent Bookings</h3>
+                        <h3 style="margin-bottom:1rem;">Recent Dispatch Events</h3>
                         <table style="width:100%; border-collapse:collapse; text-align:left;">
-                            <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><th style="padding:0.5rem;">ID</th><th style="padding:0.5rem;">Client</th><th style="padding:0.5rem;">Amount</th></tr>
-                            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.5rem;">#B-101</td><td style="padding:0.5rem;">John Doe</td><td style="padding:0.5rem;">$1,200</td></tr>
-                            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.5rem;">#B-102</td><td style="padding:0.5rem;">Sarah Smith</td><td style="padding:0.5rem;">$3,400</td></tr>
-                            <tr><td style="padding:0.5rem;">#B-103</td><td style="padding:0.5rem;">Mike Ross</td><td style="padding:0.5rem;">$850</td></tr>
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><th style="padding:0.5rem;">Event ID</th><th style="padding:0.5rem;">Site Location</th><th style="padding:0.5rem;">Response Time</th></tr>
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.5rem;">#EV-901</td><td style="padding:0.5rem;">Downtown Plaza</td><td style="padding:0.5rem;">1m 12s</td></tr>
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.5rem;">#EV-902</td><td style="padding:0.5rem;">Westside Warehouse</td><td style="padding:0.5rem;">0m 45s</td></tr>
+                            <tr><td style="padding:0.5rem;">#EV-903</td><td style="padding:0.5rem;">Alpha Tech Park</td><td style="padding:0.5rem;">1m 30s</td></tr>
                         </table>
                     </div>
-                    <!-- 5. Top Destinations -->
+                    <!-- 5. Top Monitored Regions -->
                     <div class="glass-card" style="padding: 2rem;">
-                        <h3 style="margin-bottom:1rem;">Top Destinations</h3>
+                        <h3 style="margin-bottom:1rem;">High-Activity Regions</h3>
                         <ul style="list-style:none; padding:0;">
-                            <li style="display:flex; justify-content:space-between; margin-bottom:0.8rem;"><span>1. Paris, France</span> <span style="color:var(--accent-color);">120 bookings</span></li>
-                            <li style="display:flex; justify-content:space-between; margin-bottom:0.8rem;"><span>2. Bali, Indonesia</span> <span style="color:var(--accent-color);">95 bookings</span></li>
-                            <li style="display:flex; justify-content:space-between;"><span>3. Tokyo, Japan</span> <span style="color:var(--accent-color);">82 bookings</span></li>
+                            <li style="display:flex; justify-content:space-between; margin-bottom:0.8rem;"><span>1. North Sector</span> <span style="color:var(--accent-color);">120 cameras</span></li>
+                            <li style="display:flex; justify-content:space-between; margin-bottom:0.8rem;"><span>2. Downtown District</span> <span style="color:var(--accent-color);">95 cameras</span></li>
+                            <li style="display:flex; justify-content:space-between;"><span>3. Industrial Zone</span> <span style="color:var(--accent-color);">82 cameras</span></li>
                         </ul>
                     </div>
-                    <!-- 6. Agent Leaderboard -->
+                    <!-- 6. Operator Leaderboard -->
                     <div class="glass-card" style="padding: 2rem;">
-                        <h3 style="margin-bottom:1rem;">Top Agents</h3>
+                        <h3 style="margin-bottom:1rem;">Top Operators</h3>
                         <ul style="list-style:none; padding:0;">
                             <li style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
                                 <div style="width:30px; height:30px; background:rgba(0,240,255,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center;">1</div>
-                                <div><div style="font-weight:bold;">Elena R.</div><div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">$45k Sales</div></div>
+                                <div><div style="font-weight:bold;">Elena R.</div><div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">45 incidents resolved</div></div>
                             </li>
                             <li style="display:flex; align-items:center; gap:1rem;">
                                 <div style="width:30px; height:30px; background:rgba(0,240,255,0.1); border-radius:50%; display:flex; align-items:center; justify-content:center;">2</div>
-                                <div><div style="font-weight:bold;">Marcus T.</div><div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">$38k Sales</div></div>
+                                <div><div style="font-weight:bold;">Marcus T.</div><div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">38 incidents resolved</div></div>
                             </li>
                         </ul>
                     </div>
@@ -480,149 +484,145 @@
             
 
                 </div>
-            <div id="tab-bookings" class="travel-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
-                <h2 class="text-gradient" style="margin-bottom: 2rem;">Bookings Management</h2>
+            <div id="tab-sites" class="dashboard-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
+                <h2 class="text-gradient" style="margin-bottom: 2rem;">Managed Sites</h2>
                 <!-- 1. Filter Bar -->
                 <div class="glass-card" style="padding: 2rem; margin-bottom:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
-                    <input type="text" placeholder="Search Bookings..." style="flex:1; padding:0.5rem; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); color:white; border-radius:5px;">
-                    <select style="padding:0.5rem; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); color:white; border-radius:5px;"><option>All Statuses</option><option>Confirmed</option><option>Pending</option></select>
-                    <button onclick="window.location.href='404.html'" class="btn btn-solid" style="padding:0.5rem 1rem;">Filter</button>
+                    <input type="text" placeholder="Search by site name, ID, or client..." style="flex:1; padding:0.5rem; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); color:white; border-radius:5px;">
+                    <select style="padding:0.5rem; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); color:white; border-radius:5px;"><option>All Statuses</option><option>Online</option><option>Offline</option><option>Maintenance</option></select>
+                    <button onclick="window.location.href='404.html'" class="btn btn-solid" style="padding:0.5rem 1rem;">Filter Sites</button>
                 </div>
                 
                 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 1.5rem;">
-                    <!-- 2. Upcoming Departures -->
+                    <!-- 2. Site List -->
                     <div class="glass-card" style="padding: 2rem; overflow-x:auto;">
-                        <h3 style="margin-bottom:1rem;">Upcoming Departures</h3>
+                        <h3 style="margin-bottom:1rem;">Deployed Systems</h3>
                         <table style="width:100%; border-collapse:collapse; text-align:left;">
-                            <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><th style="padding:0.5rem;">Ref</th><th style="padding:0.5rem;">Date</th><th style="padding:0.5rem;">Destination</th><th style="padding:0.5rem;">Status</th></tr>
-                            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.5rem;">#D-882</td><td style="padding:0.5rem;">Oct 12</td><td style="padding:0.5rem;">Rome, Italy</td><td style="padding:0.5rem; color:#00ff88;">Confirmed</td></tr>
-                            <tr><td style="padding:0.5rem;">#D-883</td><td style="padding:0.5rem;">Oct 14</td><td style="padding:0.5rem;">Maldives</td><td style="padding:0.5rem; color:#00f0ff;">Boarding</td></tr>
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><th style="padding:0.5rem;">Site ID</th><th style="padding:0.5rem;">Location</th><th style="padding:0.5rem;">Camera Count</th><th style="padding:0.5rem;">Network Status</th></tr>
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.5rem;">#S-882</td><td style="padding:0.5rem;">Downtown Plaza</td><td style="padding:0.5rem;">42</td><td style="padding:0.5rem; color:#00ff88;">Online</td></tr>
+                            <tr><td style="padding:0.5rem;">#S-883</td><td style="padding:0.5rem;">Alpha Warehouse</td><td style="padding:0.5rem;">16</td><td style="padding:0.5rem; color:#ffaa00;">Maintenance</td></tr>
                         </table>
                     </div>
                     <!-- 3. Status Chart -->
                     <div class="glass-card" style="padding: 2rem;">
-                        <h3 style="margin-bottom:1rem;">Status Distribution</h3>
+                        <h3 style="margin-bottom:1rem;">Network Health</h3>
                         <div style="height:200px; display:flex; align-items:center; justify-content:center; border:1px dashed rgba(255,255,255,0.2);"><div style="display:flex; align-items:center; justify-content:center; gap:2rem;">
-<div style="width:120px; height:120px; border-radius:50%; background: conic-gradient(var(--accent-color) 0% 60%, #ffaa00 60% 85%, #ff3366 85% 100%); display:flex; align-items:center; justify-content:center;">
-    <div style="width:90px; height:90px; border-radius:50%; background:var(--bg-color); display:flex; align-items:center; justify-content:center; font-weight:bold;">100%</div>
+<div style="width:120px; height:120px; border-radius:50%; background: conic-gradient(#00ff88 0% 85%, #ffaa00 85% 95%, #ff3366 95% 100%); display:flex; align-items:center; justify-content:center;">
+    <div style="width:90px; height:90px; border-radius:50%; background:var(--bg-color); display:flex; align-items:center; justify-content:center; font-weight:bold;">98%</div>
 </div>
 <div style="display:flex; flex-direction:column; gap:0.5rem; text-align:left;">
-    <div style="font-size:0.8rem;"><span style="color:var(--accent-color);">■</span> Confirmed (60%)</div>
-    <div style="font-size:0.8rem;"><span style="color:#ffaa00;">■</span> Pending (25%)</div>
-    <div style="font-size:0.8rem;"><span style="color:#ff3366;">■</span> Cancelled (15%)</div>
+    <div style="font-size:0.8rem;"><span style="color:#00ff88;">■</span> Online (85%)</div>
+    <div style="font-size:0.8rem;"><span style="color:#ffaa00;">■</span> Maintenance (10%)</div>
+    <div style="font-size:0.8rem;"><span style="color:#ff3366;">■</span> Offline (5%)</div>
 </div></div></div>
                     </div>
                 </div>
 
                 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
-                    <!-- 4. Pending Approvals -->
+                    <!-- 4. Pending Installations -->
                     <div class="glass-card" style="padding: 2rem;">
-                        <h3 style="margin-bottom:1rem; color:#ffaa00;">Pending Approvals</h3>
-                        <div><strong>#P-991</strong> - Custom Safari Tour <br><span style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Waiting on supplier conf.</span></div>
+                        <h3 style="margin-bottom:1rem; color:#ffaa00;">Pending Installs</h3>
+                        <div><strong>#I-991</strong> - City Bank <br><span style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Awaiting permits</span></div>
                     </div>
-                    <!-- 5. Recent Cancellations -->
+                    <!-- 5. Offline Sites -->
                     <div class="glass-card" style="padding: 2rem;">
-                        <h3 style="margin-bottom:1rem; color:#ff3366;">Recent Cancellations</h3>
-                        <div><strong>#C-112</strong> - Ski Trip <br><span style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Refund processed ($1,200)</span></div>
+                        <h3 style="margin-bottom:1rem; color:#ff3366;">Critical Offline</h3>
+                        <div><strong>#S-112</strong> - Westside Retail <br><span style="font-size:0.8rem; color:rgba(255,255,255,0.6);">NVR unreachable</span></div>
                     </div>
                     <!-- 6. Bulk Actions -->
                     <div class="glass-card" style="padding: 2rem; display:flex; flex-direction:column; gap:0.5rem;">
                         <h3 style="margin-bottom:1rem;">Bulk Actions</h3>
-                        <button onclick="window.location.href='404.html'" class="btn" style="width:100%;"><i class="fa-solid fa-download"></i> Export CSV</button>
-                        <button onclick="window.location.href='404.html'" class="btn" style="width:100%;"><i class="fa-solid fa-paper-plane"></i> Reminders</button>
+                        <button onclick="window.location.href='404.html'" class="btn" style="width:100%;"><i class="fa-solid fa-download"></i> Export Inventory</button>
+                        <button onclick="window.location.href='404.html'" class="btn" style="width:100%;"><i class="fa-solid fa-rotate"></i> Ping All Offline</button>
                     </div>
                 </div>
             
-
-                </div>
-            <div id="tab-destinations" class="travel-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
-                <h2 class="text-gradient" style="margin-bottom: 2rem;">Destinations Inventory</h2>
+                </div><            <div id="tab-alerts" class="dashboard-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
+                <h2 class="text-gradient" style="margin-bottom: 2rem;">Global Alerts</h2>
                 
                 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom:1.5rem;">
                     <!-- 1. Global Map Stats -->
                     <div class="glass-card" style="padding: 2rem; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;">
                         <i class="fa-solid fa-earth-americas" style="font-size:4rem; color:var(--accent-color); margin-bottom:1rem;"></i>
                         <h3>Active Regions</h3>
-                        <p style="color:rgba(255,255,255,0.7);">Europe: 45 Active Tours | Asia: 32 Active Tours</p>
+                        <p style="color:rgba(255,255,255,0.7);">North America: 45 Active Threats | Europe: 12 Active Threats</p>
                     </div>
-                    <!-- 2. Occupancy Chart -->
+                    <!-- 2. Threat Chart -->
                     <div class="glass-card" style="padding: 2rem;">
-                        <h3 style="margin-bottom:1rem;">Seasonal Occupancy</h3>
+                        <h3 style="margin-bottom:1rem;">Threat Escalations</h3>
                         <div style="height:150px; display:flex; align-items:center; justify-content:center; border:1px dashed rgba(255,255,255,0.2);">
 <div style="display:flex; align-items:flex-end; gap:0.5rem; height:100%; width:100%; padding-top:20px;">
     <div style="flex:1; background:rgba(255,255,255,0.1); height:30%; border-radius:4px 4px 0 0; position:relative;"><span style="position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:0.7rem;">Q1</span></div>
     <div style="flex:1; background:var(--accent-color); height:85%; border-radius:4px 4px 0 0; position:relative;"><span style="position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:0.7rem;">Q2</span></div>
     <div style="flex:1; background:rgba(255,255,255,0.1); height:50%; border-radius:4px 4px 0 0; position:relative;"><span style="position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:0.7rem;">Q3</span></div>
-    <div style="flex:1; background:#00ff88; height:100%; border-radius:4px 4px 0 0; position:relative;"><span style="position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:0.7rem;">Q4</span></div>
+    <div style="flex:1; background:#ff3366; height:100%; border-radius:4px 4px 0 0; position:relative;"><span style="position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:0.7rem;">Q4</span></div>
 </div></div>
                     </div>
                 </div>
                 
-                <!-- 3. Popular Packages -->
+                <!-- 3. Active AI Detections -->
                 <div class="glass-card" style="padding: 2rem; margin-bottom:1.5rem;">
-                    <h3 style="margin-bottom:1rem;">Featured Packages</h3>
+                    <h3 style="margin-bottom:1rem;">Live Detections (High Confidence)</h3>
                     <div style="display:flex; gap:1rem; overflow-x:auto; padding-bottom:1rem;">
-                        <div style="min-width:200px; padding:1rem; background:rgba(255,255,255,0.05); border-radius:8px;"><strong>Paris Getaway</strong><br><span style="color:var(--accent-color);">$1,499</span></div>
-                        <div style="min-width:200px; padding:1rem; background:rgba(255,255,255,0.05); border-radius:8px;"><strong>Tokyo Explorer</strong><br><span style="color:var(--accent-color);">$2,299</span></div>
-                        <div style="min-width:200px; padding:1rem; background:rgba(255,255,255,0.05); border-radius:8px;"><strong>Swiss Alps</strong><br><span style="color:var(--accent-color);">$1,899</span></div>
+                        <div style="min-width:200px; padding:1rem; background:rgba(255,51,102,0.1); border-left:3px solid #ff3366; border-radius:8px;"><strong>Perimeter Breach</strong><br><span style="color:var(--accent-color);">Site: Alpha WH</span><br><span style="font-size:0.8rem;">2 mins ago</span></div>
+                        <div style="min-width:200px; padding:1rem; background:rgba(255,170,0,0.1); border-left:3px solid #ffaa00; border-radius:8px;"><strong>Loitering Detected</strong><br><span style="color:var(--accent-color);">Site: DT Plaza</span><br><span style="font-size:0.8rem;">12 mins ago</span></div>
+                        <div style="min-width:200px; padding:1rem; background:rgba(255,170,0,0.1); border-left:3px solid #ffaa00; border-radius:8px;"><strong>Unrecognized Plate</strong><br><span style="color:var(--accent-color);">Site: Sector 7</span><br><span style="font-size:0.8rem;">18 mins ago</span></div>
                     </div>
                 </div>
 
                 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
-                    <!-- 4. New Destination Form -->
+                    <!-- 4. Global Lockdown Action -->
                     <div class="glass-card" style="padding: 2rem;">
-                        <h3 style="margin-bottom:1rem;">Propose New</h3>
-                        <input type="text" placeholder="Location Name" style="width:100%; padding:0.5rem; margin-bottom:0.5rem; border-radius:5px; border:none; background:rgba(0,0,0,0.3); color:white;">
-                        <button onclick="window.location.href='404.html'" class="btn btn-solid" style="width:100%;">Submit Proposal</button>
+                        <h3 style="margin-bottom:1rem; color:#ff3366;">Emergency Action</h3>
+                        <p style="font-size:0.9rem; color:rgba(255,255,255,0.7); margin-bottom:1rem;">Initiate a global lockdown protocol across all connected regional hubs.</p>
+                        <button onclick="window.location.href='404.html'" class="btn" style="width:100%; background:rgba(255,51,102,0.2); border-color:#ff3366; color:#ff3366;"><i class="fa-solid fa-lock"></i> Global Lockdown</button>
                     </div>
-                    <!-- 5. Supplier Contacts -->
+                    <!-- 5. Partner Authorities -->
                     <div class="glass-card" style="padding: 2rem;">
-                        <h3 style="margin-bottom:1rem;">Key Suppliers</h3>
+                        <h3 style="margin-bottom:1rem;">Dispatch Partners</h3>
                         <ul style="list-style:none; padding:0; margin:0; font-size:0.9rem;">
-                            <li><i class="fa-solid fa-hotel text-accent"></i> Marriott Int.</li>
-                            <li><i class="fa-solid fa-plane-up text-accent"></i> Emirates</li>
+                            <li style="margin-bottom:0.5rem;"><i class="fa-solid fa-building-shield text-accent"></i> Local PD Connect</li>
+                            <li><i class="fa-solid fa-truck-medical text-accent"></i> EMS Network</li>
                         </ul>
                     </div>
-                    <!-- 6. Destination Reviews -->
+                    <!-- 6. SOC Shift Logs -->
                     <div class="glass-card" style="padding: 2rem;">
-                        <h3 style="margin-bottom:1rem;">Recent Reviews</h3>
+                        <h3 style="margin-bottom:1rem;">SOC Shift Log</h3>
                         <div style="font-size:0.9rem; border-left:2px solid var(--accent-color); padding-left:10px;">
-                            "Bali was amazing! The resort was pristine." - <em>5/5 stars</em>
+                            "All night operations normal. Handing over to day shift." - <em>06:00 AM</em>
                         </div>
                     </div>
                 </div>
             
-
-                </div>
-            <div id="tab-customers" class="travel-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
-                <h2 class="text-gradient" style="margin-bottom: 2rem;">Customer CRM</h2>
+                </div><            <div id="tab-clients" class="dashboard-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
+                <h2 class="text-gradient" style="margin-bottom: 2rem;">Client Roster</h2>
                 
                 <!-- 1. Search Bar -->
                 <div class="glass-card" style="padding: 2rem; margin-bottom:1.5rem;">
-                    <input type="text" placeholder="Search customer by name, email, or passport..." style="width:100%; padding:1rem; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); color:white; border-radius:8px;">
+                    <input type="text" placeholder="Search client by name, company, or site ID..." style="width:100%; padding:1rem; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); color:white; border-radius:8px;">
                 </div>
 
                 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 1.5rem;">
-                    <!-- 2. VIP Clients List -->
+                    <!-- 2. Enterprise Clients List -->
                     <div class="glass-card" style="padding: 2rem; overflow-x:auto;">
-                        <h3 style="margin-bottom:1rem;"><i class="fa-solid fa-star" style="color:gold;"></i> VIP Clients</h3>
+                        <h3 style="margin-bottom:1rem;"><i class="fa-solid fa-building-shield" style="color:gold;"></i> Enterprise Tier</h3>
                         <table style="width:100%; border-collapse:collapse; text-align:left;">
-                            <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><th style="padding:0.5rem;">Name</th><th style="padding:0.5rem;">Lifetime Spend</th><th style="padding:0.5rem;">Tier</th></tr>
-                            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.5rem;">Amanda Clark</td><td style="padding:0.5rem;">$42,500</td><td style="padding:0.5rem; color:gold;">Platinum</td></tr>
-                            <tr><td style="padding:0.5rem;">David Miller</td><td style="padding:0.5rem;">$28,100</td><td style="padding:0.5rem; color:silver;">Gold</td></tr>
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><th style="padding:0.5rem;">Client Name</th><th style="padding:0.5rem;">Active Sites</th><th style="padding:0.5rem;">Plan</th></tr>
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.5rem;">Acme Corp</td><td style="padding:0.5rem;">12</td><td style="padding:0.5rem; color:gold;">Video Verification</td></tr>
+                            <tr><td style="padding:0.5rem;">Global Logistics</td><td style="padding:0.5rem;">8</td><td style="padding:0.5rem; color:silver;">Pro Monitored</td></tr>
                         </table>
                     </div>
-                    <!-- 3. Demographics Chart -->
+                    <!-- 3. Plan Demographics Chart -->
                     <div class="glass-card" style="padding: 2rem;">
-                        <h3 style="margin-bottom:1rem;">Age Demographics</h3>
+                        <h3 style="margin-bottom:1rem;">Subscription Tiers</h3>
                         <div style="height:150px; display:flex; align-items:center; justify-content:center; border:1px dashed rgba(255,255,255,0.2);"><div style="display:flex; align-items:center; justify-content:center; gap:2rem;">
 <div style="width:120px; height:120px; border-radius:50%; background: conic-gradient(var(--accent-color) 0% 60%, #ffaa00 60% 85%, #ff3366 85% 100%); display:flex; align-items:center; justify-content:center;">
     <div style="width:90px; height:90px; border-radius:50%; background:var(--bg-color); display:flex; align-items:center; justify-content:center; font-weight:bold;">100%</div>
 </div>
 <div style="display:flex; flex-direction:column; gap:0.5rem; text-align:left;">
-    <div style="font-size:0.8rem;"><span style="color:var(--accent-color);">■</span> Confirmed (60%)</div>
-    <div style="font-size:0.8rem;"><span style="color:#ffaa00;">■</span> Pending (25%)</div>
-    <div style="font-size:0.8rem;"><span style="color:#ff3366;">■</span> Cancelled (15%)</div>
+    <div style="font-size:0.8rem;"><span style="color:var(--accent-color);">■</span> Standard (60%)</div>
+    <div style="font-size:0.8rem;"><span style="color:#ffaa00;">■</span> Pro Monitored (25%)</div>
+    <div style="font-size:0.8rem;"><span style="color:#ff3366;">■</span> Video Verification (15%)</div>
 </div></div></div>
                     </div>
                 </div>
@@ -630,26 +630,25 @@
                 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
                     <!-- 4. New Sign-ups -->
                     <div class="glass-card" style="padding: 2rem;">
-                        <h3 style="margin-bottom:1rem;">New Users (7d)</h3>
-                        <div style="font-size:2.5rem; font-weight:bold; color:var(--accent-color);">+142</div>
+                        <h3 style="margin-bottom:1rem;">New Clients (30d)</h3>
+                        <div style="font-size:2.5rem; font-weight:bold; color:var(--accent-color);">+14</div>
                     </div>
                     <!-- 5. Support Tickets -->
                     <div class="glass-card" style="padding: 2rem;">
-                        <h3 style="margin-bottom:1rem;">Support Queue</h3>
+                        <h3 style="margin-bottom:1rem;">Client Support Queue</h3>
                         <div style="font-size:2.5rem; font-weight:bold; color:#ffaa00;">8</div>
-                        <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Open tickets awaiting reply</div>
+                        <div style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Technical tickets awaiting reply</div>
                     </div>
                     <!-- 6. Campaign Stats -->
                     <div class="glass-card" style="padding: 2rem;">
-                        <h3 style="margin-bottom:1rem;">Summer Promo</h3>
-                        <div>Open Rate: <span style="color:var(--accent-color);">42%</span></div>
-                        <div>CTR: <span style="color:var(--accent-color);">12%</span></div>
+                        <h3 style="margin-bottom:1rem;">System Upgrades</h3>
+                        <div>Camera Replacements: <span style="color:var(--accent-color);">42 pending</span></div>
+                        <div>NVR Firmware: <span style="color:var(--accent-color);">12% outdated</span></div>
                     </div>
                 </div>
             
-
-                </div>
-            <div id="tab-analytics" class="travel-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
+                </div>      </div>
+            <div id="tab-analytics" class="dashboard-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
                 <h2 class="text-gradient" style="margin-bottom: 2rem;">Financial Analytics</h2>
                 
                 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 1.5rem;">
@@ -702,7 +701,7 @@
             
 
                 </div>
-            <div id="tab-settings" class="travel-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
+            <div id="tab-settings" class="dashboard-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
                 <h2 class="text-gradient" style="margin-bottom: 2rem;">Agency Settings</h2>
                 
                 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom:1.5rem;">
@@ -802,12 +801,14 @@
                 sidebar.classList.toggle('active');
                 if(sidebar.classList.contains('active')) {
                     document.body.style.overflow = 'hidden';
+                    document.documentElement.style.overflow = 'hidden';
                     const mainContent = document.querySelector('.main-content');
                     if (mainContent) mainContent.style.overflow = 'hidden';
                 } else {
                     document.body.style.overflow = '';
+                    document.documentElement.style.overflow = '';
                     const mainContent = document.querySelector('.main-content');
-                    if (mainContent) mainContent.style.overflow = 'auto';
+                    if (mainContent) mainContent.style.overflow = '';
                 }
             });
         }
@@ -819,7 +820,7 @@
             if(element) element.classList.add('active');
 
             // Hide all tab contents
-            document.querySelectorAll('.travel-tab-content').forEach(tab => {
+            document.querySelectorAll('.dashboard-tab-content').forEach(tab => {
                 tab.style.display = 'none';
             });
 
@@ -834,7 +835,10 @@
                 const sidebar = document.getElementById('sidebar');
                 if(sidebar) {
                     sidebar.classList.remove('active');
-                    document.body.style.overflow = 'auto';
+                    document.body.style.overflow = '';
+                    document.documentElement.style.overflow = '';
+                    const mainContent = document.querySelector('.main-content');
+                    if (mainContent) mainContent.style.overflow = '';
                 }
             }
         }
@@ -845,13 +849,15 @@
         document.addEventListener('DOMContentLoaded', () => {
             const loggedInEmail = localStorage.getItem('loggedInEmail');
             if (loggedInEmail) {
-                // 1. Update the Topbar Name
-                const profileNames = document.querySelectorAll('.user-profile > div > div:first-child');
-                profileNames.forEach(el => {
-                    el.innerText = loggedInEmail;
-                });
+                // 1. Extract a formatted name from the email (e.g. john.doe@email.com -> John.doe)
+                let namePart = loggedInEmail.split('@')[0];
+                namePart = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+                
+                // 2. Update the Profile Name and Email
+                document.querySelectorAll('.profile-name-text').forEach(el => el.innerText = namePart);
+                document.querySelectorAll('.profile-email-text').forEach(el => el.innerText = '(' + loggedInEmail + ')');
 
-                // 2. Update any inputs that look like emails (e.g. settings/profile tab)
+                // 3. Update any inputs that look like emails (e.g. settings/profile tab)
                 const textInputs = document.querySelectorAll('input[type="text"]');
                 textInputs.forEach(input => {
                     if (input.value.includes('@')) {
@@ -859,11 +865,7 @@
                     }
                 });
 
-                // 3. Optional: Extract a formatted name from the email (e.g. john.doe@email.com -> John.doe)
-                let namePart = loggedInEmail.split('@')[0];
-                namePart = namePart.charAt(0).toUpperCase() + namePart.slice(1);
-                
-                // Update inputs that had hardcoded names
+                // 4. Update inputs that had hardcoded names
                 textInputs.forEach(input => {
                     const val = input.value.toLowerCase();
                     if (!val.includes('@') && (val.includes('elena') || val.includes('john doe'))) {
@@ -871,23 +873,6 @@
                     }
                 });
 
-                // 4. Also update the specific text in the Traveler dashboard: "Your Agent: Elena R." or "Chat with Elena"
-                const h3s = document.querySelectorAll('h3, h4');
-                h3s.forEach(h => {
-                    if (h.innerText.includes('Your Agent: Elena R.')) {
-                        h.innerText = 'Your Agent: ' + namePart;
-                    }
-                    if (h.innerText.includes('Chat with Elena')) {
-                        h.innerText = 'Chat with ' + namePart;
-                    }
-                    if (h.innerText.includes('Message Elena...')) {
-                        h.innerText = 'Message ' + namePart + '...';
-                    }
-                });
-                const inputs = document.querySelectorAll('input[placeholder="Message Elena..."]');
-                inputs.forEach(input => {
-                    input.placeholder = 'Message ' + namePart + '...';
-                });
             }
         });
     </script>
@@ -900,5 +885,6 @@
             offset: 100
         });
     </script>
+<script src="js/sidebar-fix.js"></script>
 </body>
 </html>
