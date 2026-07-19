@@ -173,7 +173,7 @@
 
         /* Mobile Safe Layout Fixes */
         @media (max-width: 992px) {
-            .dashboard-content, .travel-tab-content, .main-content {
+            .dashboard-content, .dashboard-tab-content, .main-content {
                 padding: 1rem !important;
             }
             .dashboard-layout {
@@ -477,7 +477,7 @@
             </div>
 
             <!-- TAB 5: Support -->
-            <div id="tab-support" class="travel-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
+            <div id="tab-support" class="dashboard-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
                 <h2 class="text-gradient" style="margin-bottom: 2rem;">Help & Support</h2>
                 <div style="display:grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; margin-bottom: 1.5rem;">
                     <div style="display:flex; flex-direction:column; gap:1.5rem;">
@@ -529,7 +529,7 @@
             </div>
 
             <!-- TAB 6: Profile -->
-            <div id="tab-profile" class="travel-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
+            <div id="tab-profile" class="dashboard-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
                 <h2 class="text-gradient" style="margin-bottom: 2rem;">Traveler Profile</h2>
                 
                 <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
@@ -602,6 +602,20 @@
                     if (mainContent) mainContent.style.overflow = '';
                 }
             });
+            
+            // Close sidebar when clicking outside
+            document.addEventListener('click', (e) => {
+                const sidebar = document.getElementById('sidebar');
+                if (window.innerWidth <= 992 && sidebar && sidebar.classList.contains('active')) {
+                    if (!sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+                        sidebar.classList.remove('active');
+                        document.body.style.overflow = '';
+                        document.documentElement.style.overflow = '';
+                        const mainContent = document.querySelector('.main-content');
+                        if (mainContent) mainContent.style.overflow = '';
+                    }
+                }
+            });
         }
 
         // Tab Switching Logic
@@ -611,7 +625,7 @@
             if(element) element.classList.add('active');
 
             // Hide all tab contents
-            document.querySelectorAll('.travel-tab-content').forEach(tab => {
+            document.querySelectorAll('.dashboard-tab-content').forEach(tab => {
                 tab.style.display = 'none';
             });
 

@@ -536,8 +536,9 @@
                         <button onclick="window.location.href='404.html'" class="btn" style="width:100%;"><i class="fa-solid fa-rotate"></i> Ping All Offline</button>
                     </div>
                 </div>
-            
-                </div><            <div id="tab-alerts" class="dashboard-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
+            </div>
+
+            <div id="tab-alerts" class="dashboard-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
                 <h2 class="text-gradient" style="margin-bottom: 2rem;">Global Alerts</h2>
                 
                 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom:1.5rem;">
@@ -593,8 +594,9 @@
                         </div>
                     </div>
                 </div>
-            
-                </div><            <div id="tab-clients" class="dashboard-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
+            </div>
+
+            <div id="tab-clients" class="dashboard-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
                 <h2 class="text-gradient" style="margin-bottom: 2rem;">Client Roster</h2>
                 
                 <!-- 1. Search Bar -->
@@ -646,8 +648,7 @@
                         <div>NVR Firmware: <span style="color:var(--accent-color);">12% outdated</span></div>
                     </div>
                 </div>
-            
-                </div>      </div>
+            </div>
             <div id="tab-analytics" class="dashboard-tab-content" style="display: none; padding: 2rem; animation: fadeIn 0.3s ease;">
                 <h2 class="text-gradient" style="margin-bottom: 2rem;">Financial Analytics</h2>
                 
@@ -809,6 +810,20 @@
                     document.documentElement.style.overflow = '';
                     const mainContent = document.querySelector('.main-content');
                     if (mainContent) mainContent.style.overflow = '';
+                }
+            });
+            
+            // Close sidebar when clicking outside
+            document.addEventListener('click', (e) => {
+                const sidebar = document.getElementById('sidebar');
+                if (window.innerWidth <= 992 && sidebar && sidebar.classList.contains('active')) {
+                    if (!sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+                        sidebar.classList.remove('active');
+                        document.body.style.overflow = '';
+                        document.documentElement.style.overflow = '';
+                        const mainContent = document.querySelector('.main-content');
+                        if (mainContent) mainContent.style.overflow = '';
+                    }
                 }
             });
         }
