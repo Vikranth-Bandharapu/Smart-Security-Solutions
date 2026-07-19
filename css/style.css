@@ -616,3 +616,13 @@ body {
     filter: drop-shadow(0 0 10px rgba(0,240,255,0.4));
   }
 }
+
+/* Prevent background scroll when mobile menu is open */
+body.menu-open,
+body.menu-open .site-wrapper {
+    overflow: hidden !important;
+    touch-action: none; /* Prevents rubber-banding on iOS */
+    height: 100vh !important;
+    position: fixed;
+    width: 100%;
+}
