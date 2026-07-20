@@ -22,7 +22,7 @@
 
         /* Main Content */
         .main-content { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow-y: auto; }
-        .topbar { height: 80px; background: #05080e !important; border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; position: sticky; top: 0; z-index: 10; }
+        .topbar { height: 80px; background: #05080e !important; border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; position: sticky; top: 0; z-index: 999; transform: translateZ(0); }
         .user-profile { display: flex; align-items: center; gap: 0.8rem; align-items: center; gap: 0.8rem; }
         .user-profile img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-color); }
 
@@ -215,7 +215,7 @@
             <li><a href="#" onclick="switchTab('tab-reports', this)"><i class="fa-solid fa-file-shield"></i> Incident Reports</a></li>
             <li><a href="#" onclick="switchTab('tab-billing', this)"><i class="fa-solid fa-credit-card"></i> Billing</a></li>
             <li><a href="#" onclick="switchTab('tab-support', this)"><i class="fa-solid fa-headset"></i> Support</a></li>
-            <li><a href="#" onclick="switchTab('tab-settings', this)"><i class="fa-solid fa-gear"></i> Settings</a></li>
+            <li><a href="#" onclick="switchTab('tab-profile', this)"><i class="fa-solid fa-gear"></i> Settings</a></li>
             <li style="margin-top:2rem;"><a href="index.html"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
         </ul>
         </aside>
@@ -270,7 +270,7 @@
                         <!-- 3. Account Manager Contact -->
                         <div class="glass-card" style="padding:1.5rem;">
                             <h4 style="margin-bottom:0.5rem;">Manager: Elena R.</h4>
-                            <button class="btn btn-solid" style="width:100%; font-size:0.8rem;"><i class="fa-solid fa-message"></i> Contact SOC</button>
+                            <button onclick="window.location.href='404.html'" class="btn btn-solid" style="width:100%; font-size:0.8rem;"><i class="fa-solid fa-message"></i> Contact SOC</button>
                         </div>
                     </div>
                 </div>
@@ -279,8 +279,8 @@
                     <!-- 4. Quick Action Menu -->
                     <div class="glass-card" style="padding:1.5rem; display:flex; flex-direction:column; gap:0.8rem;">
                         <h3 style="margin-bottom:0.5rem;">Quick Actions</h3>
-                        <button class="btn" style="text-align:left;"><i class="fa-solid fa-bell"></i> Trigger Alarm</button>
-                        <button class="btn" style="text-align:left;"><i class="fa-solid fa-file-contract"></i> View SLAs</button>
+                        <button onclick="window.location.href='404.html'" class="btn" style="text-align:left;"><i class="fa-solid fa-bell"></i> Trigger Alarm</button>
+                        <button onclick="window.location.href='404.html'" class="btn" style="text-align:left;"><i class="fa-solid fa-file-contract"></i> View SLAs</button>
                     </div>
                     <!-- 5. Active Cameras Overview -->
                     <div class="glass-card" style="padding:1.5rem;">
@@ -323,7 +323,7 @@
                     <!-- 10. Support -->
                     <div class="glass-card" style="padding: 2rem; display:flex; flex-direction:column; justify-content:center;">
                         <h4 style="margin-bottom:1rem;"><i class="fa-solid fa-headset"></i> SOC Assistance</h4>
-                        <button class="btn" style="width:100%; font-size:0.9rem;">24/7 Hotline</button>
+                        <button onclick="window.location.href='404.html'" class="btn" style="width:100%; font-size:0.9rem;">24/7 Hotline</button>
                     </div>
                 </div>
 </div>
@@ -356,7 +356,7 @@
                         </div>
                         <!-- 4. Snapshot Tool -->
                         <div class="glass-card" style="padding:1.5rem;">
-                            <button class="btn" style="width:100%;"><i class="fa-solid fa-camera"></i> Save Snapshot</button>
+                            <button onclick="window.location.href='404.html'" class="btn" style="width:100%;"><i class="fa-solid fa-camera"></i> Save Snapshot</button>
                         </div>
                     </div>
                 </div>
@@ -373,7 +373,7 @@
                     </div>
                     <!-- 6. Archive Link -->
                     <div class="glass-card" style="padding:1.5rem; display:flex; align-items:center; justify-content:center;">
-                        <button class="btn btn-solid" style="width:100%;"><i class="fa-solid fa-clock-rotate-left"></i> View Archive</button>
+                        <button onclick="window.location.href='404.html'" class="btn btn-solid" style="width:100%;"><i class="fa-solid fa-clock-rotate-left"></i> View Archive</button>
                     </div>
                 </div>
             </div>
@@ -386,7 +386,7 @@
                     <div class="glass-card" style="padding:1.5rem; background:rgba(0,0,0,0.6); position:relative; overflow:hidden;">
                         <h3 style="color:white; margin-bottom:1rem;">Generate Report</h3>
                         <select style="width:100%; padding:0.5rem; margin-bottom:0.5rem;"><option>Last 30 Days</option></select>
-                        <button class="btn btn-solid" style="font-size:0.8rem; width:100%;">Download PDF</button>
+                        <button onclick="window.location.href='404.html'" class="btn btn-solid" style="font-size:0.8rem; width:100%;">Download PDF</button>
                     </div>
                     <div class="glass-card" style="padding:1.5rem; background:rgba(255,255,255,0.05);">
                         <h3 style="margin-bottom:0.5rem;">Total Incidents</h3>
@@ -418,7 +418,7 @@
                         </div>
                         <!-- 5. Share Report button -->
                         <div class="glass-card" style="padding:1.5rem;">
-                            <button class="btn" style="width:100%;"><i class="fa-solid fa-envelope"></i> Email Stakeholders</button>
+                            <button onclick="window.location.href='404.html'" class="btn" style="width:100%;"><i class="fa-solid fa-envelope"></i> Email Stakeholders</button>
                         </div>
                     </div>
                 </div>
@@ -447,8 +447,8 @@
                     <div class="glass-card" style="padding:1.5rem;">
                         <h3 style="margin-bottom:1rem;">Upgrade Services</h3>
                         <div style="display:flex; flex-direction:column; gap:0.5rem;">
-                            <button class="btn" style="font-size:0.8rem; text-align:left;">+ Add Drone Patrol</button>
-                            <button class="btn" style="font-size:0.8rem; text-align:left;">+ Increase Cloud Storage</button>
+                            <button onclick="window.location.href='404.html'" class="btn" style="font-size:0.8rem; text-align:left;">+ Add Drone Patrol</button>
+                            <button onclick="window.location.href='404.html'" class="btn" style="font-size:0.8rem; text-align:left;">+ Increase Cloud Storage</button>
                         </div>
                     </div>
                 </div>
@@ -466,11 +466,11 @@
                         <div class="glass-card" style="padding:1.5rem;">
                             <h4 style="margin-bottom:1rem;">Payment Methods</h4>
                             <div style="font-size:0.9rem; margin-bottom:1rem;"><i class="fa-solid fa-building-columns"></i> Corporate ACH ending in 4242</div>
-                            <button class="btn" style="width:100%; font-size:0.8rem;"><i class="fa-solid fa-plus"></i> Update Method</button>
+                            <button onclick="window.location.href='404.html'" class="btn" style="width:100%; font-size:0.8rem;"><i class="fa-solid fa-plus"></i> Update Method</button>
                         </div>
                         <!-- 5. Download Receipts -->
                         <div class="glass-card" style="padding:1.5rem;">
-                            <button class="btn" style="width:100%;"><i class="fa-solid fa-file-invoice"></i> Download Invoices</button>
+                            <button onclick="window.location.href='404.html'" class="btn" style="width:100%;"><i class="fa-solid fa-file-invoice"></i> Download Invoices</button>
                         </div>
                     </div>
                 </div>
@@ -490,7 +490,7 @@
                         <div class="glass-card" style="padding:1.5rem;">
                             <h3 style="margin-bottom:1rem;"><i class="fa-solid fa-shield-halved text-accent"></i> Insurance</h3>
                             <div style="font-size:0.9rem; margin-bottom:1rem;">Policy: #INS-9921</div>
-                            <button class="btn" style="width:100%; font-size:0.8rem;">View Coverage</button>
+                            <button onclick="window.location.href='404.html'" class="btn" style="width:100%; font-size:0.8rem;">View Coverage</button>
                         </div>
                     </div>
                     <!-- 1. Chat with Agent -->
@@ -501,7 +501,7 @@
                         </div>
                         <div style="display:flex; gap:0.5rem;">
                             <input type="text" placeholder="Message Elena..." style="flex:1; padding:0.5rem; border-radius:5px;">
-                            <button class="btn btn-solid"><i class="fa-solid fa-paper-plane"></i></button>
+                            <button onclick="window.location.href='404.html'" class="btn btn-solid"><i class="fa-solid fa-paper-plane"></i></button>
                         </div>
                     </div>
                 </div>
@@ -518,7 +518,7 @@
                     <div class="glass-card" style="padding:1.5rem;">
                         <h3 style="margin-bottom:1rem;">Open a Ticket</h3>
                         <select style="width:100%; padding:0.5rem; margin-bottom:0.5rem; border-radius:5px;"><option>Issue Type</option></select>
-                        <button class="btn btn-solid" style="width:100%;">Submit</button>
+                        <button onclick="window.location.href='404.html'" class="btn btn-solid" style="width:100%;">Submit</button>
                     </div>
                     <!-- 6. Ticket Status Tracker -->
                     <div class="glass-card" style="padding:1.5rem;">
@@ -538,14 +538,14 @@
                         <h3 style="margin-bottom:1rem;">Basic Info</h3>
                         <input type="text" value="John Doe" style="width:100%; padding:0.5rem; margin-bottom:0.5rem; border-radius:5px;">
                         <input type="text" value="john@example.com" style="width:100%; padding:0.5rem; margin-bottom:0.5rem; border-radius:5px;">
-                        <button class="btn btn-solid" style="width:100%; margin-top:1rem;">Save</button>
+                        <button onclick="window.location.href='404.html'" class="btn btn-solid" style="width:100%; margin-top:1rem;">Save</button>
                     </div>
                     <!-- 2. Passport details -->
                     <div class="glass-card" style="padding:1.5rem;">
                         <h3 style="margin-bottom:1rem;">Passport</h3>
                         <div style="font-size:0.9rem; margin-bottom:0.5rem;">Number: *********123</div>
                         <div style="font-size:0.9rem; margin-bottom:0.5rem;">Exp: 10/2030</div>
-                        <button class="btn" style="width:100%; margin-top:1rem;">Update Securely</button>
+                        <button onclick="window.location.href='404.html'" class="btn" style="width:100%; margin-top:1rem;">Update Securely</button>
                     </div>
                     <!-- 4. Loyalty Points Balance -->
                     <div class="glass-card" style="padding:1.5rem; text-align:center;">
