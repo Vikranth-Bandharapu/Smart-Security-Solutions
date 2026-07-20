@@ -437,7 +437,7 @@ select.form-control option {
 /* --- MOBILE RESPONSIVENESS FIXES --- */
 @media (max-width: 768px) {
   /* Prevent any inline flex container from pushing out of bounds */
-  [style*="display: flex"], [style*="display:flex"] {
+  [style*="display: flex"]:not(.gallery-slider), [style*="display:flex"]:not(.gallery-slider) {
     flex-wrap: wrap !important;
   }
   
